@@ -1,0 +1,126 @@
+#/bin/bash
+sshports=`netstat -tunlp | grep sshd | grep 0.0.0.0: | awk '{print substr($4,9); }' > /tmp/ssh.txt && echo | cat /tmp/ssh.txt | tr '\n' ' ' > /etc/adm-lite/sshports.txt && cat /etc/adm-lite/sshports.txt`;
+
+mportas () {
+unset portas
+portas_var=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" |grep -v "COMMAND" | grep "LISTEN")
+while read port; do
+var1=$(echo $port | awk '{print $1}') && var2=$(echo $port | awk '{print $9}' | awk -F ":" '{print $2}')
+[[ "$(echo -e $portas|grep "$var1 $var2")" ]] || portas+="$var1 $var2\n"
+done <<< "$portas_var"
+i=1
+echo -e "$portas"
+}
+
+
+fun_bar () {
+comando[0]="$1"
+comando[1]="$2"
+ (
+[[ -e $HOME/fim ]] && rm $HOME/fim
+${comando[0]} -y > /dev/null 2>&1
+${comando[1]} -y > /dev/null 2>&1
+touch $HOME/fim
+ ) > /dev/null 2>&1 &
+echo -ne "\033[1;33m ["
+while true; do
+   for((i=0; i<18; i++)); do
+   echo -ne "\033[1;31m##"
+   sleep 0.1s
+   done
+   [[ -e $HOME/fim ]] && rm $HOME/fim && break
+   echo -e "\033[1;33m]"
+   sleep 1s
+   tput cuu1
+   tput dl1
+   echo -ne "\033[1;33m ["
+done
+echo -e "\033[1;33m]\033[1;31m -\033[1;32m 100%\033[1;37m"
+}
+
+sleep 1
+
+fun_bar 'apt-get update -y' 'yum update -y'
+fun_bar 'apt-get install openssh-server -y' 'apt-get install curl -y'
+fun_bar 'yum install openssh-server -y' 'apt-get install openssh-client -y'
+fun_bar 'yum install openssh-client -y' 'apt-get install stunnel4 -y'
+fun_bar 'yum install stunnel4 -y'
+fun_bar 'apt-get install stunnel -y'  'yum install stunnel -y'
+ip=$(curl https://api.ipify.org/)
+echo -e "Paquetes Instalados"
+sleep 1
+openssl genrsa 2048 > stunnel.key
+openssl req -new -key stunnel.key -x509 -days 1000 -out stunnel.crt
+sleep 1
+rm /etc/stunnel/stunnel.conf
+clear
+rm /etc/default/stunnel4
+clear
+cat stunnel.crt stunnel.key > stunnel.pem 
+mv stunnel.pem /etc/stunnel/
+clear
+sslports=`netstat -tunlp | grep stunnel4 | grep 0.0.0.0: | awk '{print substr($4,9); }' > /tmp/ssl.txt && echo | cat /tmp/ssl.txt | tr '\n' ' ' > /etc/adm-lite/sslports.txt && cat /etc/adm-lite/sslports.txt`;
+cowsay -f stegosaurus "BIENVENIDO Y GRACIAS POR UTILIZAR  ⌐╦╦═─ ☆ CHUMOGH ☆ ADM SCRIPT "| lolcat
+echo -e "${cor[1]}=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠" | lolcat
+echo -e "${cor[2]}STUNNEL ACTIVO en Puertos: $sslports " | lolcat
+echo -e "${cor[1]}=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠" | lolcat
+echo -e "\033[1;33m  Selecione un Puerto De Redirecionamento Interna"
+echo -e "\033[1;33m  Ingrese su Puerta Servidor Para o SSL/TLS"
+echo -e "$barra"
+pt=$(netstat -nplt |grep 'sshd' | awk -F ":" NR==1{'print $2'} | cut -d " " -f 1)
+    while true; do
+    echo -ne "\033[1;37m"
+    echo "  Ingresa el Puerto Local de tu VPS (Default 22) "
+    read -p "  Local-Port: " -e -i $pt portx
+	tput cuu1 >&2 && tput dl1 >&2
+    [[ $(mportas | grep $portx) ]] && break
+    echo -e "\033[1;33m  El puerto seleccionado no existe"
+    unset portx
+	echo -e "$barra"
+    done
+echo -e "$barra"
+DPORT="$(mportas|grep $portx|awk '{print $2}'|head -1)"
+echo -e "\033[1;33m  Digite el Puerto SSL, que Va a USAR:"
+echo -e "$barra"
+    while true; do
+    echo -ne "\033[1;37m"
+    echo "  Ingresa Puerto SSl/TLS a USAR (Recomendado 110-442-444)  "
+    read -p " Listen-SSL: " SSLPORT
+	tput cuu1 >&2 && tput dl1 >&2
+    [[ $(mportas | grep $SSLPORT) ]] || break
+    echo -e "\033[1;33m  El puerto seleccionado ya se encuentra en uso"
+    unset SSLPORT
+	echo -e "$barra"
+    done
+echo -e "$barra"
+clear
+echo "client = no " >> /etc/stunnel/stunnel.conf
+echo "[ssh] " >> /etc/stunnel/stunnel.conf
+echo "cert = /etc/stunnel/stunnel.pem " >> /etc/stunnel/stunnel.conf
+echo "accept = $SSLPORT " >> /etc/stunnel/stunnel.conf
+echo "connect = 127.0.0.1:$portx" >> /etc/stunnel/stunnel.conf
+sleep 1
+echo "ENABLED=1 " >> /etc/default/stunnel4
+echo "FILES="/etc/stunnel/*.conf" " >> /etc/default/stunnel4
+echo "OPTIONS="" " >> /etc/default/stunnel4
+echo "PPP_RESTART=0" >> /etc/default/stunnel4
+echo -e "\033[1;33m  Instalando SSL/TLS [ $portx -> $SSLPORT ] : $(curl -sSL ipinfo.io > info && cat info | grep country | awk '{print $2}' | sed -e 's/[^a-z0-9 -]//ig')"
+service stunnel4 restart
+sslports=`netstat -tunlp | grep stunnel4 | grep 0.0.0.0: | awk '{print substr($4,9); }' > /tmp/ssl.txt && echo | cat /tmp/ssl.txt | tr '\n' ' ' > /etc/adm-lite/sslports.txt && cat /etc/adm-lite/sslports.txt`;
+echo -e "${cor[1]}=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠" | lolcat
+echo -e "${cor[2]}STUNNEL ACTIVO en Puertos:" $sslports " Escojido "  $port | lolcat
+echo -e "${cor[1]}=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠=≠" | lolcat
+echo -e "\033[1;34m #####################################################"
+echo -e "\033[1;37m I N I C I A N D O  -  STUNNEL4 - SSL/TLS Custom Cert"
+echo -e "\033[1;34m #####################################################"
+sleep 1
+echo -ne "REINICIANDO SERIVICIOS" && 
+( service ssh restart 1>/dev/null 2 /dev/null
+service stunnel4 start 1>/dev/null 2 /dev/null
+service stunnel4 restart 1>/dev/null 2 /dev/null ) && echo "OK"  || echo "FAILS" 
+echo -e "\033[1;34m ###################################"
+echo -e "\033[1;31mCONFIGURACION SSL ACEPTADA CON EXITO"
+echo -e "\033[1;34m ###################################"
+echo -e "SU IP HOST DEL SERVIDOR:\033[1;30m $ip"
+echo -e "Reinicie su VPS (Opcional) - sudo reboot"
+read -p " Presiona ENTER para continuar"

@@ -1,0 +1,358 @@
+ChumoGH ☠ Script VPS 
+Activos:
+Caducados:
+S.O:
+¡BIENVENIDO AL MENÚ! ☯ ChumoGH
+ADMINISTRAR USUARIOS
+HERRAMIENTAS (Bad/VPN)
+ACTUALIZAR
+Desinstalar SCRIPT
+Escoje:
+\033[0;31m [\033[0;32mON\033[0;31m] 
+ [OFF] 
+CAMBIAR COLORES DEL SCRIPT
+[Regresar / Salir]
+Control de Usuarios
+Registrar Nuevo Cliente
+Eliminar Usuario/s
+Reconfigurar Usuarios
+Listar Usuarios Existentes
+Listar Usuarios Conectados
+Contador/limitador de USUARIOS
+SUS COLORES USADOS ACTUALMENTE
+Elija en orden, 1 2 3 4 5 6
+¿Cuál es la secuencia de colores ?:
+No se han seleccionado seis colores!
+¡Aplicando el color seleccionado! ...
+CAMBIAR IDIOMA DEL SCRIPT
+CREADOR DE USUARIOS ChumoGH☆Script
+Ingrese Nombre del Usuario:
+No Se Registra Usuario
+Usuario ya existente!
+Contraseña para el usuario
+Duración para el Usuario
+Límite de conexión para el usuario
+Usuario:
+Contraseña:
+Límite:
+Validez:
+LISTA DE USUARIOS REGISTRADOS
+Eliminar Usuarios
+Eliminar 1 Usuario
+Eliminar todos los usuarios
+Seleccione el usuario o escriba el nombre
+Ningún usuario ha sido seleccionado
+Usuario no existente!
+eliminado
+eliminar
+¡Enter, para volver!
+EDITOR DE USUARIOS
+Ningún usuario ha seleccionado
+Que opción va a editar de:
+Numero de logins de:
+Fecha de expiración de:
+Cambiar contraseña de:
+¿Cuál es el nuevo límite de inicio de sesión:
+¡Límite no cambiado!
+Límite cambiado
+¿Cuántos días debe durar?
+Fecha no modificada
+Cambiado!
+¿Nueva contraseña para:
+Contraseña no cambiada!
+Nueva contraseña aplicada
+Vales Verga! Selecciona algo
+Usuario
+Contraseña
+Límite
+Tiempo
+∞
+Ilimitado
+Exp
+Tú tienes:
+Usuarios en su servidor
+días
+USUARIOS
+CONEXIÓN
+TIEMPO
+Ese Herramienta va a Traducir
+Todo el contenido de ChumoGH☆Script
+Seleccione el número de idioma, o utilice las iniciales del idioma.
+
+Traduciendo el sistema...
+Introduzca un idioma:
+horas
+acta
+uso
+No hay usuarios Conectados
+Eliminar Caducados
+No hay Usuarios Vencidos!
+MENÚ HERRAMIENTAS
+Bloqueo Torrent y Palabras Claves
+FIX PassWD Vultr
+Bad-VPN (Soporte a NETFLIX)
+Bad-VPN (Juegos Online/VideoCalls)
+TCP SPEED
+FAILBAN
+SQUID CACHE
+COMPARTIR ARCHIVO ONLINE
+Escriba sólo valores numérico
+INICIANDO BACKUP
+Copia de seguridad de usuarios
+Usuario no registrado en ChumoGH☆Script
+Introduzca la información del usuario.
+Contraseña actual:
+Días De Duración:
+Límite de conexión:
+Copia de seguridad completa
+Back UDP disponible en la carpeta
+Ingresar el directorio de la copia de seguridad
+o bien, Introduzca un vínculo de una copia de seguridad
+Archivo o enlace
+¡Archivo o enlace no válido!
+Copia de seguridad incompatible con ChumoGH
+Restauración ...
+Usuario no restaurado
+Esta Funcion es EXPERIMENTAL
+AGREGARA PUERTO 7200 en udp
+Procedimiento completado
+BADVPN se instalará
+que no es más que un programa
+que libera puertos UDP en el servidor
+y así permitir el servicio de VideoLlamadas!
+Inicio
+VideoLlamadas y Juegos en Linea Activo
+Deteniendo servicio BADVPN ...
+BADVPN detenido con éxito
+Este Script fue proyectado
+Para Mejorar La Latencia
+y velocidad del servidor!
+analizar
+Este es un script experimental
+¡Utilice por su propia cuenta y riesgo!
+Este script cambiará algunas
+configuraciones de red
+del sistema para reducir
+la latencia y mejorar la velocidad
+Continuar con la instalación?
+Configuración de red
+se han agregado con éxito
+ya se han agregado en el sistema!
+Desea quitar la configuración
+Configuración de red
+se han eliminado con éxito
+¿Por qué no?
+desinstalación
+Ver registro
+Este es el FAILBAN PROTECTION
+Hecho únicamente para proteger la seguridad del
+Sistema, su objetivo es analizar
+LOGS DE ACCESO y bloquear toda
+acción sospechosa
+aumentando en un 90% de su seguridad.
+¿Desea instalar Fail2Ban?
+Fail2ban Sera Instalado
+Siguientes Servicios
+¿Confirma la elección?
+Instalación finalizada
+Caché de Squid no es más Que
+Un historial de navegación en Squid
+Que ahorrará datos al abrir sitios
+Alojados en su caché
+¡El script hará una breve comprobación!
+No se ha identificado Squid!
+¡Squid esta Activo en tu sistema!
+No hay servicio de caché en el Squid!
+Reiniciando Servicios Espera!
+Activando el servicio SquidCache!
+Desactivando SquidCache !!
+esperar!
+COLOCAR ARCHIVO ONLINE
+OPCION PARA COLOCAR
+CUALQUIER ARCHIVO ONLINE
+QUE ESTE ARCHIVO
+EN EL DIRECTORIO
+REMOVER ARCHIVO ONLINE
+VER MIS ARCHIVOS ONLINE
+Opción invalida
+Seleccione un archivo
+Ningún archivo ha sido seleccionado
+Procedimiento Hecho Con Éxito
+ACCESO AL ARCHIVO ATRAVES DEL ENLACE
+Sus archivos en la carpeta
+TESTEAR VELOCIDAD DEL SERVIDOR
+INFORMACIÓN VPS
+Inicio de pruebas, espere ...
+Tiempo de respuesta Ping
+Velocidad de Subida
+Velocidad de Descarga
+Error al procesar información
+Su Sistema
+basado
+Procesador Físico
+Frecuencia de funcionamiento
+Uso del procesador
+Memoria Virtual Total
+Memoria Virtual En uso
+Memoria Virtual Libre
+Memoria Virtual Swap
+Tiempo en línea
+Nombre de la máquina
+Dirección De la Maquina
+Versiones del kernel
+Arquitectura
+analizar
+expediente
+actualizado
+Archivos actualizados
+Valida! Actualizando ...
+¡Expirada o invalida Saliendo!
+¿Esta seguro de esto?
+Desinstalación cancelada por el usuario
+Creado por @ChumoGH
+AGREGAR / REMOVER HOST-SQUID
+no encontrado
+O Squid no instalado
+Añadir Host a Squid
+Quitar el host de Squid
+Opción Invalida
+Dominios actuales en el archivo
+Escriba el Host-Squid que desea agregar
+Iniciando con un ., ejemplo: .chumogh.net
+¡Esta vacío, no ha escrito nada!
+El dominio ya existe en el archivo
+¡Éxito, Archivo Actualizado!
+Escriba el dominio que desea quitar
+dominio no encontrado
+Introduzca el texto para el BANNER
+Verde
+Rojo
+Azul
+Amarillo
+Púrpura
+Introduzca el mensaje del BANNER principal
+Desea agregar mas Mensajes 
+Banner Personalizado ☆
+Dependencias No instaladas, ¿Desea instalar?
+Instalando dependencias para proxy-socks ...
+Deteniendo proxy-sock ...
+Proxy-sock detenido!
+Seleccione la puerto que va a girar
+Su Proxy Sockets:
+Opa, Esta siendo Usada por:
+Desactive este servicio para usar
+El puerto:
+Para el SOCKS
+Enter, para seleccionar otro puerto!
+Escriba un texto, para el estado 200OK
+Escoja el tipo de sock a utilizar
+PROXY SOCKET EN PYTHON
+PROXY SOCKET EN PYTHON3
+Algo salió mal, Socks No Iniciado!
+perfecto
+BRUTE FORCE PAYLOAD
+ACTIVAR PROXY SOCKET
+LIMITADOR DE MULTILOGUIN
+VER PROXY PYTHON
+INSTALACION DE PUERTOS
+NINGUNO PROXY SOCKS ESTA ACTIVO
+DIGITE UN HOST PARA CREAR
+¡PAYLOADS GENERICAS!
+CREADOR DE PAYLOADS
+DIGITE EL HOST
+No anadir nada.
+GENERADOR DE PAYLOAD
+ELEGIR EL METODO DE REQUISITOS
+Y POR ULTIMO
+¡METODO DE INYECCIÓN!
+ALGO ESTA
+MAL!
+EXITO!, PAYLOADS GENERADAS
+DIRECTORIO:
+ACTIVAR PROXY GETTUNEL
+¿Cuál es el puerto que desea para el GetTUNNEL
+Puerto Usada Por:
+CLAVE DEL GETTUNEL:
+¡GETTUNEL INICIADO CON ÉXITO!
+¡GETTUNEL NO INICIO!
+Seleccione el servicio para gestionar puertos
+Ningún Servicio Elegido, O El Servicio Elegido No es Soportado
+¿Desea cerrar el puerto actual?
+O Abrir un nuevo puerto en el servicio?
+Procedimiento, Terminado!
+GESTION DE PUERTAS
+Servicio y puerto elegidos:
+Arquitectura no soportada!
+USO APROXIMADO
+CONSUMO TOTAL
+USUARIOS
+Consumo de Clientes
+Verificación no está activada, o no existe información
+BOT TELEGRAM
+SHADOWSOCKS / SSL stunnel
+SHADOWSOCKS Y SSL
+seleccione un puerto de redirección
+seleccione un puerto
+¡Puerto Invalida!
+No hay Puertos Internos Abiertos!
+Puerto De Su SSL Externa! Ingresar puerto en la aplicación inyector
+Puerto en uso!
+¡Responda las Preguntas Correctamente!
+Medios de Encriptación
+Seleccione la encriptación
+¡Encriptación no seleccionada!
+Contraseña:
+TCP OVER
+ULTRA HOST (SCANNER DE SUBDOMINIOS) - Error
+HOST
+LÍMITE DE CAPTURA
+INGRESAR UNA CONTRASEÑA y DESPUÉS CONFIRMARLA
+VNC se conecta usando el ip de la vps en el puerto
+Para acceder a la interfaz gráfica
+Descargar de la PlayStore:
+VNC no Esta activo ¿Desea activar?
+VNC esta activo ¿Desea deshabilitar?
+Scanner I/O Busqueda de Subdominios
+💥 ChumoGH ADM 💥 ESTA ACTUALIZADO!
+⚠️ ChumoGH ADM ⚠️ NECESITA ACTUALIZARSE!
+APLICAR BLOQUEO TORRENT
+Crear un nuevo archivo OpenVPN?
+Crear archivo con autenticación (usuario y contraseña)?
+Archivo generado en:
+Para dejarlo en línea:
+Ejecurtar al ENTRAR
+AUTENTICACIÓN DE PROXY SQUID
+Error al generar contraseña, la autenticación de squid no se inició!
+AUTENTICACIÓN DEL PROXY SQUID INICIADO.
+Proxy squid no instalado, no puede continuar.
+AUTENTICACIÓN DEL PROXY SQUID DESACTIVADO.
+El usuario no puede ser nulo.
+¿Desea habilitar la autenticación de proxy squid?
+¿Desea desactivar la autenticación de proxy squid?
+IP:
+REINICIAR VPS (REBOOT)
+¿Realmente desea Reiniciar la VPS?
+Preparando para reiniciando VPS.
+MENÚ INSTALACIÓN
+INSTALAR
+CONFIGURAR
+Seleccione un opción
+Quitar ☆ New-ADM ChumoGH☆
+VERIFICAR ACTUALIZACION
+V2RAY Socket
+( #EXPERIMENTAL )
++593987072611
++593982688820
+ Compra Keys al
+Cores:
+HERRAMIENTAS EXTRAS
+detener Puertos
+Cerrar Puertos:
+Desinstalar Puertos:
+Iniciar Puertos:
+Puertas Activas en su Servidor
+Registrar Usuario Temporal
+DESACTIVAR KILL MULTILOGUIN
+Control Multiloguin (SSH) ->
+lusto
+|(TCP-SPEED)
