@@ -5,7 +5,7 @@ install_h(){
   msg -bar
   [[ -z $1 ]] && print_center -ama "INTALANDO ARCHIVO ONLINE" || print_center -ama "ACTUALIZANDO ARCHIVOS ONLINE"
   msg -bar
-  arq=$(curl -sSL https://raw.githubusercontent.com/rudi9999/ADMRufu/main/online/list-arq)
+  arq=$(curl -sSL https://raw.githubusercontent.com/NetVPS/Multi-Script/main/R9/online/list-arq)
   mkdir ${ADM_src}/tool
 
   while IFS= read -r line
@@ -13,7 +13,7 @@ install_h(){
     line2=$(echo "$line"|cut -d "=" -f1)
     line3="$(echo "$line"|cut -d "=" -f2|tr -d '[[:space:]]')"
 
-    if echo -ne $(msg -azu "  Descargando $line3....") && wget -O ${ADM_src}/tool/$line3 https://raw.githubusercontent.com/rudi9999/ADMRufu/main/online/$line3 &>/dev/null; then
+    if echo -ne $(msg -azu "  Descargando $line3....") && wget -O ${ADM_src}/tool/$line3 https://raw.githubusercontent.com/NetVPS/Multi-Script/main/R9/online/$line3 &>/dev/null; then
       chmod +x ${ADM_src}/tool/$line3
       echo "$line" >> ${ADM_src}/tool/tool
       msg -verd "[ok]"
