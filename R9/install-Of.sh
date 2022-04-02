@@ -113,7 +113,7 @@
  
  function_verify () {
    permited=$(curl -sSL "https://raw.githubusercontent.com/rudi9999/Control/master/Control-IP")
-   [[ $(echo $permited|grep "${IP}") = "" ]] && {
+   [[ $(echo $perm ited|grep "${IP}") = "" ]] && {
      clear
      msg -bar
      print_center -verm2 "¡LA IP $(wget -qO- ipv4.icanhazip.com) NO ESTA AUTORIZADA!"
