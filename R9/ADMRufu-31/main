@@ -1,0 +1,20 @@
+#!/bin/bash
+ 
+key='GRys_Upgu0lEvQOr79SVZN685I3ss0YsYVDviz9G'
+ 
+ code="5821"
+ 
+ exa=${#code}
+ 
+ n=0
+ 
+ for (( i = 0; i < "$exa"; i++ )); do
+ 	main[$i]=$(echo ${key:$n:10})
+ 	n=$(($n + 10))
+ done
+ 
+ etr=(${main[2]} ${main[1]} ${main[3]} ${main[0]})
+ 
+ axe=$(echo "${etr[@]}"|sed 's/ //g')
+ 
+ echo $axe

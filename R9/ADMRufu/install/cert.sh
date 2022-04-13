@@ -230,8 +230,7 @@ gen_domi(){
 	sleep 2
 
 	ls_dom=$(curl -s -X GET "$url/$_dns/dns_records?per_page=100" \
-     -H "X-Auth-Email: $correo" \
-     -H "X-Auth-Key: $apikey" \
+     -H "Authorization: Bearer $apikey" \
      -H "Content-Type: application/json" | jq '.')
 
     num_line=$(echo $ls_dom | jq '.result | length')
@@ -251,8 +250,7 @@ gen_domi(){
 		print_center -azu "ya existe un sub-dominio asociado a esta IP"
 		msg -bar
 		echo -e " $(msg -verm2 "sub-dominio:") $(msg -ama "$domain")"
-		msg -bar
-		read foo
+		enter
 		return 1
     fi
 
@@ -325,8 +323,7 @@ gen_domi(){
 EOF
 )
     chek_domain=$(curl -s -X POST "$url/$_dns/dns_records" \
-    -H "X-Auth-Email: $correo" \
-    -H "X-Auth-Key: $apikey" \
+    -H "Authorization: Bearer $apikey" \
     -H "Content-Type: application/json" \
     -d $(echo $var|jq -c '.')|jq '.')
 

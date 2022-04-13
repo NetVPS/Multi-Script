@@ -57,6 +57,7 @@ edit_squid(){
     if [[ ! -z "$(echo "$varline"|grep 'ADMR_port')" ]]; then
       for i in `echo $PORT`; do
         echo -e "http_port ${i}" >> ${CONF}
+        ufw allow $i/tcp &>/dev/null 2>&1
       done
       continue
     fi

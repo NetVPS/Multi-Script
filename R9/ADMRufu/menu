@@ -30,9 +30,8 @@ export sysctl="/etc/sysctl.conf"
 export swap="/swapfile"
 
 #======cloudflare========
-export correo='tellooou@gmail.com'
 export _dns='2473a8a21bd6a727d7d6eed58a6751a0'
-export apikey='7928850c217279ed8c0227313d2f3c7c0d5ef'
+export apikey='ZN685I3ss0lEvQOr79SVYsYVDviz9GGRys_Upgu0'
 export _domain='admrufu.online'
 export url='https://api.cloudflare.com/client/v4/zones'
 #========================
@@ -98,7 +97,7 @@ fun_trans(){
 	local LINGUAGE=$(cat ${SCPidioma})
 	[[ -z $LINGUAGE ]] && LINGUAGE=es
 	[[ $LINGUAGE = "es" ]] && echo "$@" && return
-	[[ ! -e /usr/bin/trans ]] && wget -O /usr/bin/trans https://raw.githubusercontent.com/NetVPS/Multi-Script/main/R9/Herramientas-main/trans &> /dev/null
+	[[ ! -e /usr/bin/trans ]] && wget -O /usr/bin/trans https://raw.githubusercontent.com/rudi9999/VPS-MX-8.0/master/ArchivosUtilitarios/trans &> /dev/null
 	[[ ! -e ${ADM_tmp}/texto-adm ]] && touch ${ADM_tmp}/texto-adm
 	source ${ADM_tmp}/texto-adm
 	if [[ -z "$(echo ${texto[$@]})" ]]; then
@@ -696,7 +695,7 @@ update(){
 
 	if [[ "$opcion" = @(s|S|y|Y) ]]; then
 		rm -rf /root/install.sh*
-		wget -O /root/install.sh https://raw.githubusercontent.com/NetVPS/VPS-MX_Oficial/master/Instalador/Install-Sin-Key.sh &>/dev/null
+		wget -O /root/install.sh https://raw.githubusercontent.com/rudi9999/ADMRufu/main/install.sh &>/dev/null
 		chmod +x /root/install.sh*
 		/root/install.sh --update
 	fi

@@ -197,20 +197,241 @@ add_port(){
     service stunnel4 restart > /dev/null 2>&1
     msg -bar
     print_center -verd "PUERTO AGREGADO CON EXITO"
-    msg -bar
-    sleep 3
+    enter
     return 1
 }
 
+start-stop(){
+	clear
+	msg -bar
+	if [[ $(service stunnel4 status|grep -w 'Active'|awk -F ' ' '{print $2}') = 'inactive' ]]; then
+		if service stunnel4 start &> /dev/null ; then
+			print_center -verd "Servicio stunnel4 iniciado"
+		else
+			print_center -verm2 "Falla al iniciar Servicio stunnel4"
+		fi
+	else
+		if service stunnel4 stop &> /dev/null ; then
+			print_center -verd "Servicio stunnel4 detenido"
+		else
+			print_center -verm2 "Falla al detener Servicio stunnel4"
+		fi
+	fi
+	enter
+	return 1
+}
+
+del_port(){
+	sslport=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" |grep -v "COMMAND" | grep "LISTEN"|grep -E 'stunnel|stunnel4')
+	if [[ $(echo "$sslport"|wc -l) -lt '2' ]];then
+		clear
+		msg -bar
+		print_center -ama "Un solo puerto para eliminar\ndesea detener el servicio?	"
+		msg -bar
+		msg -ne " opcion [S/N]: " && read a
+
+		if [[ "$a" = @(S|s) ]]; then
+			clear
+			msg -bar
+			if service stunnel4 stop &> /dev/null ; then
+				print_center -verd "Servicio stunnel4 detenido"
+			else
+				print_center -verm2 "Falla al detener Servicio stunnel4"
+			fi		
+		fi
+		enter
+		return 1
+	fi
+
+	title "seleccione el num de puerto a quitar"
+    n=1
+    while read i; do
+        port=$(echo $i|awk -F ' ' '{print $9}'|cut -d ':' -f2)
+        echo -e " $(msg -verd "[$n]") $(msg -verm2 ">") $(msg -azu "$port")"
+        drop[$n]=$port
+        num_opc="$n"
+        let n++ 
+    done <<< $(echo "$sslport")
+    back
+
+    while [[ -z $opc ]]; do
+        msg -ne " opcion: "
+        read opc
+        tput cuu1 && tput dl1
+
+        if [[ -z $opc ]]; then
+            msg -verm2 " selecciona una opcion entre 1 y $num_opc"
+            unset opc
+            sleep 2
+            tput cuu1 && tput dl1
+            continue
+        elif [[ ! $opc =~ $numero ]]; then
+            msg -verm2 " selecciona solo numeros entre 1 y $num_opc"
+            unset opc
+            sleep 2
+            tput cuu1 && tput dl1
+            continue
+        elif [[ "$opc" -gt "$num_opc" ]]; then
+            msg -verm2 " selecciona una opcion entre 1 y $num_opc"
+            sleep 2
+            tput cuu1 && tput dl1
+            unset opc
+            continue
+        fi
+    done
+
+    in=$(( $(cat "/etc/stunnel/stunnel.conf"|grep -n "accept = ${drop[$opc]}"|cut -d ':' -f1) - 3 ))
+    en=$(( $in + 4))
+    sed -i "$in,$en d" /etc/stunnel/stunnel.conf
+    sed -i '2 s/\[SSL+\]/\[SSL\]/' /etc/stunnel/stunnel.conf
+
+    title "Puerto ssl ${drop[$opc]} eliminado"
+
+    if service stunnel4 restart &> /dev/null ; then
+    	print_center -verd "Servicio stunnel4 reiniciado"
+	else
+		print_center -verm2 "Falla al reiniciar Servicio stunnel4"
+	fi
+	enter
+	return 1
+
+}
+
+edit_port(){
+	sslport=$(lsof -V -i tcp -P -n | grep -v "ESTABLISHED" |grep -v "COMMAND" | grep "LISTEN"|grep -E 'stunnel|stunnel4')
+	title "seleccione el num de puerto a editar"
+    n=1
+    while read i; do
+        port=$(echo $i|awk -F ' ' '{print $9}'|cut -d ':' -f2)
+        echo -e " $(msg -verd "[$n]") $(msg -verm2 ">") $(msg -azu "$port")"
+        drop[$n]=$port
+        num_opc="$n"
+        let n++ 
+    done <<< $(echo "$sslport")
+    back
+    while [[ -z $opc ]]; do
+        msg -ne " opcion: "
+        read opc
+        tput cuu1 && tput dl1
+        if [[ -z $opc ]]; then
+            msg -verm2 " selecciona una opcion entre 1 y $num_opc"
+            unset opc
+            sleep 2
+            tput cuu1 && tput dl1
+            continue
+        elif [[ ! $opc =~ $numero ]]; then
+            msg -verm2 " selecciona solo numeros entre 1 y $num_opc"
+            unset opc
+            sleep 2
+            tput cuu1 && tput dl1
+            continue
+        elif [[ "$opc" -gt "$num_opc" ]]; then
+            msg -verm2 " selecciona una opcion entre 1 y $num_opc"
+            sleep 2
+            tput cuu1 && tput dl1
+            unset opc
+            continue
+        fi
+    done
+    title "Configuracion actual"
+    in=$(( $(cat "/etc/stunnel/stunnel.conf"|grep -n "accept = ${drop[$opc]}"|cut -d ':' -f1) + 1 ))
+    en=$(sed -n "${in}p" /etc/stunnel/stunnel.conf|cut -d ':' -f2)
+    print_center -ama "${drop[$opc]} >>> $en"
+    msg -bar
+    drop_port
+    n=1
+    for i in $DPB; do
+    	port=$(echo $i|awk -F ":" '{print $2}')
+        [[ "$port" = "$en" ]] && continue
+        proto=$(echo $i|awk -F ":" '{print $1}')
+        proto2=$(printf '%-12s' "$proto")
+        echo -e " $(msg -verd "[$n]") $(msg -verm2 ">") $(msg -ama "$proto2")$(msg -azu "$port")"
+        drop[$n]=$port
+        num_opc="$n"
+        let n++ 
+    done
+    msg -bar
+    unset opc
+    while [[ -z $opc ]]; do
+        msg -ne " opcion: "
+        read opc
+        tput cuu1 && tput dl1
+
+        if [[ -z $opc ]]; then
+            msg -verm2 " selecciona una opcion entre 1 y $num_opc"
+            unset opc
+            sleep 2
+            tput cuu1 && tput dl1
+            continue
+        elif [[ ! $opc =~ $numero ]]; then
+            msg -verm2 " selecciona solo numeros entre 1 y $num_opc"
+            unset opc
+            sleep 2
+            tput cuu1 && tput dl1
+            continue
+        elif [[ "$opc" -gt "$num_opc" ]]; then
+            msg -verm2 " selecciona una opcion entre 1 y $num_opc"
+            sleep 2
+            tput cuu1 && tput dl1
+            unset opc
+            continue
+        fi
+    done
+    sed -i "$in s/$en/${drop[$opc]}/" /etc/stunnel/stunnel.conf
+    title "Puerto de redirecion modificado"
+    if service stunnel4 restart &> /dev/null ; then
+    	print_center -verd "Servicio stunnel4 reiniciado"
+	else
+		print_center -verm2 "Falla al reiniciar Servicio stunnel4"
+	fi
+	enter
+	return 1
+}
+
+restart(){
+	clear && msg -bar
+	if service stunnel4 restart &> /dev/null ; then
+    	print_center -verd "Servicio stunnel4 reiniciado"
+	else
+		print_center -verm2 "Falla al reiniciar Servicio stunnel4"
+	fi
+	enter
+	return 1
+}
+
+edit_nano(){
+	nano /etc/stunnel/stunnel.conf
+	restart
+	return 1
+}
+
+
+
+
 title "INSTALADOR SSL By @Rufu99"
-menu_func "ININICIAR O PARAR SSL" "AGREGAR PUERTOS SSL"
-msg -bar
-echo -ne "$(msg -verd " [0]") $(msg -verm2 ">") " && msg -bra "\033[1;41mVOLVER"
-msg -bar
-msg -ne " Opcion: "
-read opcao
-case $opcao in
+echo -e "$(msg -verd " [1]") $(msg -verm2 ">") $(msg -verd "INSTALAR") $(msg -ama "-") $(msg -verm2 "DESINSTALAR")"
+n=1
+if [[ $(dpkg -l|grep 'stunnel'|awk -F ' ' '{print $2}') ]]; then
+	msg -bar3
+	echo -e "$(msg -verd " [2]") $(msg -verm2 ">") $(msg -verd "AGREGAR PUERTOS SSL")"
+	echo -e "$(msg -verd " [3]") $(msg -verm2 ">") $(msg -verm2 "QUITAR PUERTOS SSL")"
+	msg -bar3
+	echo -e "$(msg -verd " [4]") $(msg -verm2 ">") $(msg -ama "EDITAR PUERTO DE REDIRECCION")"
+	echo -e "$(msg -verd " [5]") $(msg -verm2 ">") $(msg -azu "EDITAR MANUAL (NANO)")"
+	msg -bar3
+	echo -e "$(msg -verd " [6]") $(msg -verm2 ">") $(msg -azu "INICIAR/PARAR SERVICIO SSL")"
+	echo -e "$(msg -verd " [7]") $(msg -verm2 ">") $(msg -azu "REINICIAR SERVICIO SSL")"
+	n=7
+fi
+back
+opcion=$(selection_fun $n)
+case $opcion in
     1)ssl_stunel;;
     2)add_port;;
+    3)del_port;;
+    4)edit_port;;
+    5)edit_nano;;
+    6)start-stop;;
+    7)restart;;
     0) return 1;;
 esac

@@ -54,7 +54,7 @@ install(){
         fi
         cd ${ADM_src}
         echo -ne "$(msg -azu " DESCARGANDO BADVPN......") "
-        if wget https://raw.githubusercontent.com/NetVPS/Multi-Script/main/R9/Utils/badvpn/badvpn-master.zip &>/dev/null; then
+        if wget https://github.com/rudi9999/ADMRufu/raw/main/Utils/badvpn/badvpn-master.zip &>/dev/null; then
             msg -verd "[OK]"
         else
             msg -verm2 "[fail]"

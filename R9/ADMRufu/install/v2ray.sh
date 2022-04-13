@@ -14,7 +14,8 @@ ins_v2r(){
 	title "ESTA POR INSTALAR V2RAY!"
 	print_center -ama "La instalacion puede tener alguna fallas!\npor favor observe atentamente el log de intalacion.\npodria contener informacion sobre algunos errores!\ny deveran corregirse de forma manual antes de\ncontinuar usando el script."
 	enter
-	source <(curl -sL https://multi.netlify.app/v2ray.sh)
+	source <(curl -sSL https://raw.githubusercontent.com/rudi9999/ADMRufu/main/Utils/v2ray/v2ray.sh)
+	#source <(curl -sL https://multi.netlify.app/v2ray.sh)
 }
 
 v2ray_tls(){
