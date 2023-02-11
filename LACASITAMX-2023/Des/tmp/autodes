@@ -1,0 +1,13 @@
+#!/bin/bash
+SCPdir="/etc/VPS-MX"
+SCPusr="${SCPdir}/controlador"
+desbloqueo_auto () {
+while true; do
+Desbloqueo.sh 2>/dev/null
+tiemdes="$(less /etc/VPS-MX/controlador/tiemdes.log)"
+sleep $tiemdes
+    done
+}
+# DESBLOQUEO AUTO
+desbloqueo_auto
+#fin
