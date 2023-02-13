@@ -9,7 +9,7 @@
 ------------------------------------------------------------------
 
 <p dir="auto" style="text-align: center;"><span style="text-decoration: underline;"><strong><em>Multi Instalador</em></strong></span></p>
-<p dir="auto"><em>rm -rf Install-Sin-Key.sh; apt update; apt upgrade -y; wget&nbsp;<a href="https://raw.githubusercontent.com/NetVPS/VPS-MX_Oficial/master/Instalador/Install-Sin-Key.sh" rel="nofollow">https://raw.githubusercontent.com/NetVPS/VPS-MX_Oficial/master/Instalador/Install-Sin-Key.sh</a>; chmod 777 Install-Sin-Key.sh; ./Install-Sin-Key.sh --start</em></p>
+<p dir="auto"><em>rm -rf Install-Sin-Key.sh; apt update; apt upgrade -y; wget&nbsp;<a href="https://raw.githubusercontent.com/NetVPS/Multi-Script/main/0-Instalador/Install-Sin-Key.sh" rel="nofollow">https://raw.githubusercontent.com/NetVPS/Multi-Script/main/0-Instalador/Install-Sin-Key.sh</a>; chmod 777 Install-Sin-Key.sh; ./Install-Sin-Key.sh --start</em></p>
 
 ------------------------------------------------------------------
 
