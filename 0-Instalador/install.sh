@@ -130,7 +130,7 @@ install_inicial() {
   clear && clear
   apt update
   apt upgrade -y
-  wget -O /bin/install https://raw.githubusercontent.com/NetVPS/Multi-Script/main/0-Instalador/Install-Sin-Key.sh &>/dev/null
+  wget -O /bin/install https://raw.githubusercontent.com/NetVPS/Multi-Script/main/0-Instalador/install.sh &>/dev/null
   chmod +rwx /bin/install
 }
 
@@ -289,6 +289,7 @@ install_vps_mx_85_oficial() {
 
 }
 
+#SCRIPT LATAM 2.0
 install_latam() {
     #CARPETAS PRINCIPALES
   mkdir -p /etc/SCRIPT-LATAM >/dev/null 2>&1
