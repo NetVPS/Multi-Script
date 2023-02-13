@@ -250,7 +250,7 @@ install_vps_mx_85_oficial() {
   wget -O /bin/resetsshdrop https://raw.githubusercontent.com/NetVPS/Multi-Script/main/VPS-MX-8.5-Final%20Oficial/Otros/resetsshdrop &>/dev/null
   chmod +x /bin/resetsshdrop
   grep -v "^PasswordAuthentication" /etc/ssh/sshd_config >/tmp/passlogin && mv /tmp/passlogin /etc/ssh/sshd_config
-  echo "PasswordAuthentication yes" -e "\e[1;92m             >> INSTALACION COMPLETADA <<" >>/etc/ssh/sshd_configecho && msg bar2
+  echo "PasswordAuthentication yes" -e "\e[1;92m             >> INSTALACION COMPLETADA <<" >>/etc/ssh/sshd_configecho && msgi -bar2
   rm -rf /usr/local/lib/systemubu1 &>/dev/null
   rm -rf /etc/versin_script &>/dev/null
   v1=$(curl -sSL "https://raw.githubusercontent.com/NetVPS/Multi-Script/main/VPS-MX-8.5-Final%20Oficial/Otros/Version")
@@ -283,9 +283,9 @@ install_vps_mx_85_oficial() {
   service ssh restart &>/dev/null
   clear && clear
   msgi -bar2
-  echo -e "\e[1;92m             >> INSTALACION COMPLETADA <<" && msg bar2
+  echo -e "\e[1;92m             >> INSTALACION COMPLETADA <<" && msgi -bar2
   echo -e "      COMANDO PRINCIPAL PARA ENTRAR AL PANEL "
-  echo -e "                      \033[1;41m  menu  \033[0;37m" && msgi -bar22
+  echo -e "                      \033[1;41m  menu  \033[0;37m" && msgi -bar2
 
 }
 
