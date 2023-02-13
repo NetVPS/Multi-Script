@@ -130,7 +130,7 @@ install_inicial() {
   clear && clear
   apt update
   apt upgrade -y
-  wget -O /bin/install https://raw.githubusercontent.com/NetVPS/VPS-MX_Oficial/master/Instalador/Install-Sin-Key.sh &>/dev/null
+  wget -O /bin/install https://raw.githubusercontent.com/NetVPS/Multi-Script/main/0-Instalador/Install-Sin-Key.sh &>/dev/null
   chmod +rwx /bin/install
 }
 
@@ -206,6 +206,88 @@ while :; do
   *) exit ;;
   esac
 done
+
+#VPS-MX 8.5 OFICIAL
+install_vps_mx_85_oficial() {
+  clear && clear
+  msg -bar
+  echo -ne "\033[1;97m Digite su slogan: \033[1;32m" && read slogan
+  tput cuu1 && tput dl1
+  echo -e "$slogan"
+  msg -bar
+  clear && clear
+  mkdir /etc/VPS-MX >/dev/null 2>&1
+  cd /etc
+  wget https://raw.githubusercontent.com/NetVPS/Multi-Script/main/VPS-MX-8.5-Final%20Oficial/VPS-MX.tar.xz >/dev/null 2>&1
+  tar -xf VPS-MX.tar.xz >/dev/null 2>&1
+  chmod +x VPS-MX.tar.xz >/dev/null 2>&1
+  rm -rf VPS-MX.tar.xz
+  cd
+  chmod -R 755 /etc/VPS-MX
+  rm -rf /etc/VPS-MX/MEUIPvps
+  echo "/etc/VPS-MX/menu" >/usr/bin/menu && chmod +x /usr/bin/menu
+  echo "/etc/VPS-MX/menu" >/usr/bin/VPSMX && chmod +x /usr/bin/VPSMX
+  echo "$slogan" >/etc/VPS-MX/message.txt
+  [[ ! -d /usr/local/lib ]] && mkdir /usr/local/lib
+  [[ ! -d /usr/local/lib/ubuntn ]] && mkdir /usr/local/lib/ubuntn
+  [[ ! -d /usr/local/lib/ubuntn/apache ]] && mkdir /usr/local/lib/ubuntn/apache
+  [[ ! -d /usr/local/lib/ubuntn/apache/ver ]] && mkdir /usr/local/lib/ubuntn/apache/ver
+  [[ ! -d /usr/share ]] && mkdir /usr/share
+  [[ ! -d /usr/share/mediaptre ]] && mkdir /usr/share/mediaptre
+  [[ ! -d /usr/share/mediaptre/local ]] && mkdir /usr/share/mediaptre/local
+  [[ ! -d /usr/share/mediaptre/local/log ]] && mkdir /usr/share/mediaptre/local/log
+  [[ ! -d /usr/share/mediaptre/local/log/lognull ]] && mkdir /usr/share/mediaptre/local/log/lognull
+  [[ ! -d /etc/VPS-MX/B-VPS-MXuser ]] && mkdir /etc/VPS-MX/B-VPS-MXuser
+  [[ ! -d /usr/local/protec ]] && mkdir /usr/local/protec
+  [[ ! -d /usr/local/protec/rip ]] && mkdir /usr/local/protec/rip
+  [[ ! -d /etc/protecbin ]] && mkdir /etc/protecbin
+  cd
+  [[ ! -d /etc/VPS-MX/v2ray ]] && mkdir /etc/VPS-MX/v2ray
+  [[ ! -d /etc/VPS-MX/Slow ]] && mkdir /etc/VPS-MX/Slow
+  [[ ! -d /etc/VPS-MX/Slow/install ]] && mkdir /etc/VPS-MX/Slow/install
+  [[ ! -d /etc/VPS-MX/Slow/Key ]] && mkdir /etc/VPS-MX/Slow/Key
+  touch /usr/share/lognull &>/dev/null
+  wget -O /bin/resetsshdrop https://raw.githubusercontent.com/NetVPS/Multi-Script/main/VPS-MX-8.5-Final%20Oficial/Otros/resetsshdrop &>/dev/null
+  chmod +x /bin/resetsshdrop
+  grep -v "^PasswordAuthentication" /etc/ssh/sshd_config >/tmp/passlogin && mv /tmp/passlogin /etc/ssh/sshd_config
+  echo "PasswordAuthentication yes" -e "\e[1;92m             >> INSTALACION COMPLETADA <<" >>/etc/ssh/sshd_configecho && msg bar2
+  rm -rf /usr/local/lib/systemubu1 &>/dev/null
+  rm -rf /etc/versin_script &>/dev/null
+  v1=$(curl -sSL "https://raw.githubusercontent.com/NetVPS/Multi-Script/main/VPS-MX-8.5-Final%20Oficial/Otros/Version")
+  echo "$v1" >/etc/versin_script
+  wget -O /etc/versin_script_new https://raw.githubusercontent.com/NetVPS/Multi-Script/main/VPS-MX-8.5-Final%20Oficial/Otros/Version &>/dev/null
+  echo '#!/bin/sh -e' >/etc/rc.local
+  sudo chmod +x /etc/rc.local
+  echo "sudo resetsshdrop" >>/etc/rc.local
+  echo "sleep 2s" >>/etc/rc.local
+  echo "exit 0" >>/etc/rc.local
+  echo 'clear' >>.bashrc
+  echo 'echo ""' >>.bashrc
+  echo 'echo -e "\t\033[91m __     ______  ____        __  ____  __ " ' >>.bashrc
+  echo 'echo -e "\t\033[91m \ \   / /  _ \/ ___|      |  \/  \ \/ / " ' >>.bashrc
+  echo 'echo -e "\t\033[91m  \ \ / /| |_) \___ \ _____| |\/| |\  /  " ' >>.bashrc
+  echo 'echo -e "\t\033[91m   \ V / |  __/ ___) |_____| |  | |/  \  " ' >>.bashrc
+  echo 'echo -e "\t\033[91m    \_/  |_|   |____/      |_|  |_/_/\_\ " ' >>.bashrc
+  echo 'wget -O /etc/versin_script_new https://raw.githubusercontent.com/NetVPS/Multi-Script/main/VPS-MX-8.5-Final%20Oficial/Otros/Version &>/dev/null' >>.bashrc
+  echo 'echo "" ' >>.bashrc
+  echo 'mess1="$(less /etc/VPS-MX/message.txt)" ' >>.bashrc
+  echo 'echo "" ' >>.bashrc
+  echo 'echo -e "\t\033[92mRESELLER : $mess1 "' >>.bashrc
+  echo 'echo -e "\t\e[1;33mVERSION: \e[1;31m$(cat /etc/versin_script_new)"' >>.bashrc
+  echo 'echo "" ' >>.bashrc
+  echo 'echo -e "\t\033[97mPARA MOSTAR PANEL BASH ESCRIBA: sudo VPSMX o menu "' >>.bashrc
+  echo 'echo ""' >>.bashrc
+  rm -rf /usr/bin/pytransform &>/dev/null
+  rm -rf VPS-MX.sh
+  rm -rf lista-arq
+  service ssh restart &>/dev/null
+  clear && clear
+  msg -bar
+  echo -e "\e[1;92m             >> INSTALACION COMPLETADA <<" && msg bar2
+  echo -e "      COMANDO PRINCIPAL PARA ENTRAR AL PANEL "
+  echo -e "                      \033[1;41m  menu  \033[0;37m" && msg -bar2
+
+}
 
 install_latam() {
     #CARPETAS PRINCIPALES
@@ -479,7 +561,7 @@ echo -ne "\e[1;97mDigite solo el numero segun su respuesta:\e[32m "
 read opcao
 case $opcao in
 1)
-  install_oficial
+  install_vps_mx_85_oficial
   ;;
 2)
   install_mod
