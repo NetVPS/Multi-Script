@@ -94,7 +94,6 @@ install_inicial() {
   echo -e " \e[5m\e[1;100m   =====>> ►►     MULTI SCRIPT     ◄◄ <<=====    \e[1;37m"
   msgi -bar2
   #-- VERIFICAR VERSION
-  v1=$(curl -sSL "https://raw.githubusercontent.com/NetVPS/Multi-Script/main/Vercion")
   msgi -ama "   PREPARANDO INSTALACION | VERSION: $vesaoSCT"
   ## PAQUETES-UBUNTU PRINCIPALES
   echo ""
