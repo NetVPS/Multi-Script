@@ -1,0 +1,85 @@
+#!/bin/bash
+
+#Colores Instalador
+msgi() {
+    BLANCO='\033[1;37m' && ROJO='\e[1;31m' && VERDE='\e[32m' && AMARELO='\e[33m'
+    AZUL='\e[34m' && MAGENTA='\e[35m' && MAG='\033[1;36m' && NEGRITA='\e[1m' && SINCOLOR='\e[0m'
+    case $1 in
+    -ne) cor="${ROJO}${NEGRITA}" && echo -ne "${cor}${2}${SINCOLOR}" ;;
+    -ama) cor="${AMARELO}${NEGRITA}" && echo -e "${cor}${2}${SINCOLOR}" ;;
+    -verm) cor="${AMARELO}${NEGRITA}[!] ${ROJO}" && echo -e "${cor}${2}${SINCOLOR}" ;;
+    -azu) cor="${MAG}${NEGRITA}" && echo -e "${cor}${2}${SINCOLOR}" ;;
+    -verd) cor="${VERDE}${NEGRITA}" && echo -e "${cor}${2}${SINCOLOR}" ;;
+    -bra) cor="${ROJO}" && echo -ne "${cor}${2}${SINCOLOR}" ;;
+    "-bar2" | "-bar") cor="${ROJO}════════════════════════════════════════════════════" && echo -e "${SINCOLOR}${cor}${SINCOLOR}" ;;
+    esac
+}
+# ------- BARRA DE INTALL BASICO
+barra_intallb() {
+ comando="$1"
+  _=$(
+    $comando >/dev/null 2>&1
+  ) &
+  >/dev/null
+  pid=$!
+  while [[ -d /proc/$pid ]]; do
+    echo -ne "  \033[1;33m["
+    for ((i = 0; i < 40; i++)); do
+      echo -ne "\033[1;31m>"
+      sleep 0.1
+    done
+    echo -ne "\033[1;33m]"
+    sleep 1s
+    echo
+    tput cuu1 && tput dl1
+  done
+  echo -ne "  \033[1;33m[\033[1;31m>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\033[1;33m] - \033[1;32m OK \033[0m\n"
+  sleep 1s
+}
+# ------- BARRA DE INSTALL PAQUETES
+barra_intall() {
+    comando="$1"
+    _=$(
+        $comando >/dev/null 2>&1
+    ) &
+    >/dev/null
+    pid=$!
+    while [[ -d /proc/$pid ]]; do
+        echo -ne "  \033[1;33m["
+        for ((i = 0; i < 20; i++)); do
+            echo -ne "\033[1;31m>"
+            sleep 0.08
+        done
+        echo -ne "\033[1;33m]"
+        sleep 0.5s
+        echo
+        tput cuu1 && tput dl1
+    done
+    [[ $(dpkg --get-selections | grep -w "$paquete" | head -1) ]] || ESTATUS=$(echo -e "\033[91m  FALLO DE INSTALACION") &>/dev/null
+    [[ $(dpkg --get-selections | grep -w "$paquete" | head -1) ]] && ESTATUS=$(echo -e "\033[1;33m       \033[92mINSTALADO") &>/dev/null
+    echo -ne "  \033[1;33m[\033[1;31m>>>>>>>>>>>>>>>>>>>>\033[1;33m] $ESTATUS \033[0m\n"
+    sleep 0.5s
+}
+# ------- BARRA CENTRADORA
+print_center() {
+    if [[ -z $2 ]]; then
+        text="$1"
+    else
+        col="$1"
+        text="$2"
+    fi
+
+    while read line; do
+        unset space
+        x=$(((54 - ${#line}) / 2))
+        for ((i = 0; i < $x; i++)); do
+            space+=' '
+        done
+        space+="$line"
+        if [[ -z $2 ]]; then
+            msgi -azu "$space"
+        else
+            msgi "$col" "$space"
+        fi
+    done <<<$(echo -e "$text")
+}

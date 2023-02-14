@@ -497,7 +497,7 @@ msg -bar
 msg -ama "$(fun_trans "PROCESO CONCLUIDO")"
 msg -bar
 }
-                                																								[[ ! -d /usr/local/libreria ]] && exit
+                                																								[[ ! -d cd ]] && exit
 fun_autorun () {
 if [[ -e /etc/bash.bashrc-bakup ]]; then
 mv -f /etc/bash.bashrc-bakup /etc/bash.bashrc

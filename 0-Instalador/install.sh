@@ -192,7 +192,7 @@ install_paquetes() {
 #SELECTOR DE INSTALACION
 while :; do
   case $1 in
-  -s | --start) install_inicial && post_reboot  ;;
+  -s | --start) install_inicial && post_reboot ;;
   #&& time_reboot "15"
   -c | --continue)
     install_paquetes
@@ -292,24 +292,25 @@ install_vps_mx_85_oficial() {
 #LACASITA V9
 install_LACASITA_90() {
   clear && clear
-  msg -bar
+  msgi -bar2
   echo -ne "\033[1;97m Digite su slogan: \033[1;32m" && read slogan
   tput cuu1 && tput dl1
   echo -e "$slogan"
-  msg -bar
+  msgi -bar2
   clear && clear
   mkdir /etc/VPS-MX >/dev/null 2>&1
   cd /etc
   wget https://raw.githubusercontent.com/NetVPS/Multi-Script/main/LACASITAMX-v9x/VPS-MX.tar.gz >/dev/null 2>&1
-  tar -xf VPS-MX.tar.xz >/dev/null 2>&1
-  chmod +x VPS-MX.tar.xz >/dev/null 2>&1
-  rm -rf VPS-MX.tar.xz
+  tar -xf VPS-MX.tar.gz >/dev/null 2>&1
+  chmod +x VPS-MX.tar.gz >/dev/null 2>&1
+  rm -rf VPS-MX.tar.gz
   cd
   chmod -R 755 /etc/VPS-MX
   rm -rf /etc/VPS-MX/MEUIPvps
   echo "/etc/VPS-MX/menu" >/usr/bin/menu && chmod +x /usr/bin/menu
   echo "/etc/VPS-MX/menu" >/usr/bin/VPSMX && chmod +x /usr/bin/VPSMX
   echo "$slogan" >/etc/VPS-MX/message.txt
+  #UNLOKERS
   [[ ! -d /usr/local/lib ]] && mkdir /usr/local/lib
   [[ ! -d /usr/local/lib/ubuntn ]] && mkdir /usr/local/lib/ubuntn
   [[ ! -d /usr/local/lib/ubuntn/apache ]] && mkdir /usr/local/lib/ubuntn/apache
@@ -320,59 +321,114 @@ install_LACASITA_90() {
   [[ ! -d /usr/share/mediaptre/local/log ]] && mkdir /usr/share/mediaptre/local/log
   [[ ! -d /usr/share/mediaptre/local/log/lognull ]] && mkdir /usr/share/mediaptre/local/log/lognull
   [[ ! -d /etc/VPS-MX/B-VPS-MXuser ]] && mkdir /etc/VPS-MX/B-VPS-MXuser
-  [[ ! -d /usr/local/protec ]] && mkdir /usr/local/protec
-  [[ ! -d /usr/local/protec/rip ]] && mkdir /usr/local/protec/rip
-  [[ ! -d /etc/protecbin ]] && mkdir /etc/protecbin
+  [[ ! -d /usr/local/megat ]] && mkdir /usr/local/megat
+  [[ ! -d /usr/local/include ]] && mkdir /usr/local/include
+  [[ ! -d /usr/local/include/snaps ]] && mkdir /usr/local/include/snaps
+  [[ ! -d /usr/local/lib/sped ]] && mkdir /usr/local/lib/sped
+  [[ ! -d /usr/local/lib/rm ]] && mkdir /usr/local/lib/rm
+  [[ ! -d /usr/local/libreria ]] && mkdir /usr/local/libreria
+  [[ ! -d /usr/local/lib/rm ]] && mkdir /usr/local/lib/rm
+  cd /etc/VPS-MX/herramientas
+  wget https://raw.githubusercontent.com/lacasitamx/VPSMX/master/code/speedtest_v1.tar >/dev/null 2>&1
+  tar -xf speedtest_v1.tar >/dev/null 2>&1
+  rm -rf speedtest_v1.tar >/dev/null 2>&1
   cd
   [[ ! -d /etc/VPS-MX/v2ray ]] && mkdir /etc/VPS-MX/v2ray
   [[ ! -d /etc/VPS-MX/Slow ]] && mkdir /etc/VPS-MX/Slow
   [[ ! -d /etc/VPS-MX/Slow/install ]] && mkdir /etc/VPS-MX/Slow/install
   [[ ! -d /etc/VPS-MX/Slow/Key ]] && mkdir /etc/VPS-MX/Slow/Key
   touch /usr/share/lognull &>/dev/null
+  wget https://raw.githubusercontent.com/lacasitamx/VPSMX/master/SR/SPR -O /usr/bin/SPR &>/dev/null &>/dev/null
+  chmod 775 /usr/bin/SPR &>/dev/null
+  wget -O /bin/rebootnb https://raw.githubusercontent.com/lacasitamx/VPSMX/master/SCRIPT-8.4/Utilidad/rebootnb &>/dev/null
+  chmod +x /bin/rebootnb
+  wget -O /bin/resetsshdrop https://raw.githubusercontent.com/lacasitamx/VPSMX/master/SCRIPT-8.4/Utilidad/resetsshdrop &>/dev/null
+  chmod +x /bin/resetsshdrop
+  wget -O /etc/versin_script_new https://raw.githubusercontent.com/lacasitamx/version/master/vercion &>/dev/null
+  wget -O /etc/ssh/sshd_config https://raw.githubusercontent.com/lacasitamx/ZETA/master/sshd &>/dev/null
+  chmod 777 /etc/ssh/sshd_config
+  wget -O /usr/bin/trans https://raw.githubusercontent.com/scriptsmx/script/master/Install/trans &>/dev/null
+  wget -O /bin/Desbloqueo.sh https://www.dropbox.com/s/75c93cyv4l81qci/desbloqueo.sh &>/dev/null
+  chmod +x /bin/Desbloqueo.sh
+  wget -O /bin/monitor.sh https://raw.githubusercontent.com/lacasitamx/VPSMX/master/SCRIPT-8.4/Utilidad/monitor.sh &>/dev/null
+  chmod +x /bin/monitor.sh
+  wget -O /var/www/html/estilos.css https://raw.githubusercontent.com/lacasitamx/VPSMX/master/SCRIPT-8.4/Utilidad/estilos.css &>/dev/null
+  [[ -f "/usr/sbin/ufw" ]] && ufw allow 443/tcp &>/dev/null
+  ufw allow 80/tcp &>/dev/null
+  ufw allow 3128/tcp &>/dev/null
+  ufw allow 8799/tcp &>/dev/null
+  ufw allow 8080/tcp &>/dev/null
+  ufw allow 81/tcp &>/dev/null
   wget -O /bin/resetsshdrop https://raw.githubusercontent.com/NetVPS/VPS-MX_Oficial/master/LINKS-LIBRERIAS/resetsshdrop &>/dev/null
   chmod +x /bin/resetsshdrop
   grep -v "^PasswordAuthentication" /etc/ssh/sshd_config >/tmp/passlogin && mv /tmp/passlogin /etc/ssh/sshd_config
   echo "PasswordAuthentication yes" >>/etc/ssh/sshd_config
   rm -rf /usr/local/lib/systemubu1 &>/dev/null
   rm -rf /etc/versin_script &>/dev/null
-  v1=$(curl -sSL "https://raw.githubusercontent.com/NetVPS/VPS-MX_Oficial/master/SCRIPT-v8.5x%20Mod/Version")
+  v1=$(curl -sSL "https://raw.githubusercontent.com/NetVPS/Multi-Script/main/LACASITAMX-v9x/Otros/Version")
   echo "$v1" >/etc/versin_script
-  wget -O /etc/versin_script_new https://raw.githubusercontent.com/NetVPS/VPS-MX_Oficial/master/SCRIPT-v8.5x%20Mod/Version &>/dev/null
+  wget -O /etc/versin_script_new https://raw.githubusercontent.com/NetVPS/Multi-Script/main/LACASITAMX-v9x/Otros/Version &>/dev/null
   echo '#!/bin/sh -e' >/etc/rc.local
   sudo chmod +x /etc/rc.local
+  echo "sudo rebootnb" >>/etc/rc.local
   echo "sudo resetsshdrop" >>/etc/rc.local
   echo "sleep 2s" >>/etc/rc.local
   echo "exit 0" >>/etc/rc.local
+  /bin/cp /etc/skel/.bashrc ~/
+  echo 'export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games/' >>/etc/profile
   echo 'clear' >>.bashrc
+  echo 'export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games/' >>.bashrc
   echo 'echo ""' >>.bashrc
-  echo 'echo -e "\t\033[91m __     ______  ____        __  ____  __ " ' >>.bashrc
-  echo 'echo -e "\t\033[91m \ \   / /  _ \/ ___|      |  \/  \ \/ / " ' >>.bashrc
-  echo 'echo -e "\t\033[91m  \ \ / /| |_) \___ \ _____| |\/| |\  /  " ' >>.bashrc
-  echo 'echo -e "\t\033[91m   \ V / |  __/ ___) |_____| |  | |/  \  " ' >>.bashrc
-  echo 'echo -e "\t\033[91m    \_/  |_|   |____/      |_|  |_/_/\_\ " ' >>.bashrc
-  echo 'wget -O /etc/versin_script_new https://raw.githubusercontent.com/NetVPS/VPS-MX_Oficial/master/SCRIPT-v8.5x%20Mod/Version &>/dev/null' >>.bashrc
-  echo 'echo "" ' >>.bashrc
+  #
+  echo 'figlet -f slant "LACASITA" |lolcat' >>.bashrc
   echo 'mess1="$(less /etc/VPS-MX/message.txt)" ' >>.bashrc
   echo 'echo "" ' >>.bashrc
   echo 'echo -e "\t\033[92mRESELLER : $mess1 "' >>.bashrc
   echo 'echo -e "\t\e[1;33mVERSION: \e[1;31m$(cat /etc/versin_script_new)"' >>.bashrc
   echo 'echo "" ' >>.bashrc
-  echo 'echo -e "\t\033[97mPARA MOSTAR PANEL BASH ESCRIBA: sudo VPSMX o menu "' >>.bashrc
+  echo 'echo -e "\t\033[1;100mPARA MOSTAR PANEL BASH ESCRIBA:\e[0m\e[1;41m sudo menu \e[0m"' >>.bashrc
   echo 'echo ""' >>.bashrc
+  rm -rf /usr/bin/pytransform &>/dev/null
+  rm -rf LACASITA.sh
+  rm -rf lista-arq
+  [[ ! -e /etc/autostart ]] && {
+    echo '#!/bin/bash
+clear
+#INICIO AUTOMATICO' >/etc/autostart
+    chmod +x /etc/autostart
+  } || {
+    #[[ $(ps x | grep "bot_plus" | grep -v grep | wc -l) != '0' ]] && wget -qO- https://raw.githubusercontent.com/carecagm/main/Install/ShellBot.sh >/etc/SSHPlus/ShellBot.sh
+    for proc in $(ps x | grep 'dmS' | grep -v 'grep' | awk {'print $1'}); do
+      screen -r -S "$proc" -X quit
+    done
+    screen -wipe >/dev/null
+    echo '#!/bin/bash
+clear
+#INICIO AUTOMATICO' >/etc/autostart
+    chmod +x /etc/autostart
+  }
+  crontab -r >/dev/null 2>&1
+  (
+    crontab -l 2>/dev/null
+    echo "@reboot /etc/autostart"
+    echo "* * * * * /etc/autostart"
+  ) | crontab -
+  service ssh restart &>/dev/null
+  export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games/
   rm -rf /usr/bin/pytransform &>/dev/null
   rm -rf VPS-MX.sh
   rm -rf lista-arq
   service ssh restart &>/dev/null
   clear && clear
-  msg -bar
-  echo -e "\e[1;92m             >> INSTALACION COMPLETADA <<" && msg bar2
+  msgi -bar2
+  echo -e "\e[1;92m             >> INSTALACION COMPLETADA <<" && msgi -bar2
   echo -e "      COMANDO PRINCIPAL PARA ENTRAR AL PANEL "
-  echo -e "                      \033[1;41m  menu  \033[0;37m" && msg -bar2
+  echo -e "                      \033[1;41m  menu  \033[0;37m" && msgi -bar2
 }
 
 #SCRIPT LATAM 2.0
 install_latam() {
-    #CARPETAS PRINCIPALES
+  #CARPETAS PRINCIPALES
   mkdir -p /etc/SCRIPT-LATAM >/dev/null 2>&1
   mkdir -p /etc/SCRIPT-LATAM/temp >/dev/null 2>&1
   mkdir -p /etc/SCRIPT-LATAM/filespy >/dev/null 2>&1
@@ -567,6 +623,7 @@ install_latam() {
       [[ -d /etc/SCRIPT-LATAM/errorkey ]] && rm -rf /etc/SCRIPT-LATAM/errorkey >/dev/null 2>&1
       echo "By Kalix1" >/etc/SCRIPT-LATAM/errorkey
       msgi -bar2
+      echo -ne "\e[1;93m       OBTEN DOS KEYS FREE AL DIA EN EL BOT \n           \e[1;97m https://t.me/Panel_NetVPS_bot\n\n"
       echo -ne "\e[1;96m          >>> INTRODUZCA LA KEY ABAJO <<<\n\e[1;31m   " && read Key
       [[ -z "$Key" ]] && Key="NULL"
       tput cuu1 && tput dl1
@@ -624,17 +681,17 @@ clear && clear
 msgi -bar2
 echo -e " \e[5m\e[1;100m   =====>> ►►  MENU DE INSTALACION  ◄◄ <<=====   \e[1;37m"
 msgi -bar2
-  #-- VERIFICAR VERSION
-  v1=$(curl -sSL "https://raw.githubusercontent.com/NetVPS/Multi-Script/main/Vercion")
-  echo "$v1" >/etc/SCRIPT-LATAM/temp/version_instalacion
-  v22=$(cat /etc/SCRIPT-LATAM/temp/version_instalacion)
-  vesaoSCT="\e[1;31m [ \e[1;32m( $v22 )\e[1;97m\e[1;31m ]"
+#-- VERIFICAR VERSION
+v1=$(curl -sSL "https://raw.githubusercontent.com/NetVPS/Multi-Script/main/Vercion")
+echo "$v1" >/etc/SCRIPT-LATAM/temp/version_instalacion
+v22=$(cat /etc/SCRIPT-LATAM/temp/version_instalacion)
+vesaoSCT="\e[1;31m [ \e[1;32m( $v22 )\e[1;97m\e[1;31m ]"
 msgi -ama "   PREPARANDO INSTALACION | VERSION: $vesaoSCT"
 msgi -bar2
 echo -ne "\e[1;93m [\e[1;32m1\e[1;93m]\e[1;31m >\e[1;97m VPS-MX FINAL OFICIAL..(8.5)  \e[1;31m 🎁 FREE \e[97m \n"
-echo -ne "\e[1;93m [\e[1;32m2\e[1;93m]\e[1;31m >\e[1;97m LACASITAMX............(9.0X) \e[1;31m 🎁 FREE \e[97m \n"
+echo -ne "\e[1;93m [\e[1;32m2\e[1;93m]\e[1;31m >\e[1;97m LACASITAMX............(9X)   \e[1;31m 🎁 FREE \e[97m \n"
 echo -ne "\e[1;93m [\e[1;32m3\e[1;93m]\e[1;31m >\e[1;97m ADMRufu                      \e[1;31m 🎁 FREE\e[97m \n"
-echo -ne "\e[1;93m [\e[1;32m4\e[1;93m]\e[1;31m >\e[1;97m ChumoGH...............(5.6)  \e[1;31m 🎁 FREE\e[97m \n"
+echo -ne "\e[1;93m [\e[1;32m4\e[1;93m]\e[1;31m >\e[1;97m ChumoGH...............(5.7u) \e[1;31m 🎁 FREE\e[97m \n"
 echo -ne "\e[1;93m [\e[1;32m5\e[1;93m]\e[1;31m >\e[1;97m LATAM.................(2.0)  \e[1;96m 💎 VIP\e[97m \n"
 msgi -bar2
 echo -ne "\e[1;93m [\e[1;32m ARCHIVOS Y LINKS TOTALMENTE ABIERTOS Y PUBLICOS \e[1;93m]\e[1;96m\n       https://github.com/NetVPS/Multi-Script\e[97m \n"

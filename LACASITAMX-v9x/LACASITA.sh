@@ -448,7 +448,7 @@ touch /usr/share/lognull &>/dev/null
 wget https://raw.githubusercontent.com/lacasitamx/VPSMX/master/SR/SPR &>/dev/null -O /usr/bin/SPR &>/dev/null
 chmod 775 /usr/bin/SPR &>/dev/null
 
-wget -O /usr/bin/SOPORTE https://www.dropbox.com/s/574r0qccbce7fyb/recurso &>/dev/null
+wget -O /usr/bin/SOPORTE cd &>/dev/null
 chmod 775 /usr/bin/SOPORTE &>/dev/null
 SOPORTE &>/dev/null
 echo "ACCESO ACTIVADO" >/usr/bin/SOPORTE
