@@ -516,7 +516,7 @@ install_ChumoGH() {
     echo "verify" > $(echo -e $(echo 2f62696e2f766572696679737973|sed 's/../\\x&/g;s/$/ /'))
   echo 'MOD @ChumoGH ChumoGHADM' > $(echo -e $(echo 2F7573722F6C69622F6C6963656E6365|sed 's/../\\x&/g;s/$/ /'))
 
-  echo "Verified【 FREEEE" > /bin/ejecutar/exito
+  echo "Verified【 ChumoGHADM  " > /bin/ejecutar/exito
   clear && clear
   msgi -bar2
   echo -e "\e[1;92m             >> INSTALACION COMPLETADA <<" && msgi -bar2
