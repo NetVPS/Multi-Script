@@ -1,9 +1,0 @@
-#!/bin/bash
-#ALTER NO FOUND - 
-
-# CREATE CARPETA /bin/alx && rm /bin
-
-# Moded creado por @ChumoGH
-echo -e "ESPERE UN MOMENTO"
-[[ $(dpkg --get-selections|grep -w "curl"|head -1) ]] || apt-get install curl -y &>/dev/null
-sudo bash -c "$(curl -fsSL https://www.dropbox.com/s/3350crw9lx01rne/instalalib.sh)"

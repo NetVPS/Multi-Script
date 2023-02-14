@@ -134,11 +134,6 @@ install_inicial() {
   chmod +rwx /usr/bin/install
 }
 
-post_reboot() {
-  /bin/cp /etc/skel/.bashrc ~/
-  install -c
-}
-
 time_reboot() {
   clear && clear
   msgi -bar
@@ -167,6 +162,7 @@ dependencias() {
 
 install_paquetes() {
   clear && clear
+  /bin/cp /etc/skel/.bashrc ~/
   #------- BARRA DE ESPERA
   msgi -bar2
   echo -e " \e[5m\e[1;100m   =====>> ►►     MULTI SCRIPT     ◄◄ <<=====    \e[1;37m"
@@ -192,15 +188,14 @@ install_paquetes() {
 #SELECTOR DE INSTALACION
 while :; do
   case $1 in
-  -s | --start) install_inicial && post_reboot ;;
-  #&& time_reboot "15"
+  -s | --start) install_inicial && install_paquetes
+    break
+    ;;
   -c | --continue)
-    install_paquetes
-    rm -rf /root/LATAM &>/dev/null
+    install_paquetes 
     break
     ;;
   -m | --menu)
-    clear && clear
     break
     ;;
   *) exit ;;
@@ -422,6 +417,7 @@ clear
   echo -e "\e[1;92m             >> INSTALACION COMPLETADA <<" && msgi -bar2
   echo -e "      COMANDO PRINCIPAL PARA ENTRAR AL PANEL "
   echo -e "                      \033[1;41m  menu  \033[0;37m" && msgi -bar2
+
 }
 #ADMRufus
 install_ADMRufu() {

@@ -1,2 +1,0 @@
-clear
-echo -e "Bienvenido!"
