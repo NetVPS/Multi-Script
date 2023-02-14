@@ -1,8 +1,8 @@
 
 ### 🎊 MULTI INSTALADOR DE SCRIPTS FREE SIN KEYS Y CODIGO OPEN
 ------------------------------------------------------------------
-<p dir="auto"><img src="https://raw.githubusercontent.com/NetVPS/VPS-MX_Oficial/master/SCREEN-ALL/VPS-MXOF.png" alt="" width="500" height="408" /></p>
-<p dir="auto" style="text-align: center;"><strong>VPS-MX 8.5 OFICIAL</strong></p>
+<p dir="auto"><img src="https://raw.githubusercontent.com/NetVPS/Multi-Script/main/SCREEN-ALL/multi.PNG" alt="" width="500" height="408" /></p>
+<p dir="auto" style="text-align: center;"><strong>MULTI SCRIPT</strong></p>
 
 ------------------------------------------------------------------
 
