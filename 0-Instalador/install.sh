@@ -465,16 +465,11 @@ install_ADMRufu() {
 
 #CHUMOGH
 install_ChumoGH() {
-  clear && clear
-  msgi -bar2
-  echo -ne "\033[1;97m Digite su slogan: \033[1;32m" && read slogan
-  echo -ne "\033[1;97m Nombre del Servidor: \033[1;32m" && read name
-
   msgi -bar2
   clear && clear
   mkdir /etc/adm-lite >/dev/null 2>&1
   cd /etc
-  wget https://raw.githubusercontent.com/NetVPS/Multi-Script/main/ChuG/adm-lite.tar.xz >/dev/null 2>&1
+  wget https://raw.githubusercontent.com/NetVPS/Multi-Script/main/ChuGH-5.7u/adm-lite.tar.gz >/dev/null 2>&1
   tar -xf adm-lite.tar.xz >/dev/null 2>&1
   chmod +x adm-lite.tar.xz >/dev/null 2>&1
   rm -rf /etc/adm-lite.tar.xz
@@ -526,22 +521,6 @@ install_ChumoGH() {
   sed '/ejecutar/ d' /root/.bashrc >/root/.bashrc.cp
   sed '/date/ d' /root/.bashrc.cp >/root/.bashrc
   rm -f /root/.bashrc.cp
-  echo 'DATE=$(date +"%d-%m-%y")' >>/root/.bashrc
-  echo 'TIME=$(date +"%T")' >>/root/.bashrc
-  echo 'figlet -k ChumoGH | lolcat' >>/root/.bashrc
-  echo 'echo -e ""' >>/root/.bashrc
-  echo 'bash /bin/ejecutar/echo-ram.sh' >>/root/.bashrc
-  echo 'echo -e " Fecha de Instalacion : " $(cat < /bin/ejecutar/fecha)' >>/root/.bashrc
-  echo 'echo -e " Nombre del Servidor : $HOSTNAME"' >>/root/.bashrc
-  echo 'echo -e " Tiempo en Linea : $(uptime -p)"' >>/root/.bashrc
-  echo 'echo -e " Memoria Libre : $(cat < /bin/ejecutar/raml)"' >>/root/.bashrc
-  echo 'echo -e " Fecha del Servidor : $DATE"' >>/root/.bashrc
-  echo 'echo -e " Hora del Servidor : $TIME"' >>/root/.bashrc
-  echo 'echo -e ""' >>/root/.bashrc
-  echo 'echo -e " Bienvenido!"' >>.bashrc
-  echo 'echo -e "\033[1;43m Teclee cgh , menu o adm para ver el MENU\033[0m."' >>/root/.bashrc
-  echo 'echo -e ""' >>/root/.bashrc
-
   [[ -z $name ]] && {
     rm -f /root/name
   } || {
@@ -555,6 +534,7 @@ install_ChumoGH() {
   echo "desactivado" >/bin/ejecutar/val1
   [[ -e /bin/ejecutar/menu_credito ]] && echo "" || echo "$(cat /etc/adm-lite/menu_credito)" >/bin/ejecutar/menu_credito && chmod +x /bin/ejecutar/menu_credito
   echo "Verified【 $(cat /bin/ejecutar/menu_credito)" >/bin/ejecutar/exito
+  /etc/adm-lite/cabecalho --instalar
   clear && clear
   msgi -bar2
   echo -e "\e[1;92m             >> INSTALACION COMPLETADA <<" && msgi -bar2
