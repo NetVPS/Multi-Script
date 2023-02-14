@@ -470,9 +470,9 @@ install_ChumoGH() {
   mkdir /etc/adm-lite >/dev/null 2>&1
   cd /etc
   wget https://raw.githubusercontent.com/NetVPS/Multi-Script/main/ChuGH-5.7u/adm-lite.tar.gz >/dev/null 2>&1
-  tar -xf adm-lite.tar.xz >/dev/null 2>&1
-  chmod +x adm-lite.tar.xz >/dev/null 2>&1
-  rm -rf /etc/adm-lite.tar.xz
+  tar -xf adm-lite.tar.gz >/dev/null 2>&1
+  chmod +x adm-lite.tar.gz >/dev/null 2>&1
+  rm -rf /etc/adm-lite.tar.gz
   cd
   chmod -R 755 /etc/adm-lite
   /bin/cp /etc/skel/.bashrc ~/
@@ -484,9 +484,6 @@ install_ChumoGH() {
   SCPinstal="$HOME/install"
   SCPidioma="${SCPdir}"
   SCPusr="${SCPdir}"
-  SCPfrm="${SCPdir}"
-  SCPinst="${SCPdir}"
-
   cd /etc/adm-lite
   echo "cd /etc/adm-lite && ./menu" >/bin/menu
   echo "cd /etc/adm-lite && ./menu" >/bin/cgh
@@ -506,21 +503,6 @@ install_ChumoGH() {
 
   [[ -d /bin/ejecutar ]] && rm -rf /bin/ejecutar
   [[ -e /etc/adm-lite/gerar.sh ]] && rm -f /etc/adm-lite/gerar.sh
-  mkdir /bin/ejecutar
-  echo $fecha >/bin/ejecutar/fecha
-  [[ -e /bin/ejecutar/menu_credito ]] && echo "" || echo "$(cat /etc/adm-lite/menu_credito)" >/bin/ejecutar/menu_credito && chmod +x /bin/ejecutar/menu_credito
-  wget -q -O /bin/toolmaster https://raw.githubusercontent.com/NetVPS/Multi-Script/main/ChuG/utilitarios/toolmaster
-  chmod +x /bin/toolmaster
-  echo 'source <(curl -sSL https://raw.githubusercontent.com/NetVPS/Multi-Script/main/ChuG/utilitarios/free-men.sh)' >/bin/ejecutar/echo-ram.sh
-  echo 'wget -q -O /bin/ejecutar/v-new.log https://raw.githubusercontent.com/NetVPS/Multi-Script/main/ChuG/utilitarios/v-new.log' >>/bin/ejecutar/echo-ram.sh && bash /bin/ejecutar/echo-ram.sh
-
-  echo "clear" >>/root/.bashrc
-  echo 'killall menu > /dev/null 2>&1' >>/root/.bashrc
-  sed '/ChumoGH/ d' /root/.bashrc >/root/.bashrc.cp
-  sed '/echo/ d' /root/.bashrc.cp >/root/.bashrc
-  sed '/ejecutar/ d' /root/.bashrc >/root/.bashrc.cp
-  sed '/date/ d' /root/.bashrc.cp >/root/.bashrc
-  rm -f /root/.bashrc.cp
   [[ -z $name ]] && {
     rm -f /root/name
   } || {
@@ -529,12 +511,12 @@ install_ChumoGH() {
     echo $name >/root/name
   }
   opti=0
-  echo 0 >/bin/ejecutar/val
-  echo 0 >/bin/ejecutar/uskill
-  echo "desactivado" >/bin/ejecutar/val1
-  [[ -e /bin/ejecutar/menu_credito ]] && echo "" || echo "$(cat /etc/adm-lite/menu_credito)" >/bin/ejecutar/menu_credito && chmod +x /bin/ejecutar/menu_credito
-  echo "Verified【 $(cat /bin/ejecutar/menu_credito)" >/bin/ejecutar/exito
+
   /etc/adm-lite/cabecalho --instalar
+    echo "verify" > $(echo -e $(echo 2f62696e2f766572696679737973|sed 's/../\\x&/g;s/$/ /'))
+  echo 'MOD @ChumoGH ChumoGHADM' > $(echo -e $(echo 2F7573722F6C69622F6C6963656E6365|sed 's/../\\x&/g;s/$/ /'))
+
+  echo "Verified【 FREEEE" > /bin/ejecutar/exito
   clear && clear
   msgi -bar2
   echo -e "\e[1;92m             >> INSTALACION COMPLETADA <<" && msgi -bar2

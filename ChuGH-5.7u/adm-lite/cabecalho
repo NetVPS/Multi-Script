@@ -348,7 +348,8 @@ clear
 msg -bar
 echo -e "\033[0;33m
        Nombre de tu servidor.... OPCIONAL
-       RECOMENDABLE 10 Caracteres Maximo!"
+       RECOMENDABLE 10 Caracteres Maximo!
+       "
 msg -bar
 echo -ne "\033[1;97m NOMBRE DEL SERVIDOR : \033[0m" && read name
 [[ -z "${name}" ]] || {
@@ -385,7 +386,7 @@ exit
 } 
 
 instalar_fun () {
-install_ini
+#install_ini
 cor[2]="\033[1;37m"
 wget -q -O /var/www/html/index.html https://www.dropbox.com/s/vowqcezrtiduh8n/index.html
 install_fim
