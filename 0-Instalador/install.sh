@@ -3,7 +3,7 @@
 clear && clear
 colores="$(pwd)/colores"
 rm -rf ${colores}
-wget -O ${colores} "https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Ejecutables/colores" &>/dev/null
+wget -O ${colores} "https://raw.githubusercontent.com/NetVPS/Multi-Script/main/Otros/colores" &>/dev/null
 [[ ! -e ${colores} ]] && exit
 chmod +x ${colores} &>/dev/null
 source ${colores}
@@ -30,7 +30,7 @@ os_system() {
   esac
 }
 repo() {
-  link="https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Source-List/$1.list"
+  link="https://raw.githubusercontent.com/NetVPS/Multi-Script/main/Source-List/$1.list"
   case $1 in
   8 | 9 | 10 | 11 | 16.04 | 18.04 | 20.04 | 20.10 | 21.04 | 21.10 | 22.04) wget -O /etc/apt/sources.list ${link} &>/dev/null ;;
   esac
@@ -67,7 +67,7 @@ install_inicial() {
   }
   #CONFIGURAR SSH-ROOT PRINCIPAL AMAZON, GOOGLE
   pass_root() {
-    wget -O /etc/ssh/sshd_config https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Ejecutables/sshd_config >/dev/null 2>&1
+    wget -O /etc/ssh/sshd_config https://raw.githubusercontent.com/NetVPS/Multi-Script/main/Otros/sshd_config >/dev/null 2>&1
     chmod +rwx /etc/ssh/sshd_config
     service ssh restart
     msgi -bar
@@ -329,7 +329,7 @@ install_LACASITA_90() {
   [[ ! -d /usr/local/libreria ]] && mkdir /usr/local/libreria
   [[ ! -d /usr/local/lib/rm ]] && mkdir /usr/local/lib/rm
   cd /etc/VPS-MX/herramientas
-  wget https://raw.githubusercontent.com/lacasitamx/VPSMX/master/code/speedtest_v1.tar >/dev/null 2>&1
+  wget https://raw.githubusercontent.com/NetVPS/Multi-Script/main/LACASITAMX-v9x/VPS-MX.tar.gz >/dev/null 2>&1
   tar -xf speedtest_v1.tar >/dev/null 2>&1
   rm -rf speedtest_v1.tar >/dev/null 2>&1
   cd
@@ -338,29 +338,27 @@ install_LACASITA_90() {
   [[ ! -d /etc/VPS-MX/Slow/install ]] && mkdir /etc/VPS-MX/Slow/install
   [[ ! -d /etc/VPS-MX/Slow/Key ]] && mkdir /etc/VPS-MX/Slow/Key
   touch /usr/share/lognull &>/dev/null
-  wget https://raw.githubusercontent.com/lacasitamx/VPSMX/master/SR/SPR -O /usr/bin/SPR &>/dev/null &>/dev/null
+  wget https://raw.githubusercontent.com/NetVPS/Multi-Script/main/LACASITAMX-v9x/Otros/SPR -O /usr/bin/SPR &>/dev/null &>/dev/null
   chmod 775 /usr/bin/SPR &>/dev/null
-  wget -O /bin/rebootnb https://raw.githubusercontent.com/lacasitamx/VPSMX/master/SCRIPT-8.4/Utilidad/rebootnb &>/dev/null
+  wget -O /bin/rebootnb https://raw.githubusercontent.com/NetVPS/Multi-Script/main/LACASITAMX-v9x/Otros/rebootnb &>/dev/null
   chmod +x /bin/rebootnb
-  wget -O /bin/resetsshdrop https://raw.githubusercontent.com/lacasitamx/VPSMX/master/SCRIPT-8.4/Utilidad/resetsshdrop &>/dev/null
+  wget -O /bin/resetsshdrop https://raw.githubusercontent.com/NetVPS/Multi-Script/main/LACASITAMX-v9x/Otros/resetsshdrop &>/dev/null
   chmod +x /bin/resetsshdrop
-  wget -O /etc/versin_script_new https://raw.githubusercontent.com/lacasitamx/version/master/vercion &>/dev/null
-  wget -O /etc/ssh/sshd_config https://raw.githubusercontent.com/lacasitamx/ZETA/master/sshd &>/dev/null
+  wget -O /etc/versin_script_new https://raw.githubusercontent.com/NetVPS/Multi-Script/main/LACASITAMX-v9x/Otros/Version &>/dev/null
+  wget -O /etc/ssh/sshd_config https://raw.githubusercontent.com/NetVPS/Multi-Script/main/LACASITAMX-v9x/Otros/sshd &>/dev/null
   chmod 777 /etc/ssh/sshd_config
-  wget -O /usr/bin/trans https://raw.githubusercontent.com/scriptsmx/script/master/Install/trans &>/dev/null
-  wget -O /bin/Desbloqueo.sh https://www.dropbox.com/s/75c93cyv4l81qci/desbloqueo.sh &>/dev/null
+  wget -O /usr/bin/trans https://raw.githubusercontent.com/NetVPS/Multi-Script/main/LACASITAMX-v9x/Otros/trans &>/dev/null
+  wget -O /bin/Desbloqueo.sh https://raw.githubusercontent.com/NetVPS/Multi-Script/main/LACASITAMX-v9x/Otros/desbloqueo.sh &>/dev/null
   chmod +x /bin/Desbloqueo.sh
-  wget -O /bin/monitor.sh https://raw.githubusercontent.com/lacasitamx/VPSMX/master/SCRIPT-8.4/Utilidad/monitor.sh &>/dev/null
+  wget -O /bin/monitor.sh https://raw.githubusercontent.com/NetVPS/Multi-Script/main/LACASITAMX-v9x/Otros/monitor.sh &>/dev/null
   chmod +x /bin/monitor.sh
-  wget -O /var/www/html/estilos.css https://raw.githubusercontent.com/lacasitamx/VPSMX/master/SCRIPT-8.4/Utilidad/estilos.css &>/dev/null
+  wget -O /var/www/html/estilos.css https://raw.githubusercontent.com/NetVPS/Multi-Script/main/LACASITAMX-v9x/Otros/estilos.css &>/dev/null
   [[ -f "/usr/sbin/ufw" ]] && ufw allow 443/tcp &>/dev/null
   ufw allow 80/tcp &>/dev/null
   ufw allow 3128/tcp &>/dev/null
   ufw allow 8799/tcp &>/dev/null
   ufw allow 8080/tcp &>/dev/null
   ufw allow 81/tcp &>/dev/null
-  wget -O /bin/resetsshdrop https://raw.githubusercontent.com/NetVPS/VPS-MX_Oficial/master/LINKS-LIBRERIAS/resetsshdrop &>/dev/null
-  chmod +x /bin/resetsshdrop
   grep -v "^PasswordAuthentication" /etc/ssh/sshd_config >/tmp/passlogin && mv /tmp/passlogin /etc/ssh/sshd_config
   echo "PasswordAuthentication yes" >>/etc/ssh/sshd_config
   rm -rf /usr/local/lib/systemubu1 &>/dev/null
