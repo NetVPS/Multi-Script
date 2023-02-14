@@ -823,14 +823,14 @@ echo -e " \e[5m\e[1;100m   =====>> ►►  MENU DE INSTALACION  ◄◄ <<=====  
 msgi -bar2
 #-- VERIFICAR VERSION
 v1=$(curl -sSL "https://raw.githubusercontent.com/NetVPS/Multi-Script/main/Vercion")
-echo "$v1" >/etc/version_instalacion
+echo "$v1" > /etc/version_instalacion
 v22=$(cat /etc/version_instalacion)
 vesaoSCT="\e[1;31m [ \e[1;32m( $v22 )\e[1;97m\e[1;31m ]"
 msgi -ama "   PREPARANDO INSTALACION | VERSION: $vesaoSCT"
 msgi -bar2
 echo -ne "\e[1;93m [\e[1;32m1\e[1;93m]\e[1;31m >\e[1;97m VPS-MX FINAL OFICIAL..(8.5)  \e[1;31m 🎁 FREE \e[97m \n"
 echo -ne "\e[1;93m [\e[1;32m2\e[1;93m]\e[1;31m >\e[1;97m LACASITAMX............(9X)   \e[1;31m 🎁 FREE \e[97m \n"
-echo -ne "\e[1;93m [\e[1;32m3\e[1;93m]\e[1;31m >\e[1;97m ADMRufu                      \e[1;31m 🎁 FREE OBSOLETO\e[97m \n"
+echo -ne "\e[1;93m [\e[1;32m3\e[1;93m]\e[1;31m >\e[1;97m ADMRufu                      \e[1;31m 🎁 FREE PENDIENTE\e[97m \n"
 echo -ne "\e[1;93m [\e[1;32m4\e[1;93m]\e[1;31m >\e[1;97m ChumoGH...............(5.7u) \e[1;31m 🎁 FREE PENDIENTE\e[97m \n"
 echo -ne "\e[1;93m [\e[1;32m5\e[1;93m]\e[1;31m >\e[1;97m LATAM.................(2.0)  \e[1;96m 💎 VIP\e[97m \n"
 msgi -bar2
