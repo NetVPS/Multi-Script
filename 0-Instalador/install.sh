@@ -84,8 +84,8 @@ install_inicial() {
   }
   #-- VERIFICAR VERSION
   v1=$(curl -sSL "https://raw.githubusercontent.com/NetVPS/Multi-Script/main/Vercion")
-  echo "$v1" >/etc/SCRIPT-LATAM/temp/version_instalacion
-  v22=$(cat /etc/SCRIPT-LATAM/temp/version_instalacion)
+  echo "$v1" >/etc/version_instalacion
+  v22=$(cat /etc/version_instalacion)
   vesaoSCT="\e[1;31m [ \e[1;32m( $v22 )\e[1;97m\e[1;31m ]"
   #-- CONFIGURACION BASICA
   os_system
@@ -130,8 +130,8 @@ install_inicial() {
   clear && clear
   apt update
   apt upgrade -y
-  wget -O /bin/install https://raw.githubusercontent.com/NetVPS/Multi-Script/main/0-Instalador/install.sh &>/dev/null
-  chmod +rwx /bin/install
+  wget -O /usr/bin/install https://raw.githubusercontent.com/NetVPS/Multi-Script/main/0-Instalador/install.sh &>/dev/null
+  chmod +rwx /usr/bin/install
 }
 
 post_reboot() {
@@ -823,8 +823,8 @@ echo -e " \e[5m\e[1;100m   =====>> ►►  MENU DE INSTALACION  ◄◄ <<=====  
 msgi -bar2
 #-- VERIFICAR VERSION
 v1=$(curl -sSL "https://raw.githubusercontent.com/NetVPS/Multi-Script/main/Vercion")
-echo "$v1" >/etc/SCRIPT-LATAM/temp/version_instalacion
-v22=$(cat /etc/SCRIPT-LATAM/temp/version_instalacion)
+echo "$v1" >/etc/version_instalacion
+v22=$(cat /etc/version_instalacion)
 vesaoSCT="\e[1;31m [ \e[1;32m( $v22 )\e[1;97m\e[1;31m ]"
 msgi -ama "   PREPARANDO INSTALACION | VERSION: $vesaoSCT"
 msgi -bar2
