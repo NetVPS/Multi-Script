@@ -80,7 +80,7 @@ echo -e "\033[0;35m [\033[0;36m9\033[0;35m]\033[0;31m ${flech}${cor[3]} INSTALAD
 msg -bar1 
 echo -ne "\033[0;35m [\033[0;36m10\033[0;35m]\033[0;31m ${flech}\033[0;33m [!] \033[1;32mACTUALIZAR${cor[3]}  |" && echo -e " \033[0;35m [\033[0;36m0\033[0;35m]\033[0;31m ${flech} $(msg -bra "\033[1;41m[ Salir ]\e[0m")"
 msg -bar1  
-chekKEY &> /dev/null 2>&1
+#chekKEY &> /dev/null 2>&1
 }
 
 #FUNCION DE SELECCION

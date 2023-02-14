@@ -85,7 +85,7 @@ else
 echo -e "\033[0;33m(\033[0;32mCONTADOR :$limiter_on\033[0;33m) \033[1;36mActiva en MENU 7-OPCION 6\033[1;31m\033[1;36m\033[1;31m (Kill OFF)\033[0m"
 fi
 msg -bar
-chekKEY &> /dev/null 2>&1
+#chekKEY &> /dev/null 2>&1
 
 mportas () {
 unset portas
