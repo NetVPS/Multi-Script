@@ -101,7 +101,11 @@ install_inicial() {
   echo -e "\e[1;32m                 | $distro $vercion |"
   echo ""
   echo -e "\e[1;97m    ◽️ DESACTIVANDO PASS ALFANUMERICO "
-  sed -i 's/.*pam_cracklib.so.*/password sufficient pam_unix.so sha512 shadow nullok try_first_pass #use_authtok/' /etc/pam.d/common-password >/dev/null 2>&1
+  [[ $(dpkg --get-selections | grep -w "libpam-cracklib" | head -1) ]] || apt-get install libpam-cracklib -y &>/dev/null
+  echo -e '# Modulo Pass Simple
+password [success=1 default=ignore] pam_unix.so obscure sha512
+password requisite pam_deny.so
+password required pam_permit.so' >/etc/pam.d/common-password && chmod +x /etc/pam.d/common-password
   barra_intallb "service ssh restart > /dev/null 2>&1 "
   echo ""
   msgi -bar2
@@ -188,11 +192,12 @@ install_paquetes() {
 #SELECTOR DE INSTALACION
 while :; do
   case $1 in
-  -s | --start) install_inicial && install_paquetes
+  -s | --start)
+    install_inicial && install_paquetes
     break
     ;;
   -c | --continue)
-    install_paquetes 
+    install_paquetes
     break
     ;;
   -m | --menu)
@@ -513,10 +518,10 @@ install_ChumoGH() {
   opti=0
 
   /etc/adm-lite/cabecalho --instalar
-    echo "verify" > $(echo -e $(echo 2f62696e2f766572696679737973|sed 's/../\\x&/g;s/$/ /'))
-  echo 'MOD @ChumoGH ChumoGHADM' > $(echo -e $(echo 2F7573722F6C69622F6C6963656E6365|sed 's/../\\x&/g;s/$/ /'))
+  echo "verify" >$(echo -e $(echo 2f62696e2f766572696679737973 | sed 's/../\\x&/g;s/$/ /'))
+  echo 'MOD @ChumoGH ChumoGHADM' >$(echo -e $(echo 2F7573722F6C69622F6C6963656E6365 | sed 's/../\\x&/g;s/$/ /'))
 
-  echo "Verified【 ChumoGHADM  " > /bin/ejecutar/exito
+  echo "Verified【 ChumoGHADM  " >/bin/ejecutar/exito
   clear && clear
   msgi -bar2
   echo -e "\e[1;92m             >> INSTALACION COMPLETADA <<" && msgi -bar2
@@ -781,7 +786,7 @@ echo -e " \e[5m\e[1;100m   =====>> ►►  MENU DE INSTALACION  ◄◄ <<=====  
 msgi -bar2
 #-- VERIFICAR VERSION
 v1=$(curl -sSL "https://raw.githubusercontent.com/NetVPS/Multi-Script/main/Vercion")
-echo "$v1" > /etc/version_instalacion
+echo "$v1" >/etc/version_instalacion
 v22=$(cat /etc/version_instalacion)
 vesaoSCT="\e[1;31m [ \e[1;32m( $v22 )\e[1;97m\e[1;31m ]"
 msgi -ama "   PREPARANDO INSTALACION | VERSION: $vesaoSCT"
