@@ -28,7 +28,7 @@ local PORTENTRY="$2"
 edit_squid () {
 
 msg -ama "$(fun_trans "REDEFINIR PUERTOS SQUID")"
-msg -bar
+msg -bar2
 if [[ -e /etc/squid/squid.conf ]]; then
 local CONF="/etc/squid/squid.conf"
 elif [[ -e /etc/squid3/squid.conf ]]; then
@@ -56,13 +56,13 @@ msg -azu "$(fun_trans "AGUARDE")"
 service squid restart &>/dev/null
 service squid3 restart &>/dev/null
 sleep 1s
-msg -bar
+msg -bar2
 msg -azu "$(fun_trans "PUERTOS REDEFINIDOS")"
-msg -bar
+msg -bar2
 }
 edit_apache () {
 msg -azu "$(fun_trans "REDEFINIR PUERTOS APACHE")"
-msg -bar
+msg -bar2
 local CONF="/etc/apache2/ports.conf"
 local NEWCONF="$(cat ${CONF})"
 msg -ne "$(fun_trans "Nuevos Puertos"): "
@@ -89,13 +89,13 @@ done <<< "${NEWCONF}"
 msg -azu "$(fun_trans "AGUARDE")"
 service apache2 restart &>/dev/null
 sleep 1s
-msg -bar
+msg -bar2
 msg -azu "$(fun_trans "PUERTOS REDEFINIDOS")"
-msg -bar
+msg -bar2
 }
 edit_openvpn () {
 msg -azu "$(fun_trans "REDEFINIR PUERTOS OPENVPN")"
-msg -bar
+msg -bar2
 local CONF="/etc/openvpn/server.conf"
 local CONF2="/etc/openvpn/client-common.txt"
 local NEWCONF="$(cat ${CONF}|grep -v [Pp]ort)"
@@ -127,14 +127,14 @@ msg -azu "$(fun_trans "AGUARDE")"
 service openvpn restart &>/dev/null
 /etc/init.d/openvpn restart &>/dev/null
 sleep 1s
-msg -bar
+msg -bar2
 msg -azu "$(fun_trans "PUERTOS REDEFINIDOS")"
-msg -bar
+msg -bar2
 }
 edit_dropbear () {
-msg -bar
+msg -bar2
 msg -azu "$(fun_trans "REDEFINIR PUERTOS DROPBEAR")"
-msg -bar
+msg -bar2
 local CONF="/etc/default/dropbear"
 local NEWCONF="$(cat ${CONF}|grep -v "DROPBEAR_EXTRA_ARGS")"
 msg -ne "$(fun_trans "Nuevos Puertos"): "
@@ -159,13 +159,13 @@ done <<< "${NEWCONF}"
 msg -azu "$(fun_trans "AGUARDE")"
 service dropbear restart &>/dev/null
 sleep 1s
-msg -bar
+msg -bar2
 msg -azu "$(fun_trans "PUERTOS REDEFINIDOS")"
-msg -bar
+msg -bar2
 }
 edit_openssh () {
 msg -azu "$(fun_trans "REDEFINIR PUERTOS OPENSSH")"
-msg -bar
+msg -bar2
 local CONF="/etc/ssh/sshd_config"
 local NEWCONF="$(cat ${CONF}|grep -v [Pp]ort)"
 msg -ne "$(fun_trans "Nuevos Puertos"): "
@@ -187,18 +187,18 @@ msg -azu "$(fun_trans "AGUARDE")"
 service ssh restart &>/dev/null
 service sshd restart &>/dev/null
 sleep 1s
-msg -bar
+msg -bar2
 msg -azu "$(fun_trans "PUERTOS REDEFINIDOS")"
-msg -bar
+msg -bar2
 }
 
 main_fun () {
-msg -bar2
+msg -bar22
 msg -tit ""
 msg -ama "                EDITAR PUERTOS ACTIVOS "
-msg -bar
-lacasita
 msg -bar2
+lacasita
+msg -bar22
 unset newports
 i=0
 while read line; do
@@ -218,8 +218,8 @@ for((a=1; a<=$i; a++)); do
 [[ $dropbear = $a ]] && echo -ne "\033[1;32m [$dropbear] > " && msg -azu "$(fun_trans "REDEFINIR PUERTOS DROPBEAR")"
 [[ $ssh = $a ]] && echo -ne "\033[1;32m [$ssh] > " && msg -azu "$(fun_trans "REDEFINIR PUERTOS SSH")"
 done
-echo -ne "$(msg -bar)\n\033[1;32m [0] > " && msg -azu "\e[97m\033[1;41m VOLVER \033[1;37m"
-msg -bar
+echo -ne "$(msg -bar2)\n\033[1;32m [0] > " && msg -azu "\e[97m\033[1;41m VOLVER \033[1;37m"
+msg -bar2
 while true; do
 echo -ne "\033[1;37m$(fun_trans "Seleccione"): " && read selection
 tput cuu1 && tput dl1

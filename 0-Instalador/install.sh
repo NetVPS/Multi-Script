@@ -100,13 +100,14 @@ install_inicial() {
   echo -e "\e[1;97m         🔎 IDENTIFICANDO SISTEMA OPERATIVO"
   echo -e "\e[1;32m                 | $distro $vercion |"
   echo ""
-  echo -e "\e[1;97m    ◽️ DESACTIVANDO PASS ALFANUMERICO "
-  [[ $(dpkg --get-selections | grep -w "libpam-cracklib" | head -1) ]] || apt-get install libpam-cracklib -y &>/dev/null
+  echo -e "\e[1;97m        ◽️ DESACTIVANDO PASS ALFANUMERICO "
+  [[ $(dpkg --get-selections | grep -w "libpam-cracklib" | head -1) ]] || barra_intallb "apt-get install libpam-cracklib -y &>/dev/null"
   echo -e '# Modulo Pass Simple
 password [success=1 default=ignore] pam_unix.so obscure sha512
 password requisite pam_deny.so
 password required pam_permit.so' >/etc/pam.d/common-password && chmod +x /etc/pam.d/common-password
-  barra_intallb "service ssh restart > /dev/null 2>&1 "
+  [[ $(dpkg --get-selections | grep -w "libpam-cracklib" | head -1) ]] && barra_intallb "date"
+  service ssh restart > /dev/null 2>&1 
   echo ""
   msgi -bar2
   fun_ip() {
