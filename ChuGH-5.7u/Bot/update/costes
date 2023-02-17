@@ -1,0 +1,31 @@
+#!/bin/bash
+
+#!/bin/bash
+[[ -e /etc/ADM-db/idioma_menuinst ]] && tr=$(cat < /etc/ADM-db/idioma_menuinst)
+
+prices_on () {
+[[ -z ${callback_query_from_first_name} ]] && firsnme="${message_from_first_name}" || firsnme="${callback_query_from_first_name}"
+[[ -z ${callback_query_from_last_name} ]] && lastnme="${message_from_last_name}" || lastnme="${callback_query_from_last_name}"
+local msg
+          msg=' •••••••••••••••••••••••••••••••••••••••••••••••••\n'
+		  msg+=" Hola, 『 ${firsnme} ${lastnme} 』 \n"
+		  msg+=' •••••••••••••••••••••••••••••••••••••••••••••••••\n' 
+          msg+=' $0.70 USD - Acceso ilimitado al BOT 4 dias \n'   
+		  msg+=' $1.00 USD - Acceso ilimitado al BOT 7 dias \n'   
+          msg+=' $1.50 USD - Acceso ilimitado al BOT 15 dias \n'   
+          msg+=' $2.00 USD - Acceso ilimitado al BOT 30 dias \n'   
+		  msg+=' $3.00 USD - Acceso ilimitado al BOT 60 dias\n' 
+		  msg+=' $4.00 USD - Acceso ilimitado al BOT 90 dias\n' 
+		  msg+=' $5.00 USD - Acceso ilimitado al BOT 180 dias\n' 
+		  msg+=' $9.00 USD - Acceso ilimitado al BOT 365 dias\n' 
+		  msg+='•••••••••••••••••••••••••••••••••••••••••••••••••\n' 
+		  msg+=" BOT PREMIUM CON ACCESO Ilimitado \n Incluyendo tu reseller en la Key! \n Soporte, Actualizaciones y MAS!!)\n"
+		  msg+='•••••••••••••••••••••••••••••••••••••••••••••••••\n'  
+		  msg+=" VISITA NUESTRO CATALOGO EN https://shoppy.gg/@ChumoGH/ \n"
+		  msg+='•••••••••••••••••••••••••••••••••••••••••••••••••\n'  
+          ShellBot.sendMessage	--chat_id "${message_chat_id[$id]}" \
+							--reply_to_message_id "${message_message_id[$id]}" \
+							--text "<i>$(echo -e $msg)</i>" \
+							--parse_mode html
+return 0
+}

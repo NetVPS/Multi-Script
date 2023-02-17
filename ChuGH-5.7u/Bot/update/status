@@ -1,0 +1,46 @@
+#!/bin/bash
+
+infosys_src () {
+
+#HORA Y FECHA
+unset _hora
+unset _fecha
+_hora=$(printf '%(%H:%M:%S)T') 
+_fecha=$(printf '%(%D)T') 
+
+#PROCESSADOR
+unset _core
+unset _usop
+_core=$(printf '%-1s' "$(grep -c cpu[0-9] /proc/stat)")
+_usop=$(printf '%-1s' "$(top -bn1 | awk '/Cpu/ { cpu = "" 100 - $8 "%" }; END { print cpu }')")
+
+#MEMORIA RAM
+unset ram1
+unset ram2
+unset ram3
+ram1=$(free -h | grep -i mem | awk {'print $2'})
+ram2=$(free -h | grep -i mem | awk {'print $4'})
+ram3=$(free -h | grep -i mem | awk {'print $3'})
+
+unset _ram
+unset _usor
+_ram=$(printf ' %-9s' "$(free -h | grep -i mem | awk {'print $2'})")
+_usor=$(printf '%-8s' "$(free -m | awk 'NR==2{printf "%.2f%%", $3*100/$2 }')")
+
+unset os_sys
+os_sys=$(echo $(cat -n /etc/issue |grep 1 |cut -d' ' -f6,7,8 |sed 's/1//' |sed 's/      //')) && echo $system|awk '{print $1, $2}'
+
+bot_retorno="$LINE\n"
+          bot_retorno+="S.O: $os_sys\n"
+	  bot_retorno+="Su IP es: $(meu_ip)\n"
+	  bot_retorno+="$LINE\n"
+	  bot_retorno+="Ram: $ram1 || En Uso: $_usor\n"
+	  bot_retorno+="USADA: $ram3 || LIBRE: $ram2\n"
+	  bot_retorno+="$LINE\n"
+	  bot_retorno+="CPU: $_core || En Uso: $_usop\n"
+	  bot_retorno+="$LINE\n"
+	  bot_retorno+="FECHA: $_fecha\n"
+	  bot_retorno+="HORA: $_hora\n"
+          bot_retorno+="$LINE\n"
+msj_fun
+}

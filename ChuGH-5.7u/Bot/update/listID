@@ -1,0 +1,91 @@
+#!/bin/bash
+# -*- ENCODING: UTF-8 -*-
+
+
+listID_GEN () {
+unset bot_lin
+n=1
+for i in $(cat /etc/ADM-db/User-ID | awk '{print $1}' | sed -e 's/[^a-z0-9 -]//ig'); do 
+idlog=$(cat /etc/ADM-db/User-ID | grep "$i" | awk '{print $3}')
+#idGEN=$(grep -o -i $idlog /etc/ADM-db/num-key.cont | wc -l)
+[[ -e /etc/ADM-db/num-key.cont ]] && idGEN=$(cat /etc/ADM-db/num-key.cont | grep $i | wc -l) || idGEN=0
+bot_lin+="  $n] > <tg-spoiler>${i}</tg-spoiler> | $idlog | ${idGEN}\n"
+#lsid=$(cat -n ${CID})
+let n++
+done
+local bot_retorno="$LINE\n"
+          bot_retorno+='   - ID´S AUTORIZADOS + GENERADAS -\n'
+          bot_retorno+="$LINE\n"
+          bot_retorno+=" $(echo -e ${bot_lin}) "  #|column -t -s '-')"
+          bot_retorno+="$LINE\n"
+msj_fun
+}
+
+listID_src () {
+lsid=$(cat -n ${CID})
+local bot_retorno=" $LINE\n"
+          bot_retorno+="     - ID'S AUTORIZADOS -\n"
+          bot_retorno+="$LINE\n"
+          bot_retorno+="${lsid}\n"
+          bot_retorno+="$LINE\n"
+msj_fun
+}
+
+ChatADM () {
+local bot_retorno=" $LINE\n"
+          bot_retorno+=" ENVIA TU ARCHIVO O COMPROBANTE AL ADM\n"
+          bot_retorno+=" MODELO EN EVOLUCCION DE @ChumoGH\n"
+          bot_retorno+="\n"
+          bot_retorno+="$LINE\n"
+msj_fun
+}
+
+
+
+list_IP () {
+unset lsid
+unset idchek
+[[ -z ${idchek} ]] && idchek="${message_from_id}" 
+[[ -z ${idchek} ]] && idchek="${callback_query_from_id}"
+[[ -z "$(cat /etc/ADM-db/User-ID | grep ${idchek} )" ]] && {
+	[[ "$(cat /etc/ADM-db/Admin-ID)" == "${idchek}" ]] && {
+	cat /var/www/html/ChumoGH/checkIP.log > /tmp/ips
+	echo -e " $(cat /tmp/ips | awk '{print $3}' | uniq)" > /tmp/ipchek
+	lsid=$(cat -n /tmp/ipchek)
+	local bot_retorno=" $LINE\n"
+          bot_retorno+='  - ULTIMOS IP´S UNICOS CAPTURADOS  \n'
+          bot_retorno+="  -  TIENES $(cat /var/www/html/ChumoGH/checkIP.log | wc -l) IP´s CAPTURADAS \n"
+          bot_retorno+="$LINE\n"
+          bot_retorno+=" ${lsid}\n"
+          bot_retorno+="$LINE\n"
+			}
+
+} || {
+cat /var/www/html/ChumoGH/checkIP.log | grep "${idchek}" > /tmp/ips
+echo -e " $(cat /tmp/ips | awk '{print $3}' | uniq)" > /tmp/ipchek
+lsid=$(cat -n /tmp/ipchek)
+local bot_retorno=" $LINE\n"
+          bot_retorno+='  - ULTIMOS IP´S UNICOS CAPTURADOS  \n'
+          bot_retorno+="  -  TIENES $(cat /var/www/html/ChumoGH/checkIP.log | grep ${idchek} | wc -l) IP´s CAPTURADAS DE TUS GENERADAS \n"
+          bot_retorno+="$LINE\n"
+          bot_retorno+=" ${lsid}\n"
+          bot_retorno+="$LINE\n"
+}
+msj_fun
+}
+
+
+listID_RESS () {
+i=1
+for lRES in $(ls ${CIDRESS}); do 
+echo "  $i /$lRES"
+let i++
+done
+lsid=$(ls ${CIDRESS})
+local bot_retorno="$LINE\n"
+          bot_retorno+="Lista de id permitidos\n"
+          bot_retorno+="$LINE\n"
+          bot_retorno+="${lsid}\n"
+          bot_retorno+="$LINE\n"
+msj_fun
+}

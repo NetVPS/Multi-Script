@@ -1,0 +1,30 @@
+#!/bin/bash
+
+dupdate2 (){
+rm -rf /etc/ADM-db/*
+rm -rf /etc/SCRIPT/*
+}
+
+update () {
+#[[ -e /etc/nivbot ]] || echo "0" > /etc/nivbot
+#[[ -d /etc/ADM-db ]] && chmod +x /etc/ADM-db/*
+#echo -ne "\033[1;31m[ ! ] RESPALDANDO USUARIO ADMINISTRADOR "
+#(
+#[[ -e /etc/ADM-db/sources/costes ]] && mv /etc/ADM-db/sources/costes $HOME/costes
+#[[ -e /etc/ADM-db/token ]] && mv /etc/ADM-db/token $HOME/token
+#[[ -e /etc/ADM-db/Admin-ID ]] && mv /etc/ADM-db/Admin-ID $HOME/Admin-ID
+#[[ -e /etc/ADM-db/User-ID ]] && mv /etc/ADM-db/User-ID $HOME/User-ID
+#[[ -e /etc/ADM-db/limit ]] && mv /etc/ADM-db/limit $HOME/limit 
+#[[ -e /etc/ADM-db/resell ]] && mv  /etc/ADM-db/resell $HOME/resell
+#[[ -e /etc/ADM-db/ress ]] && mv  /etc/ADM-db/ress $HOME/ress
+#[[ -e /etc/ADM-db/num-key.cont ]] && mv /etc/ADM-db/num-key.cont $HOME/num-key.cont 
+#) && echo -e "\033[1;32m [OK]" || echo -e "\033[1;31m [FAIL]"
+#rm -rf /etc/ADM-db
+#CIDdir=/etc/ADM-db && [[ ! -d ${CIDdir} ]] && mkdir ${CIDdir}
+#[[ ! -e "${CIDdir}/confbot.sh" ]] && wget --no-check-certificate -O ${CIDdir}/confbot.sh https://www.dropbox.com/s/9q5o523m1ns8vkd/confbot-t.sh &> /dev/null && chmod +x ${CIDdir}/confbot.sh
+#sed -i -e 's/\r$//' ${CIDdir}/confbot.sh
+#echo $id > /etc/ADM-db/idioma_menuinst
+#source ${CIDdir}/confbot.sh
+#bot_conf
+files_script
+}
