@@ -1,7 +1,7 @@
 #!/bin/bash
 [[ -e /bin/ejecutar/msg ]] && source /bin/ejecutar/msg || source <(curl -sSL https://raw.githubusercontent.com/ChumoGH/ChumoGH-Script/master/msg-bar/msg)
 bar="$(msg -bar3)"
-[[ -e /etc/systemd/system/btkill.service ]] && systemctl restart btkill.service &>/dev/null
+[[ -e /etc/systemd/system/btkill.service ]] && systemctl restart btkill.service &>/dev/null.
 tr=${id}
 ofus () {
 unset txtofus
