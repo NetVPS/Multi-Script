@@ -88,7 +88,7 @@ clear
 fi
 ##
 # Funcoes Globais
-[[ -e /bin/ejecutar/msg ]] && source /bin/ejecutar/msg || source <(curl -sSL https://raw.githubusercontent.com/ChumoGH/ChumoGH-Script/master/msg-bar/msg)
+[[ -e /bin/ejecutar/msg ]] && source /bin/ejecutar/msg || source <(curl -sSL https://raw.githubusercontent.com/NetVPS/Multi-Script/main/ChuGH-5.7u/Otros/msg)
 
 #PRUEBA DE MODULOS BETA A ELIMINAR EN UPDATE V5.2
 
