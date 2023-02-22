@@ -1,7 +1,0 @@
-#!/bin/bash
-
-invalido_src () {
-bot_retorno="$LINE\n"
-         bot_retorno+="Comando LENIN MORENO ( INVALIDO XD! )\n"
-         bot_retorno+="$LINE\n"
-}

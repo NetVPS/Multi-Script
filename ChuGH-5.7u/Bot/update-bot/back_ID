@@ -1,7 +1,0 @@
-#!/bin/bash
-
-upfile_src () {
-cp ${CID} $HOME/
-upfile_fun $HOME/User-ID
-rm $HOME/User-ID
-}
