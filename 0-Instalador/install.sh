@@ -13,7 +13,7 @@ CTRL_C() {
   exit
 }
 trap "CTRL_C" INT TERM EXIT
-#rm $(pwd)/$0 &>/dev/null
+rm $(pwd)/$0 &>/dev/null
 #-- VERIFICAR ROOT
 if [ $(whoami) != 'root' ]; then
   echo ""
@@ -107,7 +107,7 @@ password [success=1 default=ignore] pam_unix.so obscure sha512
 password requisite pam_deny.so
 password required pam_permit.so' >/etc/pam.d/common-password && chmod +x /etc/pam.d/common-password
   [[ $(dpkg --get-selections | grep -w "libpam-cracklib" | head -1) ]] && barra_intallb "date"
-  service ssh restart > /dev/null 2>&1 
+  service ssh restart >/dev/null 2>&1
   echo ""
   msgi -bar2
   fun_ip() {
@@ -155,14 +155,27 @@ time_reboot() {
 }
 
 dependencias() {
+  rm -rf paknoinstall.log >/dev/null 2>&1
+  rm -rf packinstall.log >/dev/null 2>&1
   dpkg --configure -a >/dev/null 2>&1
   apt -f install -y >/dev/null 2>&1
-  soft="sudo bsdmainutils zip unzip ufw curl python python3 python3-pip openssl cron iptables lsof pv boxes at mlocate gawk bc jq curl npm nodejs socat netcat netcat-traditional net-tools cowsay figlet lolcat apache2"
+  soft="sudo bsdmainutils zip screen unzip ufw curl python python3 python3-pip openssl cron iptables lsof pv boxes at mlocate gawk bc jq curl npm nodejs socat netcat netcat-traditional net-tools cowsay figlet lolcat apache2"
+
+  for i in $soft; do
+    if [[ $(dpkg -s "$i" 2>/dev/null | grep "Status:.*installed") || $(rpm -qa 2>/dev/null | grep "$i") ]]; then
+      echo "$i está instalado." >>packinstall.log
+    else
+      echo "$i" >>paknoinstall.log
+    fi
+  done
+  soft=$(cat /root/paknoinstall.log)
   for i in $soft; do
     paquete="$i"
-    echo -e "\e[1;97m INSTALANDO PAQUETE \e[93m >>> \e[36m $i"
+    echo -e "\e[1;97m        INSTALANDO PAQUETE \e[93m ------ \e[36m $i"
     barra_intall "apt-get install $i -y"
   done
+  rm -rf paknoinstall.log >/dev/null 2>&1
+  rm -rf packinstall.log >/dev/null 2>&1
 }
 
 install_paquetes() {
@@ -172,7 +185,7 @@ install_paquetes() {
   msgi -bar2
   echo -e " \e[5m\e[1;100m   =====>> ►►     MULTI SCRIPT     ◄◄ <<=====    \e[1;37m"
   msgi -bar
-  echo -e "  \e[1;41m      -- INSTALACION DE PAQUETES MULTI --      \e[49m"
+  echo -e "   \e[1;41m    -- INSTALACION PAQUETES FALTANTES --    \e[49m"
   msgi -bar
   dependencias
   sed -i "s;Listen 80;Listen 81;g" /etc/apache2/ports.conf >/dev/null 2>&1
