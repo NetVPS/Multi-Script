@@ -155,27 +155,27 @@ time_reboot() {
 }
 
 dependencias() {
-  rm -rf paknoinstall.log >/dev/null 2>&1
-  rm -rf packinstall.log >/dev/null 2>&1
+  rm -rf /root/paknoinstall.log >/dev/null 2>&1
+  rm -rf /root/packinstall.log >/dev/null 2>&1
   dpkg --configure -a >/dev/null 2>&1
   apt -f install -y >/dev/null 2>&1
   soft="sudo bsdmainutils zip screen unzip ufw curl python python3 python3-pip openssl cron iptables lsof pv boxes at mlocate gawk bc jq curl npm nodejs socat netcat netcat-traditional net-tools cowsay figlet lolcat apache2"
 
-  for i in $soft; do
-    if [[ $(dpkg -s "$i" 2>/dev/null | grep "Status:.*installed") || $(rpm -qa 2>/dev/null | grep "$i") ]]; then
-      echo "$i está instalado." >>packinstall.log
-    else
-      echo "$i" >>paknoinstall.log
-    fi
-  done
-  soft=$(cat /root/paknoinstall.log)
+ # for i in $soft; do
+  #  if [[ $(dpkg -s "$i" 2>/dev/null | grep "Status:.*installed") || $(rpm -qa 2>/dev/null | grep "$i") ]]; then
+   #   echo "$i está instalado." >> /root/packinstall.log
+    #else
+     # echo "$i" >> /root/paknoinstall.log
+    #fi
+  #done
+  #soft=$(cat /root/paknoinstall.log)
   for i in $soft; do
     paquete="$i"
     echo -e "\e[1;97m        INSTALANDO PAQUETE \e[93m ------ \e[36m $i"
     barra_intall "apt-get install $i -y"
   done
-  rm -rf paknoinstall.log >/dev/null 2>&1
-  rm -rf packinstall.log >/dev/null 2>&1
+  rm -rf /root/paknoinstall.log >/dev/null 2>&1
+  rm -rf /root/packinstall.log >/dev/null 2>&1
 }
 
 install_paquetes() {
