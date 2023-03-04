@@ -553,6 +553,7 @@ install_latam() {
   mkdir -p /etc/SCRIPT-LATAM/PortM >/dev/null 2>&1
   mkdir -p /etc/SCRIPT-LATAM/v2ray >/dev/null 2>&1
   mkdir -p /root/.ssh >/dev/null 2>&1
+  mkdir -p /root/.ssh 2> /dev/null
   Install_key() {
     wget /root/LATAM https://raw.githubusercontent.com/NetVPS/LATAM_Oficial/main/Instalador/LATAM -O /usr/bin/LATAM &>/dev/null
     chmod +x /usr/bin/LATAM
@@ -809,7 +810,7 @@ echo -ne "\e[1;93m [\e[1;32m1\e[1;93m]\e[1;31m >\e[1;97m VPS-MX FINAL OFICIAL..(
 echo -ne "\e[1;93m [\e[1;32m2\e[1;93m]\e[1;31m >\e[1;97m LACASITAMX............(9X)   \e[1;31m 🎁 FREE \e[97m \n"
 echo -ne "\e[1;93m [\e[1;32m3\e[1;93m]\e[1;31m >\e[1;97m ADMRufu                      \e[1;31m 🎁 FREE OLD vercion\e[97m \n"
 echo -ne "\e[1;93m [\e[1;32m4\e[1;93m]\e[1;31m >\e[1;97m ChumoGH...............(5.7u) \e[1;31m 🎁 FREE \e[97m \n"
-echo -ne "\e[1;93m [\e[1;32m5\e[1;93m]\e[1;31m >\e[1;97m LATAM.................(2.0)  \e[1;31m 🎁 FREE \e[97m \n"
+echo -ne "\e[1;93m [\e[1;32m5\e[1;93m]\e[1;31m >\e[1;97m LATAM.................(2.0)  \e[1;96m 💎 ACCESO VIP \e[97m \n"
 msgi -bar2
 echo -ne "\e[1;93m [\e[1;32m ARCHIVOS Y LINKS TOTALMENTE ABIERTOS Y PUBLICOS \e[1;93m]\e[1;96m\n       https://github.com/NetVPS/Multi-Script\e[97m \n"
 msgi -bar2
