@@ -2,7 +2,7 @@
 clear
 if [ `whoami` != 'root' ]
 	then 
-     echo -e "\e[1;31mPARA PODER USAR EL INSTALADOR ES NECESARIO SER ROOT\nAUN NO SABES COMO INICAR COMO ROOT?\nDIJITA ESTE COMANDO EN TU TERMINAL ( sudo -i )\e[0m" 
+     echo -e "\e[1;31mIN ORDER TO USE THE INSTALLER, IT IS NECESSARY TO BE ROOT\nYOU DON'T KNOW HOW TO START AS ROOT?\nDIJECT THIS COMMAND IN YOUR TERMINAL ( sudo -i )\e[0m" 
      rm *
      exit 
 fi
@@ -72,9 +72,9 @@ dependencias() {
 }
 
 msg -bar2
-echo -e "   \e[1;97m\e[1;100m =====>>►►  SCRIPT MOD LACASITAMX  ◄◄<<===== \033[0m"
+echo -e "   \e[1;97m\e[1;100m =====>>►►  SCRIPT LACASITAMX BY MALINDA  ◄◄<<===== \033[0m"
 msg -bar2
-msg -ama "               PREPARANDO INSTALACION"
+msg -ama "               PREPARING INSTALLATION"
 msg -bar2
 INSTALL_DIR_PARENT="/usr/local/vpsmxup/"
 INSTALL_DIR=${INSTALL_DIR_PARENT}
@@ -98,13 +98,13 @@ function printTitle
     echo ""
 }
 
-printTitle "Limpieza de caché local"
+printTitle "Local cache cleaning"
 apt-get clean
 
-printTitle "Actualizar información de paquetes disponibles"
+printTitle "Update available package information"
 apt-get update
 apt list --upgradable &>/dev/null 
-printTitle "PAQUETES DE ACTUALIZACIÓN"
+printTitle "UPDATE PACKAGES"
 apt-get dist-upgrade -y
 clear
 clear
@@ -118,7 +118,7 @@ echo -e "\e[1;31m	🖥SISTEMA: \e[33m$distro $vercion   "
 echo -e "\e[1;31m	🖥IP: \e[33m$MI   "
 #apt list --upgradable &>/dev/null && echo -e "\033[97m    ❯ INSTALANDO APT-LIST " | pv -qL 50 |lolcat -as 500
 msg -bar2
-echo -e "   \e[1;97m\e[1;100m =====>>►►  SCRIPT MOD LACASITAMX  ◄◄<<===== \033[0m"
+echo -e "   \e[1;97m\e[1;100m =====>>►►  SCRIPT MOD LACASITAMX ENGLISH VERSION BY MALINDA ◄◄<<===== \033[0m"
 msg -bar
 echo -e "\033[97m"
 echo -e "  \033[41m    -- INSTALACION DE PAQUETES  --    \e[49m"
@@ -126,7 +126,7 @@ echo -e "  \033[41m    -- INSTALACION DE PAQUETES  --    \e[49m"
 echo -e "\033[97m"
 msg -bar
 if [[ -e /etc/casitapak ]]; then
-dpkg --configure -a > /dev/null 2>&1 && echo -e "\033[93m    ❯\e[97m INTENTANDO RECONFIGURAR  " | pv -qL 40 
+dpkg --configure -a > /dev/null 2>&1 && echo -e "\033[93m    ❯\e[97m TRYING TO RESET " | pv -qL 40 
 sudo apt-get install lolcat -y &>/dev/null
 sudo gem install lolcat -y &>/dev/null
 [[ $(dpkg --get-selections|grep -w "curl"|head -1) ]] || apt-get install curl -y &>/dev/null
@@ -168,19 +168,19 @@ apt install sudo -y &>/dev/null
 apt-get install grep -y &>/dev/null
 [[ $(dpkg --get-selections|grep -w "grep"|head -1) ]] || apt-get install grep -y &>/dev/null
 #[[ $(dpkg --get-selections|grep -w "grep"|head -1) ]] || ESTATUS=$(echo -e "\033[91m       INSTALACION FALLIDA") &>/dev/null
-[[ $(dpkg --get-selections|grep -w "grep"|head -1) ]] && ESTATUS=$(echo -e "\033[1;33m       \033[92mINSTALADO") &>/dev/null
+[[ $(dpkg --get-selections|grep -w "grep"|head -1) ]] && ESTATUS=$(echo -e "\033[1;33m       \033[92mINSTALLED") &>/dev/null
 echo -ne "  \033[1;33m[\033[1;31m##########\033[1;33m] \e[97mgrep$ESTATUS \033[0m\n" |pv -qL 50
 #gawk
 apt-get install gawk -y &>/dev/null
 [[ $(dpkg --get-selections|grep -w "gawk"|head -1) ]] || apt-get install gawk -y &>/dev/null
 #[[ $(dpkg --get-selections|grep -w "gawk"|head -1) ]] || ESTATUS=`echo -e "\033[91m       INSTALACION FALLIDA"` &>/dev/null
-[[ $(dpkg --get-selections|grep -w "gawk"|head -1) ]] && ESTATUS=`echo -e "\033[92m       INSTALADO"` &>/dev/null
+[[ $(dpkg --get-selections|grep -w "gawk"|head -1) ]] && ESTATUS=`echo -e "\033[92m       INSTALLED"` &>/dev/null
 echo -ne "  \033[1;33m[\033[1;31m##########\033[1;33m] \e[97mgawk$ESTATUS \033[0m\n" |pv -qL 50
 #mlocate
 apt-get install mlocate -y &>/dev/null
 [[ $(dpkg --get-selections|grep -w "mlocate"|head -1) ]] || apt-get install mlocate -y &>/dev/null
 #[[ $(dpkg --get-selections|grep -w "mlocate"|head -1) ]] || ESTATUS=$(echo -e "\033[91m    INSTALACION FALLIDA") &>/dev/null
-[[ $(dpkg --get-selections|grep -w "mlocate"|head -1) ]] && ESTATUS=`echo -e "\033[92m    INSTALADO"` &>/dev/null
+[[ $(dpkg --get-selections|grep -w "mlocate"|head -1) ]] && ESTATUS=`echo -e "\033[92m    INSTALLED"` &>/dev/null
 echo -ne "  \033[1;33m[\033[1;31m##########\033[1;33m] \e[97mmlocate$ESTATUS \033[0m\n" |pv -qL 50
 #lolcat gem
 apt install dos2unix -y &>/dev/null
@@ -188,94 +188,94 @@ apt-get install lolcat -y &>/dev/null
 sudo gem install lolcat &>/dev/null
 [[ $(dpkg --get-selections|grep -w "lolcat"|head -1) ]] || apt-get install lolcat -y &>/dev/null
 #[[ $(dpkg --get-selections|grep -w "lolcat"|head -1) ]] || ESTATUS=$(echo -e "\033[91m     INSTALACION FALLIDA") &>/dev/null
-[[ $(dpkg --get-selections|grep -w "lolcat"|head -1) ]] && ESTATUS=`echo -e "\033[92m     INSTALADO"` &>/dev/null
+[[ $(dpkg --get-selections|grep -w "lolcat"|head -1) ]] && ESTATUS=`echo -e "\033[92m     INSTALLED"` &>/dev/null
 echo -ne "  \033[1;33m[\033[1;31m##########\033[1;33m] \e[97mlolcat$ESTATUS \033[0m\n" |pv -qL 50
 #at
 apt install at -y &>/dev/null
 [[ $(dpkg --get-selections|grep -w "at"|head -1) ]] || apt-get install at -y &>/dev/null
 #[[ $(dpkg --get-selections|grep -w "at"|head -1) ]] || ESTATUS=$(echo -e "\033[91m         INSTALACION FALLIDA") &>/dev/null
-[[ $(dpkg --get-selections|grep -w "at"|head -1) ]] && ESTATUS=`echo -e "\033[92m         INSTALADO"` &>/dev/null
+[[ $(dpkg --get-selections|grep -w "at"|head -1) ]] && ESTATUS=`echo -e "\033[92m         INSTALLED"` &>/dev/null
 echo -ne "  \033[1;33m[\033[1;31m##########\033[1;33m] \e[97mat$ESTATUS \033[0m\n" |pv -qL 50
 #nano
 apt install nano -y &>/dev/null
 [[ $(dpkg --get-selections|grep -w "nano"|head -1) ]] || apt-get install nano -y &>/dev/null
 #[[ $(dpkg --get-selections|grep -w "nano"|head -1) ]] || ESTATUS=$(echo -e "\033[91m       INSTALACION FALLIDA") &>/dev/null
-[[ $(dpkg --get-selections|grep -w "nano"|head -1) ]] && ESTATUS=`echo -e "\033[92m       INSTALADO"` &>/dev/null
+[[ $(dpkg --get-selections|grep -w "nano"|head -1) ]] && ESTATUS=`echo -e "\033[92m       INSTALLED"` &>/dev/null
 echo -ne "  \033[1;33m[\033[1;31m##########\033[1;33m] \e[97mnano$ESTATUS \033[0m\n" |pv -qL 50
 [[ $(dpkg --get-selections|grep -w "iptables"|head -1) ]] || apt-get install iptables -y &>/dev/null
 apt install bc -y &>/dev/null
 [[ $(dpkg --get-selections|grep -w "bc"|head -1) ]] || apt-get install bc -y &>/dev/null
 #[[ $(dpkg --get-selections|grep -w "bc"|head -1) ]] || ESTATUS=$(echo -e "\033[91m         INSTALACION FALLIDA") &>/dev/null
-[[ $(dpkg --get-selections|grep -w "bc"|head -1) ]] && ESTATUS=`echo -e "\033[92m         INSTALADO"` &>/dev/null
+[[ $(dpkg --get-selections|grep -w "bc"|head -1) ]] && ESTATUS=`echo -e "\033[92m         INSTALLED"` &>/dev/null
 echo -ne "  \033[1;33m[\033[1;31m##########\033[1;33m] \e[97mbc$ESTATUS \033[0m\n" |pv -qL 50
 apt-get install openssl -y &>/dev/null
 [[ $(dpkg --get-selections|grep -w "openssl"|head -1) ]] || apt-get install openssl -y &>/dev/null
 apt install lsof -y &>/dev/null
 [[ $(dpkg --get-selections|grep -w "lsof"|head -1) ]] || apt-get install lsof -y &>/dev/null
 #[[ $(dpkg --get-selections|grep -w "lsof"|head -1) ]] || ESTATUS=$(echo -e "\033[91m       INSTALACION FALLIDA") &>/dev/null
-[[ $(dpkg --get-selections|grep -w "lsof"|head -1) ]] && ESTATUS=`echo -e "\033[92m       INSTALADO"` &>/dev/null
+[[ $(dpkg --get-selections|grep -w "lsof"|head -1) ]] && ESTATUS=`echo -e "\033[92m       INSTALLED"` &>/dev/null
 echo -ne "  \033[1;33m[\033[1;31m##########\033[1;33m] \e[97mlsof$ESTATUS \033[0m\n" |pv -qL 50
 apt install figlet -y &>/dev/null
 [[ $(dpkg --get-selections|grep -w "figlet"|head -1) ]] || apt-get install figlet -y &>/dev/null
 #[[ $(dpkg --get-selections|grep -w "figlet"|head -1) ]] || ESTATUS=$(echo -e "\033[91m     INSTALACION FALLIDA") &>/dev/null
-[[ $(dpkg --get-selections|grep -w "figlet"|head -1) ]] && ESTATUS=`echo -e "\033[92m     INSTALADO"` &>/dev/null
+[[ $(dpkg --get-selections|grep -w "figlet"|head -1) ]] && ESTATUS=`echo -e "\033[92m     INSTALLED"` &>/dev/null
 echo -ne "  \033[1;33m[\033[1;31m##########\033[1;33m] \e[97mfiglet$ESTATUS \033[0m\n" |pv -qL 50
 apt install cowsay -y &>/dev/null
 [[ $(dpkg --get-selections|grep -w "cowsay"|head -1) ]] || apt-get install cowsay -y &>/dev/null
 #[[ $(dpkg --get-selections|grep -w "cowsay"|head -1) ]] || ESTATUS=$(echo -e "\033[91m     INSTALACION FALLIDA") &>/dev/null
-[[ $(dpkg --get-selections|grep -w "cowsay"|head -1) ]] && ESTATUS=`echo -e "\033[92m     INSTALADO"` &>/dev/null
+[[ $(dpkg --get-selections|grep -w "cowsay"|head -1) ]] && ESTATUS=`echo -e "\033[92m     INSTALLED"` &>/dev/null
 echo -ne "  \033[1;33m[\033[1;31m##########\033[1;33m] \e[97mcowsay$ESTATUS \033[0m\n" |pv -qL 50
 apt install screen -y &>/dev/null
 [[ $(dpkg --get-selections|grep -w "screen"|head -1) ]] || apt-get install screen -y &>/dev/null
 #[[ $(dpkg --get-selections|grep -w "screen"|head -1) ]] || ESTATUS=$(echo -e "\033[91m     INSTALACION FALLIDA") &>/dev/null
-[[ $(dpkg --get-selections|grep -w "screen"|head -1) ]] && ESTATUS=`echo -e "\033[92m     INSTALADO"` &>/dev/null
+[[ $(dpkg --get-selections|grep -w "screen"|head -1) ]] && ESTATUS=`echo -e "\033[92m     INSTALLED"` &>/dev/null
 echo -ne "  \033[1;33m[\033[1;31m##########\033[1;33m] \e[97mscreen$ESTATUS \033[0m\n" |pv -qL 50
 apt install curl -y &>/dev/null
 [[ $(dpkg --get-selections|grep -w "curl"|head -1) ]] || apt-get install curl -y &>/dev/null
 #[[ $(dpkg --get-selections|grep -w "curl"|head -1) ]] || ESTATUS=$(echo -e "\033[91m       INSTALACION FALLIDA") &>/dev/null
-[[ $(dpkg --get-selections|grep -w "curl"|head -1) ]] && ESTATUS=`echo -e "\033[92m       INSTALADO"` &>/dev/null
+[[ $(dpkg --get-selections|grep -w "curl"|head -1) ]] && ESTATUS=`echo -e "\033[92m       INSTALLED"` &>/dev/null
 echo -ne "  \033[1;33m[\033[1;31m##########\033[1;33m] \e[97mcurl$ESTATUS \033[0m\n" |pv -qL 50
 apt install less -y &>/dev/null
 [[ $(dpkg --get-selections|grep -w "less"|head -1) ]] || apt-get install less -y &>/dev/null
 #[[ $(dpkg --get-selections|grep -w "less"|head -1) ]] || ESTATUS=$(echo -e "\033[91m       INSTALACION FALLIDA") &>/dev/null
-[[ $(dpkg --get-selections|grep -w "less"|head -1) ]] && ESTATUS=`echo -e "\033[92m       INSTALADO"` &>/dev/null
+[[ $(dpkg --get-selections|grep -w "less"|head -1) ]] && ESTATUS=`echo -e "\033[92m       INSTALLED"` &>/dev/null
 echo -ne "  \033[1;33m[\033[1;31m##########\033[1;33m] \e[97mless$ESTATUS \033[0m\n" |pv -qL 50
 
-[[ $(dpkg --get-selections|grep -w "cron"|head -1) ]] || apt-get install cron -y &>/dev/null && echo -ne "  \033[1;33m[\033[1;31m##########\033[1;33m] \e[97mcron\033[92m       INSTALADO \033[0m\n" |pv -qL 50
-[[ $(dpkg --get-selections|grep -w "netcat"|head -1) ]] || apt-get install netcat -y &>/dev/null && echo -ne "  \033[1;33m[\033[1;31m##########\033[1;33m] \e[97mnetcat\033[92m     INSTALADO \033[0m\n" |pv -qL 50
+[[ $(dpkg --get-selections|grep -w "cron"|head -1) ]] || apt-get install cron -y &>/dev/null && echo -ne "  \033[1;33m[\033[1;31m##########\033[1;33m] \e[97mcron\033[92m       INSTALLED \033[0m\n" |pv -qL 50
+[[ $(dpkg --get-selections|grep -w "netcat"|head -1) ]] || apt-get install netcat -y &>/dev/null && echo -ne "  \033[1;33m[\033[1;31m##########\033[1;33m] \e[97mnetcat\033[92m     INSTALLED \033[0m\n" |pv -qL 50
 [[ $(dpkg --get-selections|grep -w "socat"|head -1) ]] || apt-get install socat -y &>/dev/null 
 [[ $(dpkg --get-selections|grep -w "boxes"|head -1) ]] || apt-get install boxes -y &>/dev/null 
-[[ $(dpkg --get-selections|grep -w "jq"|head -1) ]] || apt-get install jq -y &>/dev/null && echo -ne "  \033[1;33m[\033[1;31m##########\033[1;33m] \e[97mjq\033[92m         INSTALADO \033[0m\n" |pv -qL 50
+[[ $(dpkg --get-selections|grep -w "jq"|head -1) ]] || apt-get install jq -y &>/dev/null && echo -ne "  \033[1;33m[\033[1;31m##########\033[1;33m] \e[97mjq\033[92m         INSTALLED \033[0m\n" |pv -qL 50
 sudo apt-add-repository universe -y > /dev/null 2>&1
-[[ $(dpkg --get-selections|grep -w "net-tools"|head -1) ]] || apt-get install net-tools -y &>/dev/null && echo -ne "  \033[1;33m[\033[1;31m##########\033[1;33m] \e[97mnet-tools\033[92m  INSTALADO\033[0m\n" |pv -qL 50
+[[ $(dpkg --get-selections|grep -w "net-tools"|head -1) ]] || apt-get install net-tools -y &>/dev/null && echo -ne "  \033[1;33m[\033[1;31m##########\033[1;33m] \e[97mnet-tools\033[92m  INSTALLED\033[0m\n" |pv -qL 50
 apt install python -y &>/dev/null
-[[ $(dpkg --get-selections|grep -w "python"|head -1) ]] || apt-get install python -y &>/dev/null && echo -ne "  \033[1;33m[\033[1;31m##########\033[1;33m] \e[97mpython\033[92m     INSTALADO\033[0m\n" |pv -qL 50
+[[ $(dpkg --get-selections|grep -w "python"|head -1) ]] || apt-get install python -y &>/dev/null && echo -ne "  \033[1;33m[\033[1;31m##########\033[1;33m] \e[97mpython\033[92m     INSTALLED\033[0m\n" |pv -qL 50
 apt install python3 -y &>/dev/null
 [[ $(dpkg --get-selections|grep -w "python3"|head -1) ]] || apt-get install python3 -y &>/dev/null
 #[[ $(dpkg --get-selections|grep -w "python3"|head -1) ]] || ESTATUS=$(echo -e "\033[91m    INSTALACION FALLIDA") &>/dev/null
-[[ $(dpkg --get-selections|grep -w "python3"|head -1) ]] && ESTATUS=`echo -e "\033[92m    INSTALADO"` &>/dev/null
+[[ $(dpkg --get-selections|grep -w "python3"|head -1) ]] && ESTATUS=`echo -e "\033[92m    INSTALLED"` &>/dev/null
 echo -ne "  \033[1;33m[\033[1;31m##########\033[1;33m] \e[97mpython3$ESTATUS \033[0m\n" |pv -qL 50
 apt install python3-pip -y &>/dev/null
 [[ $(dpkg --get-selections|grep -w "python3-pip"|head -1) ]] || apt-get install python3-pip -y &>/dev/null
 #[[ $(dpkg --get-selections|grep -w "python3-pip"|head -1) ]] || ESTATUS=$(echo -e "\033[91mINSTALACION FALLIDA") &>/dev/null
-[[ $(dpkg --get-selections|grep -w "python3-pip"|head -1) ]] && ESTATUS=`echo -e "\033[92mINSTALADO"` &>/dev/null
+[[ $(dpkg --get-selections|grep -w "python3-pip"|head -1) ]] && ESTATUS=`echo -e "\033[92mINSTALLED"` &>/dev/null
 echo -ne "  \033[1;33m[\033[1;31m##########\033[1;33m]\e[97mpython3-pip $ESTATUS \033[0m\n" |pv -qL 50
 apt install ufw -y &>/dev/null
 [[ $(dpkg --get-selections|grep -w "ufw"|head -1) ]] || apt-get install ufw -y &>/dev/null
 #[[ $(dpkg --get-selections|grep -w "ufw"|head -1) ]] || ESTATUS=$(echo -e "\033[91m        INSTALACION FALLIDA") &>/dev/null
-[[ $(dpkg --get-selections|grep -w "ufw"|head -1) ]] && ESTATUS=`echo -e "\033[92m        INSTALADO"` &>/dev/null
+[[ $(dpkg --get-selections|grep -w "ufw"|head -1) ]] && ESTATUS=`echo -e "\033[92m        INSTALLED"` &>/dev/null
 echo -ne "  \033[1;33m[\033[1;31m##########\033[1;33m] \e[97mufw$ESTATUS \033[0m\n" |pv -qL 50
 #unzip
 apt install unzip -y &>/dev/null
 [[ $(dpkg --get-selections|grep -w "unzip"|head -1) ]] || apt-get install unzip -y &>/dev/null
 #[[ $(dpkg --get-selections|grep -w "unzip"|head -1) ]] || ESTATUS=$(echo -e "\033[91m      INSTALACION FALLIDA") &>/dev/null
-[[ $(dpkg --get-selections|grep -w "unzip"|head -1) ]] && ESTATUS=`echo -e "\033[92m      INSTALADO"` &>/dev/null
+[[ $(dpkg --get-selections|grep -w "unzip"|head -1) ]] && ESTATUS=`echo -e "\033[92m      INSTALLED"` &>/dev/null
 echo -ne "  \033[1;33m[\033[1;31m##########\033[1;33m] \e[97munzip$ESTATUS \033[0m\n" |pv -qL 50
 #zip
 apt install zip -y &>/dev/null
 [[ $(dpkg --get-selections|grep -w "zip"|head -1) ]] || apt-get install zip -y &>/dev/null
 #[[ $(dpkg --get-selections|grep -w "zip"|head -1) ]] || ESTATUS=$(echo -e "\033[91m        INSTALACION FALLIDA") &>/dev/null
-[[ $(dpkg --get-selections|grep -w "zip"|head -1) ]] && ESTATUS=`echo -e "\033[92m        INSTALADO"` &>/dev/null
+[[ $(dpkg --get-selections|grep -w "zip"|head -1) ]] && ESTATUS=`echo -e "\033[92m        INSTALLED"` &>/dev/null
 echo -ne "  \033[1;33m[\033[1;31m##########\033[1;33m] \e[97mzip$ESTATUS \033[0m\n" |pv -qL 50
 apt-get install apache2 -y &>/dev/null #&& echo -e "\033[93m    ❯\e[97m INSTALANDO APACHE2" | pv -qL 40 
 [[ $(dpkg --get-selections|grep -w "apache2"|head -1) ]] || apt-get install apache2 -y &>/dev/null
@@ -289,12 +289,12 @@ rm -rf /usr/bin/vpsmxup
 rm -rf lista-arq
 rm -rf LACASITA.sh
 
-printTitle "Limpieza de paquetes (eliminación automática de paquetes no utilizados)"
+printTitle "Package cleanup (automatic removal of unused packages)"
 apt autoremove -y &>/dev/null
   echo iptables-persistent iptables-persistent/autosave_v4 boolean true | sudo debconf-set-selections
   echo iptables-persistent iptables-persistent/autosave_v6 boolean true | sudo debconf-set-selections
 apt-get install net-tools -y
-printTitle "Versión actual"
+printTitle "Current version"
 lsb_release -d
 idfix64_86 () {
 clear
@@ -303,8 +303,8 @@ msg -bar2
 #msg -ama "     [ VPS - MX - SCRIPT \033[1;97m MOD\033[1;33m ]"
 msg -bar2
 echo ""
-echo -e "\e[91m   INSTALACION SEMI MANUAL DE PAQUETES "
-echo -e "\e[91m(En caso de pedir confirmacion escoja: #y#) \e[0m"
+echo -e "\e[91m   SEMI-MANUAL INSTALLATION OF PACKAGES"
+echo -e "\e[91m(If you ask for confirmation, choose: #y#) \e[0m"
 echo ""
 sleep 7s
 apt-get update; apt-get upgrade -y
@@ -326,7 +326,7 @@ msg -bar2
 #msg -ama "     [ VPS - MX - SCRIPT \033[1;97m  MOD   \033[1;33m ]"
 msg -bar2
 echo ""
-echo -e "\e[91mESCOJER PRIMERO #All locales# Y LUEGO #en_US.UTF-8# \e[0m" 
+echo -e "\e[91mCHOOSE FIRST #All locals# AND THEN #en_US.UTF-8# \e[0m" 
 echo ""
 sleep 7s
  export LANGUAGE=en_US.UTF-8\
@@ -356,17 +356,17 @@ fi
 clear
 rootvps(){
 
-echo -e "\033[31m     OPTENIENDO ACCESO ROOT    "
+echo -e "\033[31m     OBTAINING ROOT ACCESS   "
 wget https://raw.githubusercontent.com/lacasitamx/VPSMX/master/SR/root.sh &>/dev/null -O /usr/bin/rootlx &>/dev/null
 chmod 775 /usr/bin/rootlx &>/dev/null
 rootlx
 clear
-echo -e "\033[31m     ACCESO ROOT CON ÉXITO    "
+echo -e "\033[31m     ROOT ACCESS SUCCESSFULLY   "
 sleep 1
 rm -rf /usr/bin/rootlx
 }
 	msg -bar
-	echo -e "\033[1;37m  YA TIENES ACCESO ROOT A TU VPS?\n  ESTO SOLO FUNCIONA PARA (AWS,GOOGLECLOUD,AZURE,ETC)\n  SI YA TIENES ACCESO A ROOT SOLO IGNORA ESTE MENSAJE\n  Y SIGUE CON LA INSTALACION NORMAL..."
+	echo -e "\033[1;37m  DO YOU ALREADY HAVE ROOT ACCESS TO YOUR VPS?\n THIS ONLY WORKS FOR (AWS, GOOGLECLOUD, AZURE, ETC)\n IF YOU ALREADY HAVE ROOT ACCESS JUST IGNORE THIS MESSAGE\n AND CONTINUE WITH NORMAL INSTALLATION..."
    msg -bar
    read -p "Responde [ s | n ]: " -e -i n rootvps
    [[ "$rootvps" = "s" || "$rootvps" = "S" ]] && rootvps
@@ -417,7 +417,7 @@ function_verify () {
   permited=$(curl -sSL "https://www.dropbox.com/s/nmau2w8vebewpq3/control")
   [[ $(echo $permited|grep "${IP}") = "" ]] && {
   clear
-  echo -e "\n\n\n\033[1;91m————————————————————————————————————————————————————\n      ¡ESTA KEY NO CONCUERDA CON EL INSTALADOR! \n      BOT: @CONECTEDMX_BOT \n————————————————————————————————————————————————————\n\n\n"
+  echo -e "\n\n\n\033[1;91m————————————————————————————————————————————————————\n      ¡THIS KEY DOES NOT MATCH THE INSTALLER! \n      BOT: @CONECTEDMX_BOT \n————————————————————————————————————————————————————\n\n\n"
   [[ -d /etc/VPS-MX ]] && rm -rf /etc/VPS-MX
   exit 1
   } || {
@@ -439,7 +439,7 @@ byinst="true"
 }
 
 install_fim () {
-msg -ama "               Finalizando Instalacion" && msg bar2
+msg -ama "               Finishing Installation" && msg bar2
 #rm -rf /etc/VPS-MX/controlador/nombre.log &>/dev/null
 [[ $(find /etc/VPS-MX/controlador -name nombre.log|grep -w "nombre.log"|head -1) ]] || wget -O /etc/VPS-MX/controlador/nombre.log https://github.com/lacasitamx/VPSMX/raw/master/ArchivosUtilitarios/nombre.log &>/dev/null
 [[ $(find /etc/VPS-MX/controlador -name IDT.log|grep -w "IDT.log"|head -1) ]] || wget -O /etc/VPS-MX/controlador/IDT.log https://github.com/lacasitamx/VPSMX/raw/master/ArchivosUtilitarios/IDT.log &>/dev/null
@@ -451,7 +451,7 @@ chmod 775 /usr/bin/SPR &>/dev/null
 wget -O /usr/bin/SOPORTE cd &>/dev/null
 chmod 775 /usr/bin/SOPORTE &>/dev/null
 SOPORTE &>/dev/null
-echo "ACCESO ACTIVADO" >/usr/bin/SOPORTE
+echo "ACCESS ACTIVATED" >/usr/bin/SOPORTE
 wget -O /bin/rebootnb https://raw.githubusercontent.com/lacasitamx/VPSMX/master/SCRIPT-8.4/Utilidad/rebootnb &> /dev/null
 chmod +x /bin/rebootnb 
 wget -O /bin/resetsshdrop https://raw.githubusercontent.com/lacasitamx/VPSMX/master/SCRIPT-8.4/Utilidad/resetsshdrop &> /dev/null
@@ -479,10 +479,10 @@ echo 'echo "" '>> .bashrc
 echo 'echo -e "\t\033[92mRESELLER : $mess1 "'>> .bashrc
 echo 'echo -e "\t\e[1;33mVERSION: \e[1;31m$(cat /etc/versin_script_new)"'>> .bashrc
 echo 'echo "" '>> .bashrc                                               
-echo 'echo -e "\t\033[1;100mPARA MOSTAR PANEL BASH ESCRIBA:\e[0m\e[1;41m sudo menu \e[0m"'>> .bashrc
+echo 'echo -e "\t\033[1;100mTO SHOW BASH PANEL TYPE:\e[0m\e[1;41m sudo menu \e[0m"'>> .bashrc
 
 echo 'echo ""'>> .bashrc
-echo -e "         COMANDO PRINCIPAL PARA ENTRAR AL PANEL "
+echo -e "         MAIN COMMAND TO ENTER THE PANEL "
 echo -e "  \033[1;41m               sudo menu             \033[0;37m" && msg -bar2
 rm -rf /usr/bin/pytransform &> /dev/null
 rm -rf LACASITA.sh
@@ -490,7 +490,7 @@ rm -rf lista-arq
 [[ ! -e /etc/autostart ]] && {
 	echo '#!/bin/bash
 clear
-#INICIO AUTOMATICO' >/etc/autostart
+#AUTOMATIC START' >/etc/autostart
 	chmod +x /etc/autostart
 } || {
 	#[[ $(ps x | grep "bot_plus" | grep -v grep | wc -l) != '0' ]] && wget -qO- https://raw.githubusercontent.com/carecagm/main/Install/ShellBot.sh >/etc/SSHPlus/ShellBot.sh
@@ -500,7 +500,7 @@ clear
 	screen -wipe >/dev/null
 	echo '#!/bin/bash
 clear
-#INICIO AUTOMATICO' >/etc/autostart
+#AUTOMATIC START' >/etc/autostart
 	chmod +x /etc/autostart
 }
 crontab -r >/dev/null 2>&1
@@ -576,7 +576,7 @@ wget -O /var/www/html/estilos.css https://raw.githubusercontent.com/lacasitamx/V
 [[ -f "/usr/sbin/ufw" ]] && ufw allow 443/tcp &>/dev/null; ufw allow 80/tcp &>/dev/null; ufw allow 3128/tcp &>/dev/null; ufw allow 8799/tcp &>/dev/null; ufw allow 8080/tcp &>/dev/null; ufw allow 81/tcp &>/dev/null
 clear
 msg -bar2
-echo -e "   \e[1;97m\e[1;100m =====>>►►  SCRIPT MOD LACASITAMX  ◄◄<<===== \033[0m"
+echo -e "   \e[1;97m\e[1;100m =====>>►►  SCRIPT MOD LACASITAMX TRANSLATE BY MALINDA ◄◄<<===== \033[0m"
 #msg -ama "  \033[1;96m      🔰Usar Ubuntu 20 a 64 De Preferencia🔰 "
 msg -bar2
 [[ $1 = "" ]] && funcao_idioma || {
@@ -586,7 +586,7 @@ msg -bar2
 error_fun () {
 
 echo ""
-msg -bar2 && msg -verm "ERROR DE GENERADOR | ARCHIVOS INCOMPLETOS\n	KEY USADA" && msg -bar2
+msg -bar2 && msg -verm "GENERATOR ERROR | INCOMPLETE FILES\n USED KEY" && msg -bar2
 [[ -d ${SCPinstal} ]] && rm -rf ${SCPinstal}
 [[ -e $HOME/lista-arq ]] && rm $HOME/lista-arq
 rm -rf lista-arq
@@ -595,7 +595,7 @@ exit 1
 invalid_key () {
 
 echo ""
-msg -bar2 && msg -verm "  Code Invalido -- #¡Key Invalida#! " && msg -bar2
+msg -bar2 && msg -verm "  Code Invalid -- #¡Key Invalida#! " && msg -bar2
 [[ -e $HOME/lista-arq ]] && rm $HOME/lista-arq
 rm -rf lista-arq
 exit 1
@@ -603,13 +603,13 @@ exit 1
 
 
 while [[ ! $Key ]]; do
-msg -bar2 && msg -ne "\033[1;93m          >>> INGRESE SU KEY ABAJO <<<\n   \033[1;37m" && read Key
+msg -bar2 && msg -ne "\033[1;93m          >>> ENTER YOUR KEY BELOW <<<\n   \033[1;37m" && read Key
 tput cuu1 && tput dl1
 done
-msg -ne "    # Verificando Key # : "
+msg -ne "    # Verifying Key # : "
 cd $HOME
 wget -O $HOME/lista-arq $(ofus "$Key")/$IP > /dev/null 2>&1 && echo -e "\033[1;32m Ofus Correcto" |pv -qL 30 || {
-   echo -e "\033[1;91m Ofus Incorrecto"
+   echo -e "\033[1;91m Ofus Incorrect"
    invalid_key
    exit
    }
@@ -663,7 +663,7 @@ TOKEN="2012880601:AAEJ3Kk18PGDzW57LpTMnVMn_pQYQKW3V9w"
 			URL="https://api.telegram.org/bot$TOKEN/sendMessage"
 		MSG="👇❮= 𝙉𝙊𝙏𝙄-𝙆𝙀𝙔 =❯👇   
 ◄══════◄••◩••►══════►
- Version: $(cat /etc/versin_script) INSTALADO✓
+ Version: $(cat /etc/versin_script) INSTALLED✓
 ◄══════◄••◩••►══════►
  Admin: $(cat ${SCPdir}/tmp/name)
  ID: $(cat ${userid})
@@ -720,7 +720,7 @@ fi
    REBOOT=1
 REBOOT_TIMEOUT=10
 if [ "$REBOOT" = "1" ]; then
-echo -e "	\e[1;97m\e[1;100mREINICIANDO VPS EN 10 SEGUNDOS\e[0m"
+echo -e "	\e[1;97m\e[1;100mRESTART VPS IN 10 SECONDS\e[0m"
 while [ $REBOOT_TIMEOUT -gt 0 ]; do
 msg -ne "	-$REBOOT_TIMEOUT-\r"
 sleep 1
