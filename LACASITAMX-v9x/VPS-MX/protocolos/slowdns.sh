@@ -10,7 +10,7 @@ info(){
 	clear
 	nodata(){
 		msg -bar
-		msg -ama "!SIN INFORMACION SLOWDNS!"
+		msg -ama "!NO SLOWDNS INFORMATION!"
 		exit 0
 	}
 
@@ -37,11 +37,11 @@ info(){
 	fi
 
 	msg -bar
-	msg -ama "DATOS DE SU CONEXION SLOWDNS"
+	msg -ama "DATA OF YOUR SLOWDNS CONNECTION"
 	msg -bar
 	msg -ama "Su NS (Nameserver): $(cat ${ADM_slow}/domain_ns)"
 	msg -bar
-	msg -ama "Su Llave: $(cat ${ADM_slow}/server.pub)"
+	msg -ama "Your key: $(cat ${ADM_slow}/server.pub)"
 	
 	exit 0
 }
@@ -68,7 +68,7 @@ drop_port(){
 ini_slow(){
 clear
 msg -bar
-	msg -ama "	INSTALADOR SLOWDNS"
+	msg -ama "	SLOWDNS INSTALLER"
 	msg -bar
 	echo ""
 	drop_port
@@ -90,32 +90,32 @@ msg -bar
     PORT=$(cat ${ADM_slow}/puerto)
     clear
     msg -bar
-    msg -ama "	INSTALADOR SLOWDNS"
+    msg -ama "	SLOWDNS INSTALLER"
     msg -bar
     echo ""
-    echo -e " $(msg -ama "Puerto de conexion atraves de SlowDNS:") $(msg -verd "$PORT")"
+    echo -e " $(msg -ama "Connection port through SlowDNS:") $(msg -verd "$PORT")"
     msg -bar
 
     unset NS
     while [[ -z $NS ]]; do
-    	msg -ama " Tu dominio NS: "
+    	msg -ama " You do not own the domain: "
     	read NS
     	tput cuu1 && tput dl1
     done
     echo "$NS" > ${ADM_slow}/domain_ns
-    echo -e " $(msg -ama "Tu dominio NS:") $(msg -verd "$NS")"
+    echo -e " $(msg -ama "You do not own the domain:") $(msg -verd "$NS")"
     msg -bar
 
     if [[ ! -e ${ADM_inst}/dns-server ]]; then
-    	msg -ama " Descargando binario...."
+    	msg -ama " downloading binary...."
     	if wget -O ${ADM_inst}/dns-server raw.github.com/lacasitamx/SCRIPTMOD-LACASITA/master/SLOWDNS/dns-server &>/dev/null ; then
     		chmod +x ${ADM_inst}/dns-server
-    		msg -verd " DESCARGA CON EXITO"
+    		msg -verd " DOWNLOAD SUCCESSFULLY"
     	else
-    		msg -verm " DESCARGA FALLIDA"
+    		msg -verm " DOWNLOAD FAILED"
     		msg -bar
-    		msg -ama "No se pudo descargar el binario"
-    		msg -verm "Instalacion cancelada"
+    		msg -ama "Could not download binary"
+    		msg -verm "installation canceled"
     		
     		exit 0
     	fi
@@ -125,7 +125,7 @@ msg -bar
     [[ -e "${ADM_slow}/server.pub" ]] && pub=$(cat ${ADM_slow}/server.pub)
 
     if [[ ! -z "$pub" ]]; then
-    	msg -ama " Usar La clave existente [S/N] ?: "
+    	msg -ama " Use Existing Key [Y/N] ?: "
     	read ex_key
 
     	case $ex_key in
@@ -145,7 +145,7 @@ msg -bar
     	echo -e " $(msg -ama "Tu clave:") $(msg -verd "$(cat ${ADM_slow}/server.pub)")"
     fi
     msg -bar
-    msg -ama "    INSTALANDO SERVICIO 𝙎𝙇𝙊𝙒𝘿𝙉𝙎   ..." |pv -q 30
+    msg -ama "    INSTALLING SERVICE 𝙎𝙇𝙊𝙒𝘿𝙉𝙎   ..." |pv -q 30
     apt install ncurses-utils -y &>/dev/null
     
 	apt install iptables -y &>/dev/null
@@ -162,7 +162,7 @@ msg -bar
 						sed -i '/slowdns/d' /etc/autostart
 						echo -e "netstat -au | grep -w 7300 > /dev/null || {  screen -r -S 'slowdns' -X quit;  screen -dmS slowdns ${ADM_inst}/dns-server -udp :5300 -privkey-file ${ADM_slow}/server.key $NS 127.0.0.1:$PORT ; }" >>/etc/autostart
 					}
-    	msg -verd " INSTALACION CON EXITO"
+    	msg -verd " SUCCESSFUL INSTALLATION"
     
     exit 0
 }
@@ -170,7 +170,7 @@ msg -bar
 reset_slow(){
 	clear
 	msg -bar
-	msg -verd "    Reiniciando 𝙎𝙇𝙊𝙒𝘿𝙉𝙎...."
+	msg -verd "    Restarting 𝙎𝙇𝙊𝙒𝘿𝙉𝙎...."
 	screen -ls | grep slowdns | cut -d. -f1 | awk '{print $1}' | xargs kill
 	NS=$(cat ${ADM_slow}/domain_ns)
 	PORT=$(cat ${ADM_slow}/puerto)
@@ -181,14 +181,14 @@ reset_slow(){
 						sed -i '/slowdns/d' /etc/autostart
 						echo -e "netstat -au | grep -w 7300 > /dev/null || {  screen -r -S 'slowdns' -X quit;  screen -dmS slowdns ${ADM_inst}/dns-server -udp :5300 -privkey-file ${ADM_slow}/server.key $NS 127.0.0.1:$PORT ; }" >>/etc/autostart
 					}
-		msg -verd " SERVICIO SLOW REINICIADO"
+		msg -verd " SLOW SERVICE RESTARTED"
 	
 	exit 0
 }
 stop_slow(){
 	clear
 	msg -bar
-	msg -ama "    Deteniendo SlowDNS...."
+	msg -ama "    Stopping SlowDNS...."
 	if screen -ls | grep slowdns | cut -d. -f1 | awk '{print $1}' | xargs kill ; then
 	for pidslow in $(screen -ls | grep ".slowdns" | awk {'print $1'}); do
 						screen -r -S "$pidslow" -X quit
@@ -197,11 +197,11 @@ stop_slow(){
 						sed -i '/dns-server/d' /etc/autostart
 			}
   screen -wipe >/dev/null
-		msg -verd " SERVICIO SLOW DETENIDO!!"
+		msg -verd " SLOW SERVICE STOPPED!!"
 		rm ${ADM_inst}/dns-server &>/dev/null
 		rm -rf ${ADM_slow}/* &>/dev/null
 	else
-		msg -verm " SERVICIO SLOW NO DETENIDO!"
+		msg -verm " SLOW SERVICE NOT STOPPED!"
 	fi
 	exit 0
 }
@@ -223,7 +223,7 @@ do
 	if [[ -e ${ADM_slow}/puertoloc ]]; then LOC=$((cat ${ADM_slow}/puertoloc)|cut -d' ' -f1); else LOC="XX"; fi
 	if [[ -e ${ADM_slow}/puerto ]]; then PT=$((cat ${ADM_slow}/puerto)|cut -d' ' -f1); else PT="XX"; fi
 	msg -bar
-	msg -ama "	\e[91m\e[43mMENÚ DE INSTALACION 𝙎𝙇𝙊𝙒𝘿𝙉𝙎   \e[0m"
+	msg -ama "	\e[91m\e[43mINSTALLATION MENU 𝙎𝙇𝙊𝙒𝘿𝙉𝙎   \e[0m"
 	echo ""
 	#if [[ -e ${ADM_inst}/dns-server ]]; then
 	echo -e "     \e[91mSlowDNS\e[93m + \e[92m${LOC} \e[97m»» \e[91m${PT} \e[1;97mSERVICIO: ${inst[dns-serv]}\e[0m"
@@ -233,13 +233,13 @@ do
 	
 	msg -bar
 	
-	echo -e "  $(msg -verd "[1]")$(msg -verm2 "➛ ")$(msg -azu "INSTALAR 𝙎𝙇𝙊𝙒𝘿𝙉𝙎  ")"
-	echo -e "  $(msg -verd "[2]")$(msg -verm2 "➛ ")$(msg -azu "REINICIAR 𝙎𝙇𝙊𝙒𝘿𝙉𝙎  ")"
-	echo -e "  $(msg -verd "[3]")$(msg -verm2 "➛ ")$(msg -azu "DETENER 𝙎𝙇𝙊𝙒𝘿𝙉𝙎  ")"
-	echo -e "  $(msg -verd "[4]")$(msg -verm2 "➛ ")$(msg -azu "DATOS DE LA CUENTA")"
-	echo -e "  $(msg -verd "[0]")$(msg -verm2 "➛ ")$(msg -azu "VOLVER")"
+	echo -e "  $(msg -verd "[1]")$(msg -verm2 "➛ ")$(msg -azu "INSTALAR 𝙎𝙇𝙊𝙒𝘿𝙉𝙎 ")"
+	echo -e "  $(msg -verd "[2]")$(msg -verm2 "➛ ")$(msg -azu "RESTART 𝙎𝙇𝙊𝙒𝘿𝙉𝙎  ")"
+	echo -e "  $(msg -verd "[3]")$(msg -verm2 "➛ ")$(msg -azu "STOP 𝙎𝙇𝙊𝙒𝘿𝙉𝙎  ")"
+	echo -e "  $(msg -verd "[4]")$(msg -verm2 "➛ ")$(msg -azu "ACCOUNT DATA")"
+	echo -e "  $(msg -verd "[0]")$(msg -verm2 "➛ ")$(msg -azu "RETURN")"
 	msg -bar
-	echo -ne "  \033[1;37mSelecione Una Opcion : "
+	echo -ne "  \033[1;37mSelect an option: "
 read opc
 case $opc in
 		1)ini_slow;;
