@@ -22,7 +22,7 @@ echo -e "$portas"
 installarm(){
 clear
 if [[ ! -e /bin/badvpn-udpgw ]]; then
-msg -ama "	INICIANDO DESCARGA BADVPN ARM TEST"
+msg -ama "	STARTING DOWNLOAD BADVPN ARM TEST"
 [[ -e /bin/badvpn-udpgw ]] && rm -f /bin/badvpn-udpgw 
 [[ -e /bin/badvpn ]] && rm -f /bin/badvpn
 [[ -e /usr/local/bin/badvpn-udpgw ]] && rm -f /usr/local/bin/badvpn-udpgw
@@ -33,23 +33,23 @@ apt-get install -y g++ &>/dev/null #2>/dev/null
 apt-get install -y openssl &>/dev/null #2>/dev/null
 apt-get install -y build-essential &>/dev/null #2>/dev/null
 if apt-get install -y cmake &>/dev/null; then
- msg -verd "	CMAKE INSTALADO"
+ msg -verd "	CMAKE INSTALLED"
  else
  msg -verm2 "	FALLÓ"
  return
  fi
 cd $HOME
 if wget https://github.com/lacasitamx/SCRIPTMOD-LACASITA/raw/master/test/badvpn-master.zip &>/dev/null; then
-msg -ama "	DESCARGA CORRECTA"
+msg -ama "	SUCCESSFUL DOWNLOAD"
 else
-msg -verm2 "	DESCARGA FALLIDA"
+msg -verm2 "	DOWNLOAD FAILED"
 return
 fi
 
 if unzip badvpn-master.zip &>/dev/null; then
-msg -verd "	Descomprimiendo archivo"
+msg -verd "	decompressing file"
 else
-msg -verm2 "	La descomprecion ha fallado"
+msg -verm2 "	Decompression has failed"
 return
 fi
 
@@ -57,9 +57,9 @@ cd badvpn-master
 mkdir build
 cd build
 if cmake .. -DCMAKE_INSTALL_PREFIX="/" -DBUILD_NOTHING_BY_DEFAULT=1 -DBUILD_UDPGW=1 &>/dev/null && make install &>/dev/null; then
-msg -verd "	Cmake con exito"
+msg -verd "	make successfully"
 else
-msg -verm2 "	Cmake Fallido"
+msg -verm2 "	Cmake Failed"
 return
 fi
 cd $HOME
@@ -67,7 +67,7 @@ rm -rf badvpn-master.zip
 #arm
 sleep 1s
 clear
-msg -ama " ACTIVANDO BADVPN 7300"
+msg -ama " ACTIVATING BADVPN 7300"
 echo -e "[Unit]
 Description=BadVPN UDPGW Service
 After=network.target\n
@@ -88,7 +88,7 @@ WantedBy=multi-user.target" > /etc/systemd/system/badvpn.service
  #   badvpn start
     activado
 else
-msg -verm2 "	DETENIENDO BADVPN"
+msg -verm2 "	STOPPING BADVPN"
     msg -bar
     systemctl stop badvpn &>/dev/null
     systemctl disable badvpn &>/dev/null
@@ -99,13 +99,13 @@ msg -verm2 "	DETENIENDO BADVPN"
 	[[ -e /usr/local/bin/badvpn-udpgw ]] && rm -f /usr/local/bin/badvpn-udpgw
 	rm -rf $HOME/badvpn*
 	systemctl daemon-reload &>/dev/null
-    msg -verm " BADVPN DESACTIVADO"
+    msg -verm " BADVPN OFF"
     fi
 }
 unistall(){
 msg -bar 
 	msg -tit
-    msg -ama "          DESACTIVADOR DE BADVPN (UDP)"
+    msg -ama "          BADVPN (UDP) DEACTIVATOR"
     msg -bar
     
     systemctl stop badvpn &>/dev/null
@@ -120,7 +120,7 @@ msg -bar
     kill -9 $(ps x | grep badvpn | grep -v grep | awk '{print $1'}) > /dev/null 2>&1
     killall badvpn-udpgw > /dev/null 2>&1
     rm -rf /bin/badvpn-udpgw
-    [[ ! "$(ps x | grep badvpn | grep -v grep | awk '{print $1}')" ]] && msg -ne "                DESACTIVADO CON EXITO \n"
+    [[ ! "$(ps x | grep badvpn | grep -v grep | awk '{print $1}')" ]] && msg -ne "                DISABLED SUCCESSFULLY \n"
     unset pid_badvpn
 	msg -bar
 	}
@@ -128,7 +128,7 @@ msg -bar
 activado (){
 msg -bar
     #puerto local  
-    [[ "$(ps x | grep badvpn | grep -v grep | awk '{print $1}')" ]] && msg -verd "                  ACTIVADO CON EXITO" || msg -ama "                 Falló"
+    [[ "$(ps x | grep badvpn | grep -v grep | awk '{print $1}')" ]] && msg -verd "                  SUCCESSFULLY ACTIVATED" || msg -ama "                 Falló"
 	msg -bar
 	}
 	
@@ -137,20 +137,20 @@ pid_badvpn=$(ps x | grep badvpn | grep -v grep | awk '{print $1}')
 
 clear
 msg -tit
-    msg -ama "  \e[1;43m\e[91mACTIVADOR DE BADVPN (7100-7200-7300-Multi Port)\e[0m"
+    msg -ama "  \e[1;43m\e[91mBADVPN ACTIVATOR (7100-7200-7300-Multi Port)\e[0m"
     msg -bar
-echo -e "$(msg -verd "[1]")$(msg -verm2 "➛ ")$(msg -azu "ACTIVAR BADVPN 7300") \e[92m(System)"
-echo -e "$(msg -verd "[2]")$(msg -verm2 "➛ ")$(msg -azu "ACTIVAR BADVPN 7300") \e[92m(Screen Directo)"
-echo -e "$(msg -verd "[3]")$(msg -verm2 "➛ ")$(msg -azu "AGREGAR +PORT BADVPN ")"
+echo -e "$(msg -verd "[1]")$(msg -verm2 "➛ ")$(msg -azu "ACTIVATE BADVPN 7300") \e[92m(System)"
+echo -e "$(msg -verd "[2]")$(msg -verm2 "➛ ")$(msg -azu "ACTIVATE BADVPN 7300") \e[92m(Screen Directo)"
+echo -e "$(msg -verd "[3]")$(msg -verm2 "➛ ")$(msg -azu "Forwarder + Port Management")"
 echo -e "$(msg -verd "[4]")$(msg -verm2 "➛ ")$(msg -azu "APLICAR FIX CMAKE")"
-echo -e "$(msg -verd "[5]")$(msg -verm2 "➛ ")$(msg -azu "DETENER SERVICIO BADVPN")"
-echo -e "$(msg -verd "[0]")$(msg -verm2 "➛ ")$(msg -azu "VOLVER")"
+echo -e "$(msg -verd "[5]")$(msg -verm2 "➛ ")$(msg -azu "STOP BADVPN SERVICE")"
+echo -e "$(msg -verd "[0]")$(msg -verm2 "➛ ")$(msg -azu "RETURN")"
 msg -bar
-read -p "Digite una opción (default 2): " -e -i 2 portasx
+read -p "Type an option (default 2): " -e -i 2 portasx
 #tput cuu1 && tput dl1
 if [[ ${portasx} = 1 ]]; then
 if [[ -z $pid_badvpn ]]; then
-msg -ama "	DESCARGANDO PAQUETES....."
+msg -ama "	DOWNLOADING PACKAGES....."
 apt install wget -y &>/dev/null
 apt-get install -y gcc &>/dev/null # 2>/dev/null
 apt-get install -y make &>/dev/null #2>/dev/null
@@ -158,7 +158,7 @@ apt-get install -y g++ &>/dev/null #2>/dev/null
 apt-get install -y openssl &>/dev/null #2>/dev/null
 apt-get install -y build-essential &>/dev/null #2>/dev/null
 if apt-get install cmake -y &>/dev/null; then
-msg -verd "	CMAKE INSTALADO"
+msg -verd "	CMAKE INSTALLED"
  else
  msg -verm2 "	FALLÓ"
  return
@@ -166,16 +166,16 @@ msg -verd "	CMAKE INSTALADO"
 
 cd $HOME
 if wget https://github.com/lacasitamx/SCRIPTMOD-LACASITA/raw/master/test/badvpn-master.zip &>/dev/null; then
-msg -verd "	DESCARGA CORRECTA"
+msg -verd "	SUCCESSFUL DOWNLOAD"
 else
-msg -verm2 "	DESCARGA FALLIDA"
+msg -verm2 "	DOWNLOAD FAILED"
 return
 fi
 
 if unzip badvpn-master.zip &>/dev/null; then
-msg -verd "	Descomprimiendo archivo"
+msg -verd "	decompressing file"
 else
-msg -verm2 "	La descomprecion ha fallado"
+msg -verm2 "	Decompression has failed"
 return
 fi
 
@@ -183,9 +183,9 @@ cd badvpn-master
 mkdir build
 cd build
 if cmake .. -DCMAKE_INSTALL_PREFIX="/" -DBUILD_NOTHING_BY_DEFAULT=1 -DBUILD_UDPGW=1 &>/dev/null && make install &>/dev/null; then
-msg -verd "	Cmake con exito"
+msg -verd "	make successfully"
 else
-msg -verm2 "	Cmake Fallido"
+msg -verm2 "	Cmake Failed"
 return
 fi
 cd $HOME
@@ -215,7 +215,7 @@ else
 systemctl stop badvpn &>/dev/null
     systemctl disable badvpn &>/dev/null
     rm -rf /etc/systemd/system/badvpn.service 
-    msg -ne "                7300 DESACTIVADO CON EXITO \n"
+    msg -ne "                7300 DISABLED SUCCESSFULLY \n"
 fi
 elif [[ ${portasx} = 2 ]]; then
 if [[ -z $pid_badvpn ]]; then
@@ -239,7 +239,7 @@ if [[ ! -e /bin/badvpn-udpgw ]]; then
     wget -O /bin/badvpn-udpgw https://raw.githubusercontent.com/lacasitamx/VPSMX/master/ArchivosUtilitarios/badvpn-udpgw &>/dev/null
     chmod 777 /bin/badvpn-udpgw
    fi
-   read -p " Digite El Puerto Para Badvpn: " ud
+   read -p " Type The Port For Badvpn: " ud
 screen -dmS badvpn $(which badvpn-udpgw) --listen-addr 127.0.0.1:$ud --max-clients 10000 --max-connections-for-client 10
 echo -e "ps x | grep 'badvpn' | grep -v 'grep' || screen -dmS badvpn $(which badvpn-udpgw) --listen-addr 127.0.0.1:$ud --max-clients 10000 --max-connections-for-client 10 --client-socket-sndbuf 10000" >> /etc/autostart
 activado
@@ -252,16 +252,16 @@ activado
 	sudo make install &>/dev/null
 	cd $HOME
 if wget https://github.com/lacasitamx/SCRIPTMOD-LACASITA/raw/master/test/badvpn-master.zip &>/dev/null; then
-msg -verd "	DESCARGA CORRECTA"
+msg -verd "	SUCCESSFUL DOWNLOAD"
 else
-msg -verm2 "	DESCARGA FALLIDA"
+msg -verm2 "	DOWNLOAD FAILED"
 return
 fi
 
 if unzip badvpn-master.zip &>/dev/null; then
-msg -verd "	Descomprimiendo archivo"
+msg -verd "	decompressing file"
 else
-msg -verm2 "	La descomprecion ha fallado"
+msg -verm2 "	Decompression has failed"
 return
 fi
 
@@ -269,9 +269,9 @@ cd badvpn-master
 mkdir build
 cd build
 if cmake .. -DCMAKE_INSTALL_PREFIX="/" -DBUILD_NOTHING_BY_DEFAULT=1 -DBUILD_UDPGW=1 &>/dev/null && make install &>/dev/null; then
-msg -verd "	Cmake con exito"
+msg -verd "	make successfully"
 else
-msg -verm2 "	Cmake Fallido"
+msg -verm2 "	Cmake Failed"
 return
 fi
 cd $HOME
@@ -301,7 +301,7 @@ unset pid_badvpn
 elif [[ ${portasx} = 5 ]]; then
 	unistall
    elif [[ ${portasx} = 0 ]]; then
-   msg -verm "	SALIENDO"
+   msg -verm "	COMING OUT"
    exit
    fi
   
