@@ -1406,11 +1406,11 @@ msg -verm2 " ➥ \e[97mCLEAN OUTDATED PACKAGES      "
 msg -verm2 " ➥ \e[97mCLEAN CACHE V2RAY      "
 msg -verm2 " ➥ \e[97mSSL RESET       "
 msg -bar
-  echo -ne "$(msg -azu "Desea programar El Auto-Limpieza [s/n]:") "
+  echo -ne "$(msg -azu "Do you want to program Self-Clean [s/n]:") "
   read c_ram
   if [[ $c_ram = @(s|S|y|Y) ]]; then
     tput cuu1 && tput dl1
-    echo -ne "$(msg -azu " PONGA UN NÚMERO, EJEMPLO [1-12HORAS]:") "
+    echo -ne "$(msg -azu " PUT A NUMBER, EXAMPLE [1-12 HOURS]:") "
     read ram_c
     if [[ $ram_c =~ ^[0-9]+$ ]]; then
       crontab -l > /root/cron
@@ -1422,10 +1422,10 @@ msg -bar
       service cron restart
       rm /root/cron
       tput cuu1 && tput dl1
-      msg -azu " Auto-Limpieza programada cada: $(msg -verd "${ram_c} HORAS")" && msg -bar && sleep 2
+      msg -azu " Scheduled Self-Cleaning every: $(msg -verd "${ram_c} HORAS")" && msg -bar && sleep 2
     else
       tput cuu1 && tput dl1
-      msg -verm2 " ingresar solo numeros entre 1 y 12"
+      msg -verm2 " enter only numbers between 1 and 12"
       sleep 2
       msg -bar
     fi
@@ -1477,15 +1477,15 @@ clear
 clear
 monssh () {
 sed -i "57d" /bin/monitor.sh
-sed -i '57i EstadoServicio ssh' /bin/monitor.sh
+sed -i '57i ssh service status' /bin/monitor.sh
 }
 mondropbear () {
 sed -i "59d" /bin/monitor.sh
-sed -i '59i EstadoServicio dropbear' /bin/monitor.sh
+sed -i '59i Dropbear Service Status' /bin/monitor.sh
 }
 monssl() {
 sed -i "61d" /bin/monitor.sh
-sed -i '61i EstadoServicio stunnel4' /bin/monitor.sh
+sed -i '61i StatusService stunnel4' /bin/monitor.sh
 }
 monsquid() {
 sed -i "63d" /bin/monitor.sh
@@ -1497,11 +1497,11 @@ sed -i '65i EstadoServicio apache2' /bin/monitor.sh
 }
 monv2ray() {
 sed -i "55d" /bin/monitor.sh
-sed -i '55i EstadoServicio v2ray' /bin/monitor.sh
+sed -i '55i StatusService v2ray' /bin/monitor.sh
 }
 msg -bar
 msg -tit
-echo -e "\033[1;32m          MONITOR DE SERVICIONS PRINCIPALES"
+echo -e "\033[1;32m          MAIN SERVICES MONITOR"
 
 PIDVRF3=$(ps aux|grep -v grep |grep "monitor")
 
@@ -1510,46 +1510,46 @@ PIDVRF3=$(ps aux|grep -v grep |grep "monitor")
 if [[ -z $PIDVRF3 ]]; then
 #sed -i '5a\screen -dmS monitor /etc/VPS-MX/tmp/monitor' /bin/resetsshdrop
 msg -bar
-echo -e "\033[1;34m          ¿Monitorear Protocolo SSH/SSHD?"
+echo -e "\033[1;34m          ¿Monitor protocol ssh/sshd?"
 msg -bar
 read -p "                    [ s | n ]: " monssh  
 sed -i "57d" /bin/monitor.sh
 sed -i '57i #EstadoServicio ssh' /bin/monitor.sh 
 [[ "$monssh" = "s" || "$monssh" = "S" ]] && monssh
 msg -bar
-echo -e "\033[1;34m          ¿Monitorear Protocolo DROPBEAR?"
+echo -e "\033[1;34m          ¿Monitor DROPBEAR Protocol?"
 msg -bar
 read -p "                    [ s | n ]: " mondropbear  
 sed -i "59d" /bin/monitor.sh
-sed -i '59i #EstadoServicio dropbear' /bin/monitor.sh
+sed -i '59i #Dropbear Service Status' /bin/monitor.sh
 [[ "$mondropbear" = "s" || "$mondropbear" = "S" ]] && mondropbear
 msg -bar
-echo -e "\033[1;34m            ¿Monitorear Protocolo SSL?"
+echo -e "\033[1;34m            ¿Monitor SSL Protocol?"
 msg -bar
 read -p "                    [ s | n ]: " monssl  
 sed -i "61d" /bin/monitor.sh
-sed -i '61i #EstadoServicio stunnel4' /bin/monitor.sh
+sed -i '61i #StatusService stunnel4' /bin/monitor.sh
 [[ "$monssl" = "s" || "$monssl" = "S" ]] && monssl
 msg -bar
-echo -e "\033[1;34m            ¿Monitorear Protocolo SQUID?"
+echo -e "\033[1;34m            ¿Monitor SQUID Protocol?"
 msg -bar
 read -p "                    [ s | n ]: " monsquid  
 sed -i "63d" /bin/monitor.sh
-sed -i '63i #[[ $(EstadoServicio squid) ]] && EstadoServicio squid3' /bin/monitor.sh
+sed -i '63i #[[ $(EstadoServicio squid) ]] && squid3 ServiceState' /bin/monitor.sh
 [[ "$monsquid" = "s" || "$monsquid" = "S" ]] && monsquid
 msg -bar
-echo -e "\033[1;34m            ¿Monitorear Protocolo APACHE?"
+echo -e "\033[1;34m            ¿Monitor APACHE Protocol?"
 msg -bar
 read -p "                    [ s | n ]: " monapache  
 sed -i "65d" /bin/monitor.sh
-sed -i '65i #EstadoServicio apache2' /bin/monitor.sh
+sed -i '65i #Service State apache2' /bin/monitor.sh
 [[ "$monapache" = "s" || "$monapache" = "S" ]] && monapache
 msg -bar
-echo -e "\033[1;34m            ¿Monitorear Protocolo V2RAY?"
+echo -e "\033[1;34m            ¿Monitor V2RAY Protocol?"
 msg -bar
 read -p "                    [ s | n ]: " monv2ray  
 sed -i "55d" /bin/monitor.sh
-sed -i '55i #EstadoServicio v2ray' /bin/monitor.sh 
+sed -i '55i #StatusService v2ray' /bin/monitor.sh 
 [[ "$monv2ray" = "s" || "$monv2ray" = "S" ]] && monv2ray 
 #screen -dmS monitor /etc/VPS-MX/tmp/monitor
 #screen -dmS monit /etc/VPS-MX/tmp/monitor
@@ -1577,9 +1577,9 @@ else
 fi
 
 msg -bar
-echo -e "             Puedes Monitorear desde:\n       \033[1;32m http://$(meu_ip):81/monitor.html"
+echo -e "             You can monitor from:\n       \033[1;32m http://$(meu_ip):81/monitor.html"
 msg -bar
-[[ -z ${VERY3} ]] && monitor="\033[1;32m ACTIVADO " || monitor="\033[1;31m DESACTIVADO "
+[[ -z ${VERY3} ]] && monitor="\033[1;32m ACTIVATED " || monitor="\033[1;31m DISABLED "
 echo -e "            $monitor  --  CON EXITO"
 msg -bar
 
@@ -1682,7 +1682,7 @@ monitor-user(){
 	_lok=$(printf '%-7s' "$i")
 	_tuser=$(echo "$users"|sed '/^$/d'|wc -l)
 
-	echo -e " $(msg -verd "ONLINE:") $(msg -azu "$_onlin") $(msg -verm2 "EXPIRADOS:") $(msg -azu "$_userexp") $(msg -bra "\e[95mBLOQUEADO:") $(msg -azu "$_lok")" #$(msg -ama "TOTAL:") $(msg -azu "$_tuser")"
+	echo -e " $(msg -verd "ONLINE:") $(msg -azu "$_onlin") $(msg -verm2 "EXPIRED:") $(msg -azu "$_userexp") $(msg -bra "\e[95mBLOQUEADO:") $(msg -azu "$_lok")" #$(msg -ama "TOTAL:") $(msg -azu "$_tuser")"
 }
 # SISTEMA DE SELECAO
 selection_fun () {
@@ -1690,7 +1690,7 @@ local selection="null"
 local range
 for((i=0; i<=$1; i++)); do range[$i]="$i "; done
 while [[ ! $(echo ${range[*]}|grep -w "$selection") ]]; do
-echo -ne "\033[1;37m$(fun_trans " ► Selecione una Opcion"): " >&2
+echo -ne "\033[1;37m$(fun_trans " ► Select an Option"): " >&2
 read selection
 tput cuu1 >&2 && tput dl1 >&2
 done
@@ -1747,27 +1747,27 @@ if [[ $(cat ${SCPdir}/tmp/style|grep -w "monitor-user"|awk '{print $2}') = "1" ]
 fi
 
 else
-[[ -e ${SCPdir}/USRonlines ]] && msg -bar && msg -ne "\033[1;97m LIMITADOR:\033[1;92m$verificar \033[1;97m AUTO-DESBLOQUEO:\033[1;92m$desbloqueo \e[1;97mMONITOR:\e[34m${limseg}s\n \033[1;32mCONECTADOS: " && echo -ne "\033[1;97m$(cat ${SCPdir}/USRonlines) "
-[[ -e ${SCPdir}/USRexpired ]] && msg -ne "   EXPIRADOS: " && echo -ne "\033[1;97m$(cat ${SCPdir}/USRexpired) "  && msg -ne " \033[1;95m BLOQUEADOS: " && echo -e "\033[1;97m$(cat ${SCPdir}/USRbloqueados)" #\n\033[1;97m        ACTULIZACION DE MONITOR CADA: \033[1;34m $limseg s" 
+[[ -e ${SCPdir}/USRonlines ]] && msg -bar && msg -ne "\033[1;97m LIMITER:\033[1;92m$verificar \033[1;97m SELF-UNLOCK:\033[1;92m$desbloqueo \e[1;97mMONITOR:\e[34m${limseg}s\n \033[1;32mCONNECTED: " && echo -ne "\033[1;97m$(cat ${SCPdir}/USRonlines) "
+[[ -e ${SCPdir}/USRexpired ]] && msg -ne "   EXPIRED: " && echo -ne "\033[1;97m$(cat ${SCPdir}/USRexpired) "  && msg -ne " \033[1;95m BLOCKED: " && echo -e "\033[1;97m$(cat ${SCPdir}/USRbloqueados)" #\n\033[1;97m        ACTULIZACION DE MONITOR CADA: \033[1;34m $limseg s" 
 fi
 monhtop () {
 clear 
 
 #msg -bar
 msg -tit
-echo -ne " \033[1;93m             MONITOR DE PROCESOS HTOP\n"
+echo -ne " \033[1;93m             HTOP PROCESSES MONITOR\n"
 msg -bar
-msg -bra "    RECUERDA SALIR CON : \033[1;96m CTRL + C o FIN + F10 "
+msg -bra "    REMEMBER TO GO OUT WITH : \033[1;96m CTRL + C o FIN + F10 "
 [[ $(dpkg --get-selections|grep -w "htop"|head -1) ]] || apt-get install htop -y &>/dev/null
 msg -bar
-read -t 10 -n 1 -rsp $'\033[1;39m Preciona Enter Para continuar\n'
+read -t 10 -n 1 -rsp $'\033[1;39m Press enter to continue\n'
 clear
 sudo htop
 msg -bar
 echo -e "\e[97m \033[1;41m| #-#-►  SCRIPT VPS•MX ◄-#-# | \033[1;49m\033[1;49m \033[1;31m[ \033[1;32m $vesaoSCT      "
-echo -ne " \033[1;93m             MONITOR DE PROCESOS HTOP\n"
+echo -ne " \033[1;93m             HTOP PROCESSES MONITOR\n"
 msg -bar
-echo -e "\e[97m                  FIN DEL MONITOR"
+echo -e "\e[97m                  END OF MONITOR"
 msg -bar
 }
 
@@ -1782,7 +1782,7 @@ echo -e " \e[1;93m[\e[92m4\e[93m] $(msg -verm2 "➛ ") \e[1;31m\033[47mPROTOCOLO
 echo -e " \e[1;93m[\e[92m5\e[93m] $(msg -verm2 "➛ ") $(msg -azu "MONITOR DE PROTOCOLOS --------> ${monitorserv}")"
 echo -e " \e[1;93m[\e[92m6\e[93m] $(msg -verm2 "➛ ") $(msg -azu "AUTO INICIAR SCRIPT ----------> $AutoRun ")"
 msg -bar
-echo -e " \e[1;93m[\e[92m7\e[93m] \e[97m$(msg -verm2 "➛ ") $(msg -verd "ACTUALIZAR") \e[1;93m [\e[92m8\e[93m]\e[97m$(msg -verm2 "➛ ")\033[1;31mDESINSTALAR  \e[1;93m[\e[92m0\e[93m]$(msg -verm2 "➛ ") $(msg -bra "\e[97m\033[1;41mSALIR")"
+echo -e " \e[1;93m[\e[92m7\e[93m] \e[97m$(msg -verm2 "➛ ") $(msg -verd "UPDATE") \e[1;93m [\e[92m8\e[93m]\e[97m$(msg -verm2 "➛ ")\033[1;31mUNINSTALL  \e[1;93m[\e[92m0\e[93m]$(msg -verm2 "➛ ") $(msg -bra "\e[97m\033[1;41mGO OUT")"
 msg -bar
 
 selection=$(selection_fun 13)
@@ -1797,5 +1797,5 @@ case ${selection} in
 8)remove_script;;
 0)cd $HOME && exit 0;;
 esac
-msg -ne "Enter Para Continuar" && read enter
+msg -ne "Enter to continue" && read enter
 ${SCPdir}/menu
