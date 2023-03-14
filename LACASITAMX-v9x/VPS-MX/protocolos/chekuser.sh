@@ -33,7 +33,7 @@ title(){
  
 back(){
     msg -bar
-    echo -ne "$(msg -verd " [0]") $(msg -verm2 ">") " && msg -bra "\033[1;41mVOLVER"
+    echo -ne "$(msg -verd " [0]") $(msg -verm2 ">") " && msg -bra "\033[1;41mRETURN"
     msg -bar
  }
 export numero='^[0-9]+$'
@@ -47,7 +47,7 @@ local selection="null"
 local range
 for((i=0; i<=$1; i++)); do range[$i]="$i "; done
 while [[ ! $(echo ${range[*]}|grep -w "$selection") ]]; do
-echo -ne "\033[1;37m$(fun_trans " ► Selecione una Opcion"): " >&2
+echo -ne "\033[1;37m$(fun_trans " ► Select an Option"): " >&2
 read selection
 tput cuu1 >&2 && tput dl1 >&2
 done
@@ -104,27 +104,27 @@ menu_func(){
 
 start(){
 	if [[ $(systemctl is-active chekuser) = "active" ]]; then
-		msg -azu "DESABILITANDO CHEKUSER"
+		msg -azu "DISABLE CHEKUSER"
 		systemctl stop chekuser &>/dev/null
     	systemctl disable chekuser &>/dev/null
     	rm -rf /etc/systemd/system/chekuser.service
-		msg -verd 'chekuser, se desactivo con exito!'
+		msg -verd 'chekuser, deactivated successfully!'
 		enter
 		return
 	fi
 
 	  while true; do
 	echo -ne "\033[1;37m"
-    read -p " INGRESE UN PUERTO: " chekuser
+    read -p " ENTER A PORT: " chekuser
 	echo ""
     [[ $(mportas|grep -w "$chekuser") ]] || break
-    echo -e "\033[1;33m Este puerto está en uso"
+    echo -e "\033[1;33m This port is in use"
     unset chekuser
     done
     echo " $(msg -ama "Puerto") $(msg -verd "$chekuser")"
     msg -bar
 
-    print_center 'SELECCIONA UN FORMATO DE FECHA'
+    print_center 'SELECT A DATE FORMAT'
     msg -bar
     menu_func 'YYYY/MM/DD' 'DD/MM/YYYY'
     msg -bar
@@ -135,7 +135,7 @@ start(){
     esac
     [[ $date = 0 ]] && return
     del 5
-    echo " $(msg -ama "Formato") $(msg -verd "$fecha")"
+    echo " $(msg -ama "Format") $(msg -verd "$fecha")"
   #  enter
     del 2
 
@@ -145,7 +145,7 @@ start(){
     	print_center -verd 'Instalandon python3-pip ok'
     else
     	del 1
-    	print_center -verm2 'falla al instalar python3-pip\nintente instalar manualmente\n\ncomando manual >> apt install -y python3-pip\n\nresuelva esta falla para luego intentar'
+    	print_center -verm2 'fails to install python3-pip\ntry to install manually\n\nmanual command >> apt install -y python3-pip\n\nresolve this failure and then try'
    # 	enter
     	return
     fi
@@ -156,12 +156,12 @@ start(){
     	print_center -verd 'Instalandon flask ok'
     else
     	del 1
-    	print_center -verm2 '\nfalla al instalar flask\nintente instalar manualmente\n\ncomando manual >> pip3 install flask\n\nresuelva esta falla para luego intentar'
+    	print_center -verm2 '\nfail to install flask\ntry to install manually\n\nmanual command >> pip3 install flask\n\nresolve this failure and then try'
    # 	enter
     	return
     fi
 
-    print_center -ama 'Iniciando servicio'
+    print_center -ama 'starting service'
 
     if [[ $(systemctl is-active chekuser) = "active" ]]; then
     	systemctl stop chekuser &>/dev/null
@@ -193,13 +193,13 @@ WantedBy=multi-user.target" > /etc/systemd/system/chekuser.service
 	systemctl start chekuser &>/dev/null
 
 	if [[ $(systemctl is-active chekuser) = "active" ]]; then
-		title -verd 'Instalacion completa'
+		title -verd 'Installation complete'
 		print_center -ama "URL: http://$chk_ip:$chekuser/checkUser"
 	else
 		systemctl stop chekuser &>/dev/null
     	systemctl disable chekuser &>/dev/null
     	rm -rf /etc/systemd/system/chekuser.service
-		print_center -verm2 'falla al iniciar servicio chekuser'
+		print_center -verm2 'fail to start chekuser service'
 	fi
 	#enter
 }
@@ -207,10 +207,10 @@ WantedBy=multi-user.target" > /etc/systemd/system/chekuser.service
 mod_port(){
 	while true; do
 	echo -ne "\033[1;37m"
-    read -p " INGRESE UN PUERTO: " chekuser
+    read -p " ENTER A PORT: " chekuser
 	echo ""
     [[ $(mportas|grep -w "$chekuser") ]] || break
-    echo -e "\033[1;33m Este puerto está en uso"
+    echo -e "\033[1;33m This port is in use"
     unset chekuser
     done
     echo " $(msg -ama "Puerto") $(msg -verd "$chekuser")"
@@ -223,19 +223,19 @@ mod_port(){
     systemctl start chekuser &>/dev/null
 
     if [[ $(systemctl is-active chekuser) = "active" ]]; then
-		title -verd 'puerto modificado'
+		title -verd 'modified port'
 		print_center -ama "URL: http://$chk_ip:$chekuser/checkUser"
 	else
 		systemctl stop chekuser &>/dev/null
     	systemctl disable chekuser &>/dev/null
     	rm -rf /etc/systemd/system/chekuser.service
-		print_center -verm2 'algo salio mal\nfalla al iniciar servicio chekuser'
+		print_center -verm2 'algo salio mal\nfail to start chekuser service'
 	fi
 	#enter
 }
 
 mod_fdate(){
-	title 'SELECCIONA UN FORMATO DE FECHA'
+	title 'SELECT A DATE FORMAT'
 	menu_func 'YYYY/MM/DD' 'DD/MM/YYYY'
     msg -bar
     date=$(selection_fun 2)
@@ -245,7 +245,7 @@ mod_fdate(){
     esac
     [[ $date = 0 ]] && return
     del 3
-    echo " $(msg -ama "Formato") $(msg -verd "$fecha")"
+    echo " $(msg -ama "Format") $(msg -verd "$fecha")"
     enter
     formato=$(ps x|grep -v grep|grep chekuser.py|awk '{print $8}')
     systemctl stop chekuser &>/dev/null
@@ -255,20 +255,20 @@ mod_fdate(){
     systemctl start chekuser &>/dev/null
 
     if [[ $(systemctl is-active chekuser) = "active" ]]; then
-		title -verd 'formato de fecha modificado'
-		print_center -ama "FORMATO: $fecha"
+		title -verd 'modified date format'
+		print_center -ama "FORMAT: $fecha"
 	else
 		systemctl stop chekuser &>/dev/null
     	systemctl disable chekuser &>/dev/null
     	rm -rf /etc/systemd/system/chekuser.service
-		print_center -verm2 'algo salio mal\nfalla al iniciar servicio chekuser'
+		print_center -verm2 'something went wrong\nfailed to start chekuser service'
 	fi
 	#enter
 
 }
 
 menu_chekuser(){
-	title 'VERIFICACION DE USUARIOS ONLINE'
+	title 'ONLINE USER VERIFICATION'
 	num=1
 	if [[ $(systemctl is-active chekuser) = "active" ]]; then
 		formato=$(ps x|grep -v grep|grep chekuser.py|awk '{print $8}')
@@ -282,16 +282,16 @@ menu_chekuser(){
 		msg -ama "\e[93mURL: http://$chk_ip:$port_chek/checkUser"
 		port_chek=$(printf '%8s' "$port_chek")
 	
-		echo " $(msg -verd '[1]') $(msg -verm2 '>') $(msg -verm2 'DESACTIVAR') $(msg -azu 'CHEKUSER')"
-		echo " $(msg -verd '[2]') $(msg -verm2 '>') $(msg -azu 'MODIFICAR PUERTO') $(msg -verd "$port_chek")"
-		echo " $(msg -verd '[3]') $(msg -verm2 '>') $(msg -azu 'MODIFICAR FORMATO') $(msg -verd "$fecha_data")"
+		echo " $(msg -verd '[1]') $(msg -verm2 '>') $(msg -verm2 'DEACTIVATE') $(msg -azu 'CHEKUSER')"
+		echo " $(msg -verd '[2]') $(msg -verm2 '>') $(msg -azu 'MODIFY PORT') $(msg -verd "$port_chek")"
+		echo " $(msg -verd '[3]') $(msg -verm2 '>') $(msg -azu 'MODIFY FORMAT') $(msg -verd "$fecha_data")"
 		msg -bar
 		num=3
 	else
 	msg -tit
-        print_center -verm2 'ADVERTENCIA!!!\nesto puede generar consumo de ram/cpu\nen metodos de coneccion inestables\nse recomienda no usar chekuser en esos casos'
+        print_center -verm2 'WARNING!!!\nThis can generate ram/cpu consumption\nin unstable connection methods\nit is recommended not to use chekuser in such cases'
         msg -bar
-		echo " $(msg -verd '[1]') $(msg -verm2 '>') $(msg -verd 'ACTIVAR') $(msg -azu 'CHEKUSER')"
+		echo " $(msg -verd '[1]') $(msg -verm2 '>') $(msg -verd 'ACTIVATE') $(msg -azu 'CHEKUSER')"
 		msg -bar
 	fi
 	back

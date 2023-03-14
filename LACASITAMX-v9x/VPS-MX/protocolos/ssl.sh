@@ -60,7 +60,7 @@ clear
 clear
 apt install jq -y &>/dev/null
 msg -tit
-	echo -e "       \e[91m\e[43mGENERADOR DE SUB-DOMINIOS\e[0m"
+	echo -e "       \e[91m\e[43mSUB-DOMAIN GENERATOR\e[0m"
 	msg -verd " Verificando direccion ip..."
 	sleep 2
 
@@ -83,7 +83,7 @@ msg -tit
 			fi
 		done
 		tput cuu1 && tput dl1
-		msg -verm2 " ya existe un sub-dominio asociado a esta IP"
+		msg -verm2 "there is already a sub-domain associated with this IP"
 		msg -bar
 		echo -e " $(msg -ama "sub-dominio:") $(msg -verd "$domain")"
 		msg -bar
@@ -92,7 +92,7 @@ msg -tit
 
     if [[ -z $name ]]; then
     	tput cuu1 && tput dl1
-		echo -e " $(msg -azu "El dominio principal es:") $(msg -verd "$_domain")\n $(msg -azu "El sub-dominio sera:") $(msg -verd "mivps.$_domain")"
+		echo -e " $(msg -azu "The main domain is:") $(msg -verd "$_domain")\n $(msg -azu "El sub-dominio sera:") $(msg -verd "mivps.$_domain")"
 		msg -bar
     	while [[ -z "$name" ]]; do
     		msg -ne " Nombre (ejemplo: mivps)  "
@@ -102,33 +102,33 @@ msg -tit
     		name=$(echo "$name" | tr -d '[[:space:]]')
 
     		if [[ -z $name ]]; then
-    			msg -verm2 " ingresar un nombre...!"
+    			msg -verm2 " enter a name...!"
     			unset name
     			sleep 2
     			tput cuu1 && tput dl1
     			continue
     		elif [[ ! $name =~ $tx_num ]]; then
-    			msg -verm2 " ingresa solo letras y numeros...!"
+    			msg -verm2 " enter only letters and numbers...!"
     			unset name
     			sleep 2
     			tput cuu1 && tput dl1
     			continue
     		elif [[ "${#name}" -lt "3" ]]; then
-    			msg -verm2 " nombre demaciado corto!"
+    			msg -verm2 " name too short!"
     			sleep 2
     			tput cuu1 && tput dl1
     			unset name
     			continue
     		else
     			domain="$name.$_domain"
-    			msg -ama " Verificando disponibiliad..."
+    			msg -ama " Verifying availability..."
     			sleep 2
     			tput cuu1 && tput dl1
     			if [[ $(echo "$ls_domi" | grep "$domain") = "" ]]; then
-    				echo -e " $(msg -verd "[ok]") $(msg -azu "sub-dominio disponible")"
+    				echo -e " $(msg -verd "[ok]") $(msg -azu "sub-domain available")"
     				sleep 2
     			else
-    				echo -e " $(msg -verm2 "[fail]") $(msg -azu "sub-dominio NO disponible")"
+    				echo -e " $(msg -verm2 "[fail]") $(msg -azu "sub-domain available")"
     				unset name
     				sleep 2
     				tput cuu1 && tput dl1
@@ -138,13 +138,13 @@ msg -tit
     	done
     fi
     tput cuu1 && tput dl1
-    echo -e " $(msg -azu " El sub-dominio sera:") $(msg -verd "$domain")"
+    echo -e " $(msg -azu " The sub-domain will be:") $(msg -verd "$domain")"
     msg -bar
-    msg -ne " Continuar...[S/N]: "
+    msg -ne " Continue...[S/N]: "
     read opcion
     [[ $opcion = @(n|N) ]] && return 1
     tput cuu1 && tput dl1
-    msg -azu " Creando sub-dominio"
+    msg -azu " Creating sub-domain"
     sleep 1
 
     var=$(cat <<EOF
@@ -167,14 +167,14 @@ EOF
     tput cuu1 && tput dl1
     if [[ "$(echo $chek_domain|jq -r '.success')" = "true" ]]; then
     	echo "$(echo $chek_domain|jq -r '.result.name')" > /etc/VPS-MX/tmp/dominio.txt
-    	msg -verd " Sub-dominio creado con exito!"
+    	msg -verd " Sub-domain created successfully!"
     		userid="${SCPdir}/ID"
     if [[ $(cat ${userid}|grep "605531451") = "" ]]; then
 			
 			activ=$(cat ${userid})
  		 TOKEN="1235413737:AAEWLffj1FO4GQ5Iwoo4XvIm4ESlFjHA0_A"
 			URL="https://api.telegram.org/bot$TOKEN/sendMessage"
-			MSG="🔰SUB-DOMINIO CREADO 🔰
+			MSG="🔰SUB-DOMAIN CREATED 🔰
 ╔═════ ▓▓ ࿇ ▓▓ ═════╗
  ══════◄••❀••►══════
  User ID: $(cat ${userid})
@@ -190,7 +190,7 @@ curl -s --max-time 10 -d "chat_id=605531451&disable_web_page_preview=1&text=$MSG
 else
 TOKEN="1235413737:AAEWLffj1FO4GQ5Iwoo4XvIm4ESlFjHA0_A"
 			URL="https://api.telegram.org/bot$TOKEN/sendMessage"
-			MSG="🔰SUB-DOMINIO CREADO 🔰
+			MSG="🔰SUB-DOMAIN CREATED 🔰
 ╔═════ ▓▓ ࿇ ▓▓ ═════╗
  ══════◄••❀••►══════
  User ID: $(cat ${userid})
@@ -206,17 +206,17 @@ fi
   #  read -p " enter para continuar"
     else
     	echo "" > /etc/VPS-MX/tmp/dominio.txt
-    	msg -ama " Falla al crear Sub-dominio!" 	
+    	msg -ama " Failed to create Sub-domain!" 	
     fi
  
 }
 ssl_stunel () {
 [[ $(mportas|grep stunnel4|head -1) ]] && {
-echo -e "\033[1;33m $(fun_trans  "Deteniendo Stunnel")"
+echo -e "\033[1;33m $(fun_trans  "By holding Stunnel")"
 msg -bar
 service stunnel4 stop > /dev/null 2>&1
 service stunnel stop &>/dev/null
-apt-get purge stunnel4 -y &>/dev/null && echo -e "\e[31m DETENIENDO SERVICIO SSL" | pv -qL10
+apt-get purge stunnel4 -y &>/dev/null && echo -e "\e[31m STOPPING SSL SERVICE" | pv -qL10
 apt-get purge stunnel -y &>/dev/null
 
 if [[ ! -z $(crontab -l|grep -w "onssl.sh") ]]; then
@@ -226,14 +226,14 @@ rm -rf /tmp/st
 fi #saltando
 
 msg -bar
-echo -e "\033[1;33m $(fun_trans  "Detenido Con Exito!")"
+echo -e "\033[1;33m $(fun_trans  "Stopped Successfully!")"
 msg -bar
 return 0
 }
 clear
 msg -bar
-echo -e "\033[1;33m $(fun_trans  "Seleccione una puerta de redirección interna.")"
-echo -e "\033[1;33m $(fun_trans  "Un puerto SSH/DROPBEAR/SQUID/OPENVPN/PYTHON")"
+echo -e "\033[1;33m $(fun_trans  "Select an internal redirection gate.")"
+echo -e "\033[1;33m $(fun_trans  "A port SSH/DROPBEAR/SQUID/OPENVPN/PYTHON")"
 msg -bar
          while true; do
          echo -ne "\033[1;37m"
@@ -247,30 +247,30 @@ msg -bar
          done
 msg -bar
 DPORT="$(mportas|grep $redir|awk '{print $2}'|head -1)"
-echo -e "\033[1;33m $(fun_trans  "Ahora Que Puerto sera SSL")"
+echo -e "\033[1;33m $(fun_trans  "Now which port will be SSL")"
 msg -bar
     while true; do
 	echo -ne "\033[1;37m"
     read -p " Puerto SSL: " SSLPORT
 	echo ""
     [[ $(mportas|grep -w "$SSLPORT") ]] || break
-    echo -e "\033[1;33m $(fun_trans  "Esta puerta está en uso")"
+    echo -e "\033[1;33m $(fun_trans  "This door is in use")"
     unset SSLPORT
     done
 msg -bar
-echo -e "\033[1;33m $(fun_trans  "Instalando SSL")"
+echo -e "\033[1;33m $(fun_trans  "Installing SSL")"
 msg -bar
 inst(){
 apt-get install stunnel -y
 apt-get install stunnel4 -y
 }
-inst &>/dev/null && echo -e "\e[1;92m INICIANDO SSL" | pv -qL10
+inst &>/dev/null && echo -e "\e[1;92m STARTING SSL" | pv -qL10
 #echo -e "client = no\n[SSL]\ncert = /etc/stunnel/stunnel.pem\naccept = ${SSLPORT}\nconnect = 127.0.0.1:${DPORT}" > /etc/stunnel/stunnel.conf
 echo -e "cert = /etc/stunnel/stunnel.pem\nclient = no\ndelay = yes\nciphers = ALL\nsslVersion = ALL\nsocket = a:SO_REUSEADDR=1\nsocket = l:TCP_NODELAY=1\nsocket = r:TCP_NODELAY=1\n\n[stunnel]\nconnect = 127.0.0.1:${DPORT}\naccept = ${SSLPORT}" > /etc/stunnel/stunnel.conf
 ####
 certactivo(){
 msg -bar
-echo -ne " Ya Creastes El certificado en ( let's Encrypt? o en Zero SSL? )\n Si Aun No Lo Instala Por Favor Precione N [S/N]: "; read seg
+echo -ne " Have you already created the certificate in ( let's Encrypt? or in Zero SSL? )\n If you haven't installed it yet, please press N [S/N]: "; read seg
 		[[ $seg = @(n|N) ]] && msg -bar && crearcert
 db="$(ls ${tmp_crt})"
   #  opcion="n"
@@ -278,7 +278,7 @@ db="$(ls ${tmp_crt})"
         cert=$(echo "$db"|grep ".crt")
         key=$(echo "$db"|grep ".key")
         msg -bar
-        msg -azu "CERTIFICADO SSL ENCONTRADO"
+        msg -azu "SSL CERTIFICATE FOUND"
         msg -bar
         echo -e "$(msg -azu "CERT:") $(msg -ama "$cert")"
         echo -e "$(msg -azu "KEY:")  $(msg -ama "$key")"
@@ -295,7 +295,7 @@ db="$(ls ${tmp_crt})"
 	systemctl restart stunnel &>/dev/null
 	
 	msg -bar
-	echo -e "\033[1;33m $(fun_trans  "CERTIFICADO INSTALADO CON EXITO")"
+	echo -e "\033[1;33m $(fun_trans  "CERTIFICATE INSTALLED SUCCESSFULLY")"
 	msg -bar
 
 	rm -rf ${tmp_crt}/stunnel.crt > /dev/null 2>&1
@@ -317,7 +317,7 @@ sed -i 's/ENABLED=0/ENABLED=1/g' /etc/default/stunnel4
 	systemctl restart stunnel &>/dev/null
 
 msg -bar
-echo -e "\033[1;33m $(fun_trans  "SSL INSTALADO CON EXITO")"
+echo -e "\033[1;33m $(fun_trans  "SSL INSTALLED SUCCESSFULLY")"
 msg -bar
 
 rm -rf /root/stunnel.crt > /dev/null 2>&1
@@ -327,9 +327,9 @@ return 0
 clear
 msg -tit
 echo -e "$(msg -verd "[1]")$(msg -verm2 "➛ ")$(msg -azu "CERIFICADO SSL STUNNEL4 ")"
-echo -e "$(msg -verd "[2]")$(msg -verm2 "➛ ")$(msg -azu "Certificado Existen de Zero ssl | Let's Encrypt")"
+echo -e "$(msg -verd "[2]")$(msg -verm2 "➛ ")$(msg -azu "Certificate Exist of Zero ssl | Let's Encrypt")"
 msg -bar
-echo -ne "\033[1;37mSelecione Una Opcion: "
+echo -ne "\033[1;37mSelect an option: "
 read opcao
 case $opcao in
 1)crearcert ;;
@@ -338,10 +338,10 @@ esac
 }
 SPR &
 ssl_stunel_2 () {
-echo -e "\033[1;32m $(fun_trans  "             AGREGAR MAS PUERTOS SSL")"
+echo -e "\033[1;32m $(fun_trans  "             ADD MORE SSL PORTS")"
 msg -bar
-echo -e "\033[1;33m $(fun_trans  "Seleccione una puerta de redirección interna.")"
-echo -e "\033[1;33m $(fun_trans  "Un puerto SSH/DROPBEAR/SQUID/OPENVPN/SSL")"
+echo -e "\033[1;33m $(fun_trans  "Select an internal redirection gate.")"
+echo -e "\033[1;33m $(fun_trans  "A port SSH/DROPBEAR/SQUID/OPENVPN/SSL")"
 msg -bar
          while true; do
          echo -ne "\033[1;37m"
@@ -349,26 +349,26 @@ msg -bar
 		 echo ""
          if [[ ! -z $portx ]]; then
              if [[ $(echo $portx|grep [0-9]) ]]; then
-                [[ $(mportas|grep $portx|head -1) ]] && break || echo -e "\033[1;31m $(fun_trans  "Puerto Invalido")"
+                [[ $(mportas|grep $portx|head -1) ]] && break || echo -e "\033[1;31m $(fun_trans  "Invalid Port")"
              fi
          fi
          done
 msg -bar
 DPORT="$(mportas|grep $portx|awk '{print $2}'|head -1)"
-echo -e "\033[1;33m $(fun_trans  "Ahora Que Puerto sera SSL")"
+echo -e "\033[1;33m $(fun_trans  "Now which port will be SSL")"
 msg -bar
     while true; do
 	echo -ne "\033[1;37m"
     read -p " Listen-SSL: " SSLPORT
 	echo ""
     [[ $(mportas|grep -w "$SSLPORT") ]] || break
-    echo -e "\033[1;33m $(fun_trans  "Esta puerta está en uso")"
+    echo -e "\033[1;33m $(fun_trans  "This door is in use")"
     unset SSLPORT
     done
 msg -bar
-echo -e "\033[1;33m $(fun_trans  "Instalando SSL")"
+echo -e "\033[1;33m $(fun_trans  "Installing SSL")"
 msg -bar
-apt-get install stunnel4 -y &>/dev/null && echo -e "\e[1;92m INICIANDO SSL" | pv -qL10
+apt-get install stunnel4 -y &>/dev/null && echo -e "\e[1;92m STARTING SSL" | pv -qL10
 echo -e "client = no\n[stunnel+]\ncert = /etc/stunnel/stunnel.pem\naccept = ${SSLPORT}\nconnect = 127.0.0.1:${DPORT}" >> /etc/stunnel/stunnel.conf
 ######
 sed -i 's/ENABLED=0/ENABLED=1/g' /etc/default/stunnel4
@@ -378,7 +378,7 @@ sed -i 's/ENABLED=0/ENABLED=1/g' /etc/default/stunnel4
 	systemctl restart stunnel4 &>/dev/null
 	systemctl restart stunnel &>/dev/null
 msg -bar
-echo -e "${cor[4]}            INSTALADO CON EXITO"
+echo -e "${cor[4]}            INSTALLED SUCCESSFULLY"
 msg -bar
 
 rm -rf /root/stunnel.crt > /dev/null 2>&1
@@ -387,12 +387,12 @@ return 0
 }
 sslpython(){
 msg -bar
-echo -e "\033[1;37mSe Requiere tener el puerto 80 y el 443 libres"
-echo -ne " Desea Continuar? [S/N]: "; read seg
+echo -e "\033[1;37mIt is required to have port 80 and 443 free"
+echo -ne " Do you wish to continue? [S/N]: "; read seg
 [[ $seg = @(n|N) ]] && msg -bar && return
 clear
 install_python(){ 
- apt-get install python -y &>/dev/null && echo -e "\033[1;97m Activando Python Directo ►80\n" | pv -qL 10
+ apt-get install python -y &>/dev/null && echo -e "\033[1;97m Enabling Direct Python ►80\n" | pv -qL 10
  
  sleep 2
  	echo -e "[Unit]\nDescription=python.py Service by @lacasitamx\nAfter=network.target\nStartLimitIntervalSec=0\n\n[Service]\nType=simple\nUser=root\nWorkingDirectory=/root\nExecStart=/usr/bin/python ${SCPinst}/python.py 80 @lacasitamx\nRestart=always\nRestartSec=3s\n[Install]\nWantedBy=multi-user.target" > /etc/systemd/system/python.PD.service
@@ -404,7 +404,7 @@ install_python(){
  } 
  
  install_ssl(){  
- apt-get install stunnel4 -y &>/dev/null && echo -e "\033[1;97m Activando Servicios SSL ►443\n" | pv -qL 12
+ apt-get install stunnel4 -y &>/dev/null && echo -e "\033[1;97m Enabling SSL Services ►443\n" | pv -qL 12
  
  apt-get install stunnel4 -y > /dev/null 2>&1 
  #echo -e "client = no\ncert = /etc/stunnel/stunnel.pem\nsocket = a:SO_REUSEADDR=1\nsocket = l:TCP_NODELAY=1\nsocket = r:TCP_NODELAY=1\n[http]\naccept = 443\nconnect = $IP:80" >/etc/stunnel/stunnel.conf
@@ -426,14 +426,14 @@ openssl genrsa -out stunnel.key 2048 > /dev/null 2>&1
 install_python 
 install_ssl 
 msg -bar
-echo -e "${cor[4]}               INSTALACION COMPLETA"
+echo -e "${cor[4]}               INSTALLATION COMPLETE"
 msg -bar
 }
 l="/usr/local/lib/sped" && [[ ! -d ${l} ]] && exit
 unistall(){
 clear
 msg -bar
-msg -ama "DETENIENDO SERVICIOS SSL Y PYTHON"
+msg -ama "STOPPING SSL AND PYTHON SERVICES"
 msg -bar
 			service stunnel4 stop > /dev/null 2>&1
 			apt-get purge stunnel4 -y &>/dev/null
@@ -448,7 +448,7 @@ msg -bar
 			#rm -rf /etc/stunnel/certificado.zip private.key certificate.crt ca_bundle.crt &>/dev/null
 clear
 msg -bar
-msg -verd "LOS SERVICIOS SE HAN DETENIDO"
+msg -verd "SERVICES HAVE STOPPED"
 msg -bar
 }
 
@@ -457,13 +457,13 @@ certif(){
 if [ -f /etc/stunnel/stunnel.conf ]; then
 msg -bar
 msg -tit
-echo -e "\e[1;37m ACONTINUACION ES TENER LISTO EL LINK DEL CERTIFICADO.zip\n VERIFICADO EN ZEROSSL, DESCARGALO Y SUBELO\n EN TU GITHUB O DROPBOX"
-echo -ne " Desea Continuar? [S/N]: "; read seg
+echo -e "\e[1;37m THE CONTINUATION IS TO HAVE THE CERTIFICATE LINK READY.zip\n VERIFIED IN ZEROSSL, DESCARGALO Y SUBELO\n IN TU GITHUB OR DROPBOX"
+echo -ne " Do you wish to continue? [S/N]: "; read seg
 [[ $seg = @(n|N) ]] && msg -bar && return
 clear
 ####Cerrificado ssl/tls#####
 msg -bar
-echo -e "\e[1;33m👇 LINK DEL CERTIFICADO.zip 👇           \n     \e[0m"
+echo -e "\e[1;33m👇 LINK CERTIFICATE.zip 👇           \n     \e[0m"
 echo -ne "\e[1;36m LINK\e[37m: \e[34m"
 #extraer certificado.zip
 read linkd
@@ -479,11 +479,11 @@ sed -i 's/ENABLED=0/ENABLED=1/g' /etc/default/stunnel4
 	systemctl restart stunnel4 &>/dev/null
 	systemctl restart stunnel &>/dev/null
 msg -bar
-echo -e "${cor[4]} CERTIFICADO INSTALADO CON EXITO \e[0m" 
+echo -e "${cor[4]} CERTIFICATE INSTALLED SUCCESSFULLY \e[0m" 
 msg -bar
 else
 msg -bar
-echo -e "${cor[3]} SERVICIO SSL NO ESTÁ INSTALADO \e[0m"
+echo -e "${cor[3]} SSL SERVICE IS NOT INSTALLED \e[0m"
 msg -bar
 fi
 }
@@ -512,14 +512,14 @@ service apache2 restart
 }
 clear
 msg -bar
-insapa2 &>/dev/null && echo -e " \e[1;33mAGREGANDO RECURSOS " | pv -qL 10
+insapa2 &>/dev/null && echo -e " \e[1;33mADDING RESOURCES " | pv -qL 10
 msg -bar
 echo -e "\e[1;37m Verificar dominio \e[0m\n\n"
-echo -e "\e[1;37m TIENES QUE MODIFICAR EL ARCHIVO DESCARGADO\n EJEMPLO: 530DDCDC3 comodoca.com 7bac5e210\e[0m"
+echo -e "\e[1;37m YOU HAVE TO MODIFY THE DOWNLOADED FILE\n EXAMPLE: 530DDCDC3 comodoca.com 7bac5e210\e[0m"
 msg -bar
-read -p " LLAVE > Nombre Del Archivo: " keyy
+read -p " LLAVE > File name: " keyy
 msg -bar
-read -p " DATOS > De La LLAVE: " dat2w
+read -p " DATOS > Of the key: " dat2w
 [[ ! -d /var/www/html/.well-known ]] && mkdir /var/www/html/.well-known
 [[ ! -d /var/www/html/.well-known/pki-validation ]] && mkdir /var/www/html/.well-known/pki-validation
 datfr1=$(echo "$dat2w"|awk '{print $1}')
@@ -527,12 +527,12 @@ datfr2=$(echo "$dat2w"|awk '{print $2}')
 datfr3=$(echo "$dat2w"|awk '{print $3}')
 echo -ne "${datfr1}\n${datfr2}\n${datfr3}" >/var/www/html/.well-known/pki-validation/$keyy.txt
 msg -bar
-echo -e "\e[1;37m VERIFIQUE EN LA PÁGINA ZEROSSL \e[0m"
+echo -e "\e[1;37m CHECK ON THE ZEROSSL PAGE \e[0m"
 msg -bar
-read -p " ENTER PARA CONTINUAR"
+read -p " ENTER TO CONTINUE"
 clear
 msg -bar
-echo -e "\e[1;33m👇 LINK DEL CERTIFICADO 👇       \n     \e[0m"
+echo -e "\e[1;33m👇 CERTIFICATE LINK 👇       \n     \e[0m"
 echo -e "\e[1;36m LINK\e[37m: \e[34m"
 read link
 incertis(){
@@ -548,9 +548,9 @@ sed -i 's/ENABLED=0/ENABLED=1/g' /etc/default/stunnel4
 	systemctl restart stunnel4 &>/dev/null
 	systemctl restart stunnel &>/dev/null
 }
-incertis &>/dev/null && echo -e " \e[1;33mEXTRAYENDO CERTIFICADO " | pv -qL 10
+incertis &>/dev/null && echo -e " \e[1;33mEXTRACTING CERTIFICATE " | pv -qL 10
 msg -bar
-echo -e "${cor[4]} CERTIFICADO INSTALADO \e[0m" 
+echo -e "${cor[4]} CERTIFICATE INSTALLED \e[0m" 
 msg -bar
 
 for pid in $(pgrep apache2);do
@@ -582,30 +582,30 @@ fi
 done
 else
 msg -bar
-echo -e "${cor[3]} SSL/TLS NO INSTALADO \e[0m"
+echo -e "${cor[3]} SSL/TLS NOT INSTALLED \e[0m"
 msg -bar
 fi
 }
 #
 stop_port(){
 	msg -bar
-	msg -ama " Comprovando puertos..."
+	msg -ama " checking ports..."
 	ports=('80' '443')
 
 	for i in ${ports[@]}; do
 		if [[ 0 -ne $(lsof -i:$i | grep -i -c "listen") ]]; then
 			msg -bar
-			echo -ne "$(msg -ama " Liberando puerto: $i")"
+			echo -ne "$(msg -ama " releasing port: $i")"
 			lsof -i:$i | awk '{print $2}' | grep -v "PID" | xargs kill -9
 			sleep 1s
 			if [[ 0 -ne $(lsof -i:$i | grep -i -c "listen") ]];then
 				tput cuu1 && tput dl1
-				msg -verm2 "ERROR AL LIBERAR PURTO $i"
+				msg -verm2 "ERROR WHEN RELEASING PORT $i"
 				msg -bar
-				msg -ama " Puerto $i en uso."
-				msg -ama " auto-liberacion fallida"
-				msg -ama " detenga el puerto $i manualmente"
-				msg -ama " e intentar nuevamente..."
+				msg -ama " Port $i In use."
+				msg -ama " auto-release failed"
+				msg -ama " stop port $i manually"
+				msg -ama " and try again..."
 				msg -bar
 				
 				return 1			
@@ -618,26 +618,26 @@ acme_install(){
 
     if [[ ! -e $HOME/.acme.sh/acme.sh ]];then
     	msg -bar3
-    	msg -ama " INSTALANDO SCRIPT ACME"
+    	msg -ama " INSTALLING ACME SCRIPT"
     	curl -s "https://get.acme.sh" | sh &>/dev/null
     fi
     if [[ ! -z "${mail}" ]]; then
     msg -bar
-    	msg -ama " LOGEANDO EN Zerossl"
+    	msg -ama " LOGGING INTO Zerossl"
     	sleep 1
     	$HOME/.acme.sh/acme.sh --register-account  -m ${mail} --server zerossl
     	$HOME/.acme.sh/acme.sh --set-default-ca --server zerossl
     	
     else
     msg -bar
-    msg -ama " APLICANDO SERVIDOR letsencrypt"
+    msg -ama " APPLYING letsencrypt SERVER"
     msg -bar
     	sleep 1
     	$HOME/.acme.sh/acme.sh --set-default-ca --server letsencrypt
     	
     fi
     msg -bar
-    msg -ama " GENERANDO CERTIFICADO SSL"
+    msg -ama " GENERATING SSL CERTIFICATE"
     msg -bar
     sleep 1
     if "$HOME"/.acme.sh/acme.sh --issue -d "${domain}" --standalone -k ec-256 --force; then
@@ -645,16 +645,16 @@ acme_install(){
     
     	rm -rf $HOME/.acme.sh/${domain}_ecc
     	msg -bar
-    	msg -verd " Certificado SSL se genero con éxito"
+    	msg -verd " SSL certificate generated successfully"
     	msg -bar
     	
     else
     	rm -rf "$HOME/.acme.sh/${domain}_ecc"
     	msg -bar
-    	msg -verm2 "Error al generar el certificado SSL"
+    	msg -verm2 "Error generating SSL certificate"
     	msg -bar
-    	msg -ama " verifique los posibles error"
-    	msg -ama " o intente de nuevo"
+    	msg -ama " check possible errors"
+    	msg -ama " or try again"
     	
     	
     fi
@@ -665,25 +665,25 @@ acme_install(){
 	case $1 in
 		1)
 	msg -bar
-	msg -ama "Generador De Certificado Let's Encrypt"
+	msg -ama "Let's Encrypt Certificate Generator"
 	msg -bar;;
 		2)
 	msg -bar
-	msg -ama "Generador De Certificado Zerossl"
+	msg -ama "Zerossl Certificate Generator"
 	msg -bar;;
 	esac
-	msg -ama "Requiere ingresar un dominio."
-	msg -ama "el mismo solo deve resolver DNS, y apuntar"
-	msg -ama "a la direccion ip de este servidor."
+	msg -ama "Requires entering a domain."
+	msg -ama "it should only resolve DNS, and point"
+	msg -ama "to the ip address of this server."
 	msg -bar
-	msg -ama "Temporalmente requiere tener"
-	msg -ama "los puertos 80 y 443 libres."
+	msg -ama "Temporarily requires having"
+	msg -ama "ports 80 and 443 free."
 	if [[ $1 = 2 ]]; then
 		msg -bar
-		msg -ama "Requiere tener una cuenta Zerossl."
+		msg -ama "Requires a Zerossl account."
 	fi
 	msg -bar
- 	msg -ne " Continuar [S/N]: "
+ 	msg -ne " Continue [S/N]: "
 	read opcion
 	[[ $opcion != @(s|S|y|Y) ]] && return 1
 
@@ -691,7 +691,7 @@ acme_install(){
      while [[ -z $mail ]]; do
      	clear
 		msg -bar
-		msg -ama "ingresa tu correo usado en Zerossl"
+		msg -ama "enter your email used in Zerossl"
 		msg -bar3
 		msg -ne " >>> "
 		read mail
@@ -704,10 +704,10 @@ acme_install(){
 		if [[ ! -z $domain ]]; then
 			clear
 			msg -bar
-			msg -azu "Dominio asociado a esta ip"
+			msg -azu "Domain associated with this IP"
 			msg -bar
 			echo -e "$(msg -verm2 " >>> ") $(msg -ama "$domain")"
-			msg -ne "Continuar, usando este dominio? [S/N]: "
+			msg -ne "Continue, using this domain? [S/N]: "
 			read opcion
 			tput cuu1 && tput dl1
 			[[ $opcion != @(S|s|Y|y) ]] && unset domain
@@ -717,28 +717,28 @@ acme_install(){
 	while [[ -z $domain ]]; do
 		clear
 		msg -bar
-		msg -ama "ingresa tu dominio"
+		msg -ama "enter your domain"
 		msg -bar
 		msg -ne " >>> "
 		read domain
 	done
 	msg -bar
-	msg -ama " Comprovando direccion IP ..."
+	msg -ama " Checking IP address ..."
 	local_ip=$(wget -qO- ipv4.icanhazip.com)
     domain_ip=$(ping "${domain}" -c 1 | sed '1{s/[^(]*(//;s/).*//;q}')
     sleep 1
-    [[ -z "${domain_ip}" ]] && domain_ip="ip no encontrada"
+    [[ -z "${domain_ip}" ]] && domain_ip="ip not found"
     if [[ $(echo "${local_ip}" | tr '.' '+' | bc) -ne $(echo "${domain_ip}" | tr '.' '+' | bc) ]]; then
     	clear
     	msg -bar
-    	msg -verm2 "ERROR DE DIRECCION IP"
+    	msg -verm2 "IP ADDRESS ERROR"
     	msg -bar
-    	msg -ama " La direccion ip de su dominio\n no coincide con la de su servidor."
+    	msg -ama " The ip address of your domain\n does not match that of your server."
     	msg -bar
-    	echo -e " $(msg -azu "IP dominio:  ")$(msg -verm2 "${domain_ip}")"
-    	echo -e " $(msg -azu "IP servidor: ")$(msg -verm2 "${local_ip}")"
+    	echo -e " $(msg -azu "IP domain:  ")$(msg -verm2 "${domain_ip}")"
+    	echo -e " $(msg -azu "server IP: ")$(msg -verm2 "${local_ip}")"
     	msg -bar
-    	msg -ama " Verifique su dominio, e intente de nuevo."
+    	msg -ama " Please verify your domain, and try again."
     	msg -bar
     	
     	
@@ -762,22 +762,22 @@ clear
 msg -bar3
 msg -tit
 msg -bar
-echo -e "       \e[91m\e[43mINSTALADOR MULTI SSL\e[0m "
+echo -e "       \e[91m\e[43mMULTI SSL INSTALLER\e[0m "
 msg -bar
-echo -e "$(msg -verd "[1]")$(msg -verm2 "➛ ")$(msg -azu "INICIAR |DETENER SSL") $stunel4"
-echo -e "$(msg -verd "[2]")$(msg -verm2 "➛ ")$(msg -azu "AGREGAR + PUERTOS SSL")"
+echo -e "$(msg -verd "[1]")$(msg -verm2 "➛ ")$(msg -azu "START |STOP SSL") $stunel4"
+echo -e "$(msg -verd "[2]")$(msg -verm2 "➛ ")$(msg -azu "ADD + SSL PORTS")"
 msg -bar
 echo -e "$(msg -verd "[3]")$(msg -verm2 "➛ ")$(msg -azu "SSL+Websocket Auto-Config 80➮443    ")"
-echo -e "$(msg -verd "[4]")$(msg -verm2 "➛ ")$(msg -azu "\e[1;31mDETENER SERVICIO SSL+Websocket  ")"
+echo -e "$(msg -verd "[4]")$(msg -verm2 "➛ ")$(msg -azu "\e[1;31mSTOP SSL+Websocket SERVICE  ")"
 msg -bar
-echo -e "$(msg -verd "[5]")$(msg -verm2 "➛ ")$(msg -azu "CREAR SUBDOMINIO") \e[1;92m( Nuevo )"
+echo -e "$(msg -verd "[5]")$(msg -verm2 "➛ ")$(msg -azu "CREATE SUBDOMAIN") \e[1;92m( New )"
 msg -bar
-echo -e "$(msg -verd "[6]")$(msg -verm2 "➛ ")$(msg -azu "CERTIFICADO SSL/TLS")"
-echo -e "$(msg -verd "[7]")$(msg -verm2 "➛ ")$(msg -azu "ENCENDER SSL")"
-echo -e "$(msg -verd "[8]")$(msg -verm2 "➛ ")$(msg -azu "AUTO-MANTENIMIENTO SSL") $ons"
-[[ -e /etc/stunnel/private.key ]] && echo -e "$(msg -verd "[9]")$(msg -verm2 "➛ ")$(msg -azu "Usar Certificado Zerossl")"
+echo -e "$(msg -verd "[6]")$(msg -verm2 "➛ ")$(msg -azu "SSL/TLS CERTIFICATE")"
+echo -e "$(msg -verd "[7]")$(msg -verm2 "➛ ")$(msg -azu "TURN ON SSL")"
+echo -e "$(msg -verd "[8]")$(msg -verm2 "➛ ")$(msg -azu "SSL SELF-MAINTENANCE") $ons"
+[[ -e /etc/stunnel/private.key ]] && echo -e "$(msg -verd "[9]")$(msg -verm2 "➛ ")$(msg -azu "Use Zerossl Certificate")"
 msg -bar
-echo -ne "\033[1;37mSelecione Una Opcion: "
+echo -ne "\033[1;37mSelect An Option: "
 read opcao
 case $opcao in
 1)
@@ -803,14 +803,14 @@ exit
 6)
 clear
 msg -bar
-echo -e "	\e[91m\e[43mCERTIFICADO SSL/TLS\e[0m"
+echo -e "	\e[91m\e[43mSSL/TLS CERTIFICATE\e[0m"
 msg -bar
-echo -e "$(msg -verd "[1]")$(msg -verm2 "➛ ")$(msg -azu "CERTIFICADO ZIP DIRECTO")"
-echo -e "$(msg -verd "[2]")$(msg -verm2 "➛ ")$(msg -azu "CERTIFICADO MANUAL ZEROSSL")"
-echo -e "$(msg -verd "[3]")$(msg -verm2 "➛ ")$(msg -azu "GENERAR CERTIFICADO SSL (Let's Encrypt)")"
-echo -e "$(msg -verd "[4]")$(msg -verm2 "➛ ")$(msg -azu "GENERAR CERTIFICADO SSL (Zerossl Directo)")"
+echo -e "$(msg -verd "[1]")$(msg -verm2 "➛ ")$(msg -azu "DIRECT ZIP CERTIFICATE")"
+echo -e "$(msg -verd "[2]")$(msg -verm2 "➛ ")$(msg -azu "ZEROSSL MANUAL CERTIFICATE")"
+echo -e "$(msg -verd "[3]")$(msg -verm2 "➛ ")$(msg -azu "GENERATE SSL CERTIFICATE (Let's Encrypt)")"
+echo -e "$(msg -verd "[4]")$(msg -verm2 "➛ ")$(msg -azu "GENERATE SSL CERTIFICATE (Zerossl Direct)")"
 msg -bar
-echo -ne "\033[1;37mSelecione Una Opcion : "
+echo -ne "\033[1;37mSelect an option : "
 read opc
 case $opc in
 1)
@@ -834,9 +834,9 @@ esac
 7)
 clear
 msg -bar
-msg -ama "	START STUNNEL\n	ESTA OPCION ES SOLO SI LLEGA A DETENER EL PUERTO"
+msg -ama "	START STUNNEL\n	THIS OPTION IS ONLY IF IT GETS TO STOP THE PORT"
 msg -ama
-echo -ne " Desea Continuar? [S/N]: "; read seg
+echo -ne "Do you wish to continue? [S/N]: "; read seg
 [[ $seg = @(n|N) ]] && msg -bar && return
 clear
 	#systemctl start stunnel4 &>/dev/null
@@ -844,22 +844,22 @@ clear
 	systemctl restart stunnel4 &>/dev/null
 	systemctl restart stunnel &>/dev/null
 msg -bar
-msg -verd "	SERVICIOS STUNNEL REINICIADOS"
+msg -verd "	STUNNEL SERVICES RESTARTED"
 msg -bar
 ;;
 8)
 clear
 msg -tit
 if [[ ! -z $(crontab -l|grep -w "onssl.sh") ]]; then
-    msg -azu " Auto-Inicio SSL programada cada $(msg -verd "[ $(crontab -l|grep -w "onssl.sh"|awk '{print $2}'|sed $'s/[^[:alnum:]\t]//g')HS ]")"
+    msg -azu " Auto-Start SSL scheduled every $(msg -verd "[ $(crontab -l|grep -w "onssl.sh"|awk '{print $2}'|sed $'s/[^[:alnum:]\t]//g')HS ]")"
     msg -bar
     while :
     do
-    echo -ne "$(msg -azu " Detener Auto-Inicio SSL [S/N]: ")" && read yesno
+    echo -ne "$(msg -azu " Stop Auto-Start SSL [S/N]: ")" && read yesno
     tput cuu1 && tput dl1
     case $yesno in
       s|S) crontab -l > /root/cron && sed -i '/onssl.sh/ d' /root/cron && crontab /root/cron && rm /tmp/st/onssl.sh
-           msg -azu " Auto-Inicio SSL Detenida!" && msg -bar && sleep 2
+           msg -azu " Auto-Start SSL Stopped" && msg -bar && sleep 2
            return 1;;
       n|N)return 1;;
       *)return 1 ;;
@@ -868,13 +868,13 @@ if [[ ! -z $(crontab -l|grep -w "onssl.sh") ]]; then
   fi 
   clear
   msg -bar
-msg -ama "	  \e[1;97m\e[2;100mAUTO-INICIAR SSL \e[0m"
+msg -ama "	  \e[1;97m\e[2;100mAUTO-START SSL \e[0m"
 msg -bar 
-echo -ne "$(msg -azu "Desea programar El Auto-Inicio SSL [s/n]:") "
+echo -ne "$(msg -azu "Do you want to schedule SSL Auto-Start [s/n]:") "
   read initio
   if [[ $initio = @(s|S|y|Y) ]]; then
     tput cuu1 && tput dl1
-    echo -ne "$(msg -azu " PONGA UN NÚMERO, EJEMPLO [1-12HORAS]:") "
+    echo -ne "$(msg -azu " PUT A NUMBER, EXAMPLE [1-12HORAS]:") "
     read initio
     if [[ $initio =~ ^[0-9]+$ ]]; then
       crontab -l > /root/cron
@@ -887,10 +887,10 @@ echo -ne "$(msg -azu "Desea programar El Auto-Inicio SSL [s/n]:") "
       service cron restart
       rm /root/cron
       tput cuu1 && tput dl1
-      msg -azu " Auto-Limpieza programada cada: $(msg -verd "${initio} HORAS")" && msg -bar && sleep 2
+      msg -azu " Scheduled Self-Cleaning every: $(msg -verd "${initio} HORAS")" && msg -bar && sleep 2
     else
       tput cuu1 && tput dl1
-      msg -verm2 " ingresar solo numeros entre 1 y 12"
+      msg -verm2 " enter only numbers between 1 and 12"
       sleep 2
       msg -bar
     fi
@@ -900,9 +900,9 @@ echo -ne "$(msg -azu "Desea programar El Auto-Inicio SSL [s/n]:") "
 9)
 clear
 msg -bar
-msg -ama "	CERTIFICADOS ALMACENADOS de Zerossl\n	QUIERES USAR EL CERTIFICADO DE ZEROSSL?\n  private.key certificate.crt ca_bundle.crt"
+msg -ama "	STORED CERTIFICATES from Zerossl\n	DO YOU WANT TO USE THE ZEROSSL CERTIFICATE?\n  private.key certificate.crt ca_bundle.crt"
 msg -ama
-echo -ne " Desea Continuar? [S/N]: "; read seg
+echo -ne "Do you wish to continue? [S/N]: "; read seg
 [[ $seg = @(n|N) ]] && msg -bar && return
 clear
 cd /etc/stunnel/
@@ -912,7 +912,7 @@ cat private.key certificate.crt ca_bundle.crt > stunnel.pem
 	systemctl restart stunnel4 &>/dev/null
 	systemctl restart stunnel &>/dev/null
 msg -bar
-msg -verd "	CERTIFICADO ZEROSSL AGREGADO\n	SERVICIO SSL INICIADO"
+msg -verd "	ZEROSSL CERTIFICATE ADDED\n SSL SERVICE INITIATEDO"
 msg -bar
 ;;
 esac
