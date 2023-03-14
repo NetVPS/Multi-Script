@@ -902,7 +902,7 @@ clear
 msg -bar
 msg -ama "	STORED CERTIFICATES from Zerossl\n	DO YOU WANT TO USE THE ZEROSSL CERTIFICATE?\n  private.key certificate.crt ca_bundle.crt"
 msg -ama
-echo -ne " Desea Continuar? [S/N]: "; read seg
+echo -ne "Do you wish to continue? [S/N]: "; read seg
 [[ $seg = @(n|N) ]] && msg -bar && return
 clear
 cd /etc/stunnel/
@@ -912,7 +912,7 @@ cat private.key certificate.crt ca_bundle.crt > stunnel.pem
 	systemctl restart stunnel4 &>/dev/null
 	systemctl restart stunnel &>/dev/null
 msg -bar
-msg -verd "	CERTIFICADO ZEROSSL AGREGADO\n	SERVICIO SSL INICIADO"
+msg -verd "	ZEROSSL CERTIFICATE ADDED\n SSL SERVICE INITIATEDO"
 msg -bar
 ;;
 esac
