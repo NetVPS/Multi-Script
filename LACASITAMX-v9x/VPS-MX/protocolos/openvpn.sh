@@ -10,18 +10,18 @@ SCPidioma="${SCPdir}/idioma" && [[ ! -e ${SCPidioma} ]] && touch ${SCPidioma}
 #timedatectl set-timezone UTC
 # Detect Debian users running the script with "sh" instead of bash
 if readlink /proc/$$/exe | grep -q "dash"; then
-    echo "Este script se utiliza con bash"
+    echo "This script is used with bash"
     exit
 fi
 
 if [[ "$EUID" -ne 0 ]]; then
-    echo "Sorry, solo funciona como root"
+    echo "Sorry, only works as root"
     exit
 fi
 
 if [[ ! -e /dev/net/tun ]]; then
-    echo "El TUN device no esta disponible
-Necesitas habilitar TUN antes de usar este script"
+    echo "The TUN device is not available
+You need to enable TUN before using this script"
     exit
 fi
 
@@ -34,12 +34,12 @@ elif [[ -e /etc/centos-release || -e /etc/redhat-release ]]; then
     GROUPNAME=nobody
     RCLOCAL='/etc/rc.d/rc.local'
 else
-    echo "Tu sistema operativo no esta disponible para este script"
+    echo "Your operating system is not available for this script"
     exit
 fi
 
 agrega_dns() {
-    msg -ama " Escriba el HOST DNS que desea Agregar"
+    msg -ama " Type the DNS HOST you want to Add"
     read -p " [NewDNS]: " SDNS
     cat /etc/hosts | grep -v "$SDNS" >/etc/hosts.bak && mv -f /etc/hosts.bak /etc/hosts
     if [[ -e /etc/opendns ]]; then
@@ -102,10 +102,10 @@ instala_ovpn2() {
     echo -e " \033[1;32m     INSTALADOR DE OPENVPN | VPS-MX By @Kalix1"
     msg -bar
     # OpenVPN setup and first user creation
-    echo -e " \033[1;97mSe necesitan ciertos parametros para configurar OpenVPN."
-    echo "Configuracion por default solo presiona ENTER."
-    echo "Primero, cual es la IPv4 que quieres para OpenVPN"
-    echo "Detectando..."
+    echo -e " \033[1;97mCertain parameters are needed to configure OpenVPN."
+    echo "Default setting just press ENTER."
+    echo "First, what is the IPv4 you want for OpenVPN"
+    echo "detecting..."
     msg -bar
     # Autodetect IP address and pre-fill for the user
     IP=$(ip addr | grep 'inet' | grep -v inet6 | grep -vE '127 \.[0-9]{1,3} \.[0-9]{1,3} \.[0-9]{1,3}' | grep -oE '[0-9]{1,3} \.[0-9]{1,3} \.[0-9]{1,3} \.[0-9]{1,3}' | head -1)
@@ -113,11 +113,11 @@ instala_ovpn2() {
     # If $IP is a private IP address, the server must be behind NAT
     if echo "$IP" | grep -qE '^(10 \.|172 \.1[6789] \.|172 \.2[0-9] \.|172 \.3[01] \.|192 \.168)'; then
         echo
-        echo "Este servidor esta detras de una red NAT?"
-        read -p "IP  Publica  / hostname: " -e PUBLICIP
+        echo "Is this server behind a NAT network?"
+        read -p "IP  Publica  / hostname:" -e PUBLICIP
     fi
     msg -bar
-    msg -ama "Que protocolo necesitas para las conexiones OpenVPN?"
+    msg -ama "What protocol do you need for OpenVPN connections?"
     msg -bar
     echo "   1) UDP (recomendada)"
     echo "   2) TCP"
@@ -132,13 +132,13 @@ instala_ovpn2() {
         ;;
     esac
     msg -bar
-    msg -ama "Que puerto necesitas en OpenVPN (Default 1194)?"
+    msg -ama "What port do you need in OpenVPN (Default 1194)?"
     msg -bar
     read -p "Puerto: " -e -i 1194 PORT
     msg -bar
-    msg -ama "Cual DNS usaras en tu VPN?"
+    msg -ama "Which DNS will you use in your VPN?"
     msg -bar
-    echo "   1) Actuales en el VPS"
+    echo "   1) Current on the VPS"
     echo "   2) 1.1.1.1"
     echo "   3) Google"
     echo "   4) OpenDNS"
@@ -147,7 +147,7 @@ instala_ovpn2() {
     read -p "DNS [1-5]: " -e -i 1 DNS
     #CIPHER
     msg -bar
-    msg -ama " Elija que codificacion desea para el canal de datos:"
+    msg -ama " Choose which encoding you want for the data channel:"
     msg -bar
     echo "   1) AES-128-CBC"
     echo "   2) AES-192-CBC"
@@ -172,9 +172,9 @@ instala_ovpn2() {
     8) CIPHER="cipher none" ;;
     esac
     msg -bar
-    msg -ama " Estamos listos para configurar su servidor OpenVPN"
+    msg -ama " We are ready to configure your OpenVPN server"
     msg -bar
-    read -n1 -r -p "Presiona cualquier tecla para continuar..."
+    read -n1 -r -p "Press any key to continue..."
     if [[ "$OS" = 'debian' ]]; then
         apt-get update
         apt-get install openvpn iptables openssl ca-certificates -y
@@ -357,9 +357,9 @@ key-direction 1
 verb 3
 auth-user-pass" >/etc/openvpn/client-common.txt
     msg -bar
-    msg -ama " Ahora crear una SSH para generar el (.ovpn)!"
+    msg -ama " Now create an SSH to generate the (.ovpn)!"
     msg -bar
-    echo -e " \033[1;32m Configuracion Finalizada!"
+    echo -e " \033[1;32mConfiguration Finished!"
     msg -bar
 
 }
@@ -367,8 +367,8 @@ auth-user-pass" >/etc/openvpn/client-common.txt
 instala_ovpn() {
     parametros_iniciais() {
         #Verifica o Sistema
-        [[ "$EUID" -ne 0 ]] && echo " Lo siento, usted necesita ejecutar esto como ROOT" && exit 1
-        [[ ! -e /dev/net/tun ]] && echo " TUN no esta Disponible" && exit 1
+        [[ "$EUID" -ne 0 ]] && echo " Sorry, you need to run this as ROOT" && exit 1
+        [[ ! -e /dev/net/tun ]] && echo " TUN is not available" && exit 1
         if [[ -e /etc/debian_version ]]; then
             OS="debian"
             VERSION_ID=$(cat /etc/os-release | grep "VERSION_ID")
@@ -377,14 +377,14 @@ instala_ovpn() {
             [[ ! -e $IPTABLES ]] && touch $IPTABLES
             SYSCTL='/etc/sysctl.conf'
             [[ "$VERSION_ID" != 'VERSION_ID="7"' ]] && [[ "$VERSION_ID" != 'VERSION_ID="8"' ]] && [[ "$VERSION_ID" != 'VERSION_ID="9"' ]] && [[ "$VERSION_ID" != 'VERSION_ID="14.04"' ]] && [[ "$VERSION_ID" != 'VERSION_ID="16.04"' ]] && [[ "$VERSION_ID" != 'VERSION_ID="18.04"' ]] && [[ "$VERSION_ID" != 'VERSION_ID="17.10"' ]] && {
-                echo " Su vercion de Debian / Ubuntu no Soportada."
+                echo " Your version of Debian / Ubuntu is not supported."
                 while [[ $CONTINUE != @(y|Y|s|S|n|N) ]]; do
                     read -p "Continuar ? [y/n]: " -e CONTINUE
                 done
                 [[ "$CONTINUE" = @(n|N) ]] && exit 1
             }
         else
-            msg -ama " Parece que no estas ejecutando este instalador en un sistema Debian o Ubuntu"
+            msg -ama " It looks like you are not running this installer on a Debian or Ubuntu system."
             msg -bar
             return 1
         fi
@@ -419,22 +419,22 @@ instala_ovpn() {
         fi
     }
     coleta_variaveis() {
-        echo -e " \033[1;32m     INSTALADOR DE OPENVPN | VPS-MX By @Kalix1"
+        echo -e " \033[1;32m     OPENVPN INSTALLER | VPS-MX By @MALINDA"
         msg -bar
-        msg -ne " Confirme su IP"
+        msg -ne " Confirm your IP"
         read -p ": " -e -i $IP ip
         msg -bar
-        msg -ama " Que puerto desea usar?"
+        msg -ama " which port do you want to use?"
         msg -bar
         while true; do
             read -p " Port: " -e -i 1194 PORT
             [[ $(mportas | grep -w "$PORT") ]] || break
-            echo -e " \033[1;33m Este puerto esta en uso \033[0m"
+            echo -e " \033[1;33m This port is in use \033[0m"
             unset PORT
         done
         msg -bar
-        echo -e " \033[1;31m Que protocolo desea para las conexiones OPENVPN?"
-        echo -e " \033[1;31m A menos que UDP este bloqueado, no utilice TCP (es mas lento)"
+        echo -e " \033[1;31m What protocol do you want for OPENVPN connections?"
+        echo -e " \033[1;31m Unless UDP is blocked, don't use TCP (it's slower)."
         #PROTOCOLO
         while [[ $PROTOCOL != @(UDP|TCP) ]]; do
             read -p " Protocol [UDP/TCP]: " -e -i TCP PROTOCOL
@@ -443,9 +443,9 @@ instala_ovpn() {
         [[ $PROTOCOL = "TCP" ]] && PROTOCOL=tcp
         #DNS
         msg -bar
-        msg -ama " Que DNS desea utilizar?"
+        msg -ama " What DNS do you want to use??"
         msg -bar
-        echo "   1) Usar DNS de sistema "
+        echo "   1) Use system DNS "
         echo "   2) Cloudflare"
         echo "   3) Quad"
         echo "   4) FDN"
@@ -460,7 +460,7 @@ instala_ovpn() {
         done
         #CIPHER
         msg -bar
-        msg -ama " Elija que codificacion desea para el canal de datos:"
+        msg -ama " Choose which encoding you want for the data channel:"
         msg -bar
         echo "   1) AES-128-CBC"
         echo "   2) AES-192-CBC"
@@ -483,9 +483,9 @@ instala_ovpn() {
         7) CIPHER="cipher SEED-CBC" ;;
         esac
         msg -bar
-        msg -ama " Estamos listos para configurar su servidor OpenVPN"
+        msg -ama " We are ready to configure your OpenVPN server"
         msg -bar
-        read -n1 -r -p " Enter para Continuar ..."
+        read -n1 -r -p " Enter to continue ..."
         tput cuu1 && tput dl1
     }
     parametros_iniciais # BREVE VERIFICACAO
@@ -593,11 +593,11 @@ plugin $PLUGIN login" >>/etc/openvpn/server.conf
         }
     }
     msg -bar
-    echo -e " \033[1;33m Ahora Necesitamos un Proxy SQUID o PYTHON-OPENVPN"
-    echo -e " \033[1;33m Si no existe un proxy en la puerta, un proxy Python sera abierto!"
+    echo -e " \033[1;33m Now we need a SQUID or PYTHON-OPENVPN Proxy"
+    echo -e " \033[1;33m If there is no proxy at the gate, a Python proxy will be opened!"
     msg -bar
     while [[ $? != "1" ]]; do
-        read -p " Confirme el Puerto(Proxy) " -e -i 80 PPROXY
+        read -p " Confirm Port(Proxy) " -e -i 80 PPROXY
         teste_porta $PPROXY
     done
     cat >/etc/openvpn/client-common.txt <<EOF
@@ -672,7 +672,7 @@ EOF
     fi
     #Liberando DNS
     msg -bar
-    msg -ama " Ultimo Paso, Configuraciones DNS"
+    msg -ama " Last Step, DNS Settings"
     msg -bar
     while [[ $DDNS != @(n|N) ]]; do
         echo -ne " \033[1;33m"
@@ -728,25 +728,25 @@ EOF
         cd /etc/openvpn >/dev/null 2>&1
         screen -dmS ovpnscr openvpn --config "server.conf" >/dev/null 2>&1
     ) >/dev/null 2>&1
-    echo -e " \033[1;32m Openvpn configurado con EXITO!"
+    echo -e " \033[1;32m Openvpn configured SUCCESSFULLY!"
     msg -bar
-    msg -ama " Ahora crear una SSH para generar el (.ovpn)!"
+    msg -ama " Now create an SSH to generate the (.ovpn)!"
     msg -bar
     return 0
 }
 edit_ovpn_host() {
     msg -bar3
-    msg -ama " CONFIGURACION HOST DNS OPENVPN"
+    msg -ama " OPENVPN DNS HOST CONFIGURATION"
     msg -bar
     while [[ $DDNS != @(n|N) ]]; do
         echo -ne " \033[1;33m"
-        read -p " Agregar host [S/N]: " -e -i n DDNS
+        read -p " add host[S/N]: " -e -i n DDNS
         [[ $DDNS = @(s|S|y|Y) ]] && agrega_dns
     done
     [[ ! -z $NEWDNS ]] && sed -i "/127.0.0.1[[:blank:]] \+localhost/a 127.0.0.1 $NEWDNS" /etc/hosts
     msg -bar
-    msg -ama " Es Necesario el Reboot del Servidor Para"
-    msg -ama " Para que las configuraciones sean efectudas"
+    msg -ama " Server Reboot Is Necessary For"
+    msg -ama " For the settings to be made"
     msg -bar
 }
 fun_openvpn() {
@@ -755,11 +755,11 @@ fun_openvpn() {
         [[ $(mportas | grep -w "openvpn") ]] && OPENBAR=" \033[1;32m ONLINE" || OPENBAR=" \033[1;31m OFFLINE"
         msg -ama " OPENVPN YA ESTA INSTALADO"
         msg -bar
-        echo -e " \033[1;32m [1] > \033[1;36m DESINSTALAR  OPENVPN"
-        echo -e " \033[1;32m [2] > \033[1;36m EDITAR CONFIGURACION CLIENTE  \033[1;31m(MEDIANTE NANO)"
-        echo -e " \033[1;32m [3] > \033[1;36m EDITAR CONFIGURACION SERVIDOR  \033[1;31m(MEDIANTE NANO)"
-        echo -e " \033[1;32m [4] > \033[1;36m CAMBIAR HOST DE OPENVPN"
-        echo -e " \033[1;32m [5] > \033[1;36m INICIAR O PARAR OPENVPN - $OPENBAR"
+        echo -e " \033[1;32m [1] > \033[1;36m UNINSTALL OPENVPN"
+        echo -e " \033[1;32m [2] > \033[1;36m EDIT CLIENT CONFIGURATION  \033[1;31m(MEDIANTE NANO)"
+        echo -e " \033[1;32m [3] > \033[1;36m EDIT SERVER CONFIGURATION  \033[1;31m(MEDIANTE NANO)"
+        echo -e " \033[1;32m [4] > \033[1;36m CHANGE OPENVPN HOST"
+        echo -e " \033[1;32m [5] > \033[1;36m START OR STOP OPENVPN - $OPENBAR"
         msg -bar
         while [[ $xption != @([0|1|2|3|4|5]) ]]; do
             echo -ne " \033[1;33m $(fun_trans "Opcion"): " && read xption
@@ -770,7 +770,7 @@ fun_openvpn() {
             clear
             msg -bar
             echo -ne " \033[1;97m"
-            read -p "QUIERES DESINTALAR OPENVPN? [Y/N]: " -e REMOVE
+            read -p "DO YOU WANT TO UNINSTALL OPENVPN? [Y/N]: " -e REMOVE
             msg -bar
             if [[ "$REMOVE" = 'y' || "$REMOVE" = 'Y' ]]; then
                 PORT=$(grep '^port ' /etc/openvpn/server.conf | cut -d " " -f 2)
@@ -812,7 +812,7 @@ fun_openvpn() {
                 msg -bar
             else
                 msg -bar
-                echo "Desinstalacion abortada!"
+                echo "Uninstallation aborted!"
                 msg -bar
             fi
             return 0
@@ -838,7 +838,7 @@ fun_openvpn() {
                 screen -dmS ovpnscr openvpn --config "server.conf" >/dev/null 2>&1
                 cd $HOME
             }
-            msg -ama " Procedimiento Hecho con Exito"
+            msg -ama " Procedure Done Successfully"
             msg -bar
             return 0
             ;;
