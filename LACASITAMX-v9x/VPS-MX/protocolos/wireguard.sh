@@ -23,7 +23,7 @@ fun_ip() {
 [[ ! -d /etc/VPS-MX/wireguard ]] && mkdir /etc/VPS-MX/wireguard
 # Detect Debian users running the script with "sh" instead of bash
 if readlink /proc/$$/exe | grep -q "dash"; then
-    echo 'Este instalador debe ejecutarse con "bash", no con "sh".'
+    echo 'This installer must be run with "bash", not with "sh".'
     exit
 fi
 
@@ -32,7 +32,7 @@ read -N 999999 -t 0.001
 
 # Detect OpenVZ 6
 if [[ $(uname -r | cut -d "." -f 1) -eq 2 ]]; then
-    echo "El sistema está ejecutando un kernel antiguo, que es incompatible con este instalador"
+    echo "The system is running an old kernel, which is incompatible with this installer"
     exit
 fi
 
@@ -51,17 +51,17 @@ elif [[ -e /etc/fedora-release ]]; then
     os="fedora"
     os_version=$(grep -oE '[0-9]+' /etc/fedora-release | head -1)
 else
-    echo "Este instalador parece estar ejecutándose en una distribución no compatible. Las distribuciones compatibles son Ubuntu, Debian, CentOS y Fedora"
+    echo "This installer appears to be running on an unsupported distribution. Supported distributions are Ubuntu, Debian, CentOS and Fedora"
     exit
 fi
 
 if [[ "$os" == "ubuntu" && "$os_version" -lt 1804 ]]; then
-    echo "Se requiere Ubuntu 18.04 o superior para usar este instalador. Esta versión de Ubuntu es demasiado antigua y no es compatible"
+    echo "Ubuntu 18.04 or higher is required to use this installer. This version of Ubuntu is too old and is not supported"
     exit
 fi
 
 if [[ "$os" == "debian" && "$os_version" -lt 9 ]]; then
-    echo "Se requiere Debian 9+ o superior para usar este instalador. Esta versión de Debian es demasiado antigua y no tiene soporte"
+    echo "Debian 9+ or higher is required to use this installer. This version of Debian is too old and not supported"
     exit
 fi
 
@@ -72,7 +72,7 @@ fi
 
 # Detect environments where $PATH does not include the sbin directories
 if ! grep -q sbin <<<"$PATH"; then
-    echo '$PATH no incluye sen. Intenta usar "su -" en lugar de "su".'
+    echo '$PATH does not include sin. Try using "su -" instead of "su".'
     exit
 fi
 
@@ -85,18 +85,18 @@ if [[ "$os" == "fedora" && "$os_version" -eq 31 && $(uname -r | cut -d "." -f 2)
 fi
 
 if [[ "$EUID" -ne 0 ]]; then
-    echo "Este instalador debe ejecutarse con privilegios de superusuario"
+    echo "This installer must be run with root privileges"
     exit
 fi
 
 if [[ "$is_container" -eq 0 ]]; then
     if [ "$(uname -m)" != "x86_64" ]; then
-        echo "En sistemas en contenedores, este instalador solo admite la arquitectura x86_64. El sistema se ejecuta en $(uname -m) y no es compatible"
+        echo "On containerized systems, this installer only supports the x86_64 architecture. The system runs on $(uname -m) and is not supported"
         exit
     fi
     # TUN device is required to use BoringTun if running inside a container
     if [[ ! -e /dev/net/tun ]] || ! (exec 7<>/dev/net/tun) 2>/dev/null; then
-        echo "El sistema no tiene disponible el dispositivo TUN. TUN debe estar habilitado antes de ejecutar este instalador"
+        echo "The system does not have the TUN device available. TUN must be enabled before running this installer"
         exit
     fi
 fi
@@ -146,8 +146,8 @@ function setup_environment() {
 
 new_client_dns() {
     echo -e -n "${lightgreen}"
-    echo "Seleccione un servidor DNS para el cliente"
-    echo "   1) DNS DEFAULT del sistema actual"
+    echo "Select a DNS server for the client"
+    echo "   1) DNS DEFAULT of the current system"
     echo "   2) Google"
     echo "   3) 1.1.1.1"
     echo "   4) OpenDNS"
@@ -258,7 +258,7 @@ install() {
     if echo "$ip" | grep -qE '^(10\.|172\.1[6789]\.|172\.2[0-9]\.|172\.3[01]\.|192\.168)'; then
         echo
         echo -e -n "${lightgreen}"
-        echo "Este servidor está detrás de NAT. ¿Cuál es la dirección IPv4 pública o el nombre de host?"
+        echo "clients are already configured. The WireGuard internal subnet is full"
         # Get public IP and sanitize with grep
         get_public_ip=$(grep -m 1 -oE '^[0-9]{1,3}(\.[0-9]{1,3}){3}$' <<<"$(wget -T 10 -t 1 -4qO- "http://ip1.dynupdate.no-ip.com/" || curl -m 10 -4Ls "http://ip1.dynupdate.no-ip.com/")")
         read -p "Public IPv4 address / hostname [$get_public_ip]: " public_ip
@@ -294,7 +294,7 @@ install() {
     fi
     echo
     echo -e -n "${lightgreen}"
-    echo " INGRESE UN PUERTO PARA WireGuard"
+    echo " ENTER A PORT FOR WireGuard"
     #echo -e -n "${nocolor}"
     #read -p "Puerto [51820]: " port
     #until [[ -z "$port" || "$port" =~ ^[0-9]+$ && "$port" -le 65535 ]]; do
@@ -308,13 +308,13 @@ install() {
         read -p " Puerto [51820]: " port
         echo ""
         [[ $(mportas | grep -w "$port") ]] || break
-        echo -e "\033[1;33m Esta puerta está en uso"
+        echo -e "\033[1;33m This door is in use"
         unset port
     done
     [[ -z "$port" ]] && port="51820"
     echo
     echo -e -n "${lightgreen}"
-    echo "Introduzca un nombre para el primer cliente: "
+    echo "Enter a name for the first customer: "
     echo -e -n "${nocolor}"
     read -p "Nombre [cliente]: " unsanitized_client
     # Allow a limited set of characters to avoid conflicts
@@ -326,8 +326,8 @@ install() {
     if [[ "$is_container" -eq 0 ]]; then
         echo
         echo -e -n "${lightgreen}"
-        echo "Se instalará BoringTun para configurar WireGuard en el sistema"
-        read -p "¿Deberían habilitarse las actualizaciones automáticas para ello? [Y/n]: " boringtun_updates
+        echo "BoringTun will be installed to configure WireGuard on the system"
+        read -p "¿Should automatic updates be enabled for it? [Y/n]:" boringtun_updates
         until [[ "$boringtun_updates" =~ ^[yYnN]*$ ]]; do
             echo "$remove: invalid selection."
             read -p "Should automatic updates be enabled for it? [Y/n]: " boringtun_updates
@@ -343,7 +343,7 @@ install() {
     fi
     echo
     echo -e -n "${lightgreen}"
-    echo "La instalación de WireGuard está lista para comenzar"
+    echo "WireGuard installation is ready to begin"
     echo -e -n "${nocolor}"
     # Install a firewall in the rare case where one is not already available
     if ! systemctl is-active --quiet firewalld.service && ! hash iptables 2>/dev/null; then
@@ -351,14 +351,14 @@ install() {
             firewall="firewalld"
             # We don't want to silently enable firewalld, so we give a subtle warning
             # If the user continues, firewalld will be installed and enabled during setup
-            echo "También se instalará firewalld, que es necesario para administrar las tablas de enrutamiento"
+            echo "Firewalld will also be installed, which is required to manage routing tables"
         elif [[ "$os" == "debian" || "$os" == "ubuntu" ]]; then
             # iptables is way less invasive than firewalld so no warning is given
             firewall="iptables"
         fi
     fi
     echo -e -n "${lightgreen}"
-    read -n1 -r -p "Presione enter para continuar..."
+    read -n1 -r -p "Press enter to continue..."
     echo -e -n "${nocolor}"
     # Install WireGuard
     # If not running inside a container, set up the WireGuard kernel module
@@ -597,10 +597,10 @@ EOF
     code() {
         echo
         qrencode -t UTF8 </etc/VPS-MX/wireguard/"$client.conf"
-        echo -e '\xE2\x86\x91 Ese es un código QR que contiene la configuración del cliente.'
+        echo -e '\xE2\x86\x91 That is a QR code that contains the client settings.'
         echo
     }
-    msg -ama " DESEA VER EL QR [s/n]"
+    msg -ama " WANT TO SEE THE QR [s/n]"
     read -p " [ S | N ]: " -e -i n code
     [[ "$code" = "s" || "$code" = "S" ]] && $code
     # If the kernel module didn't load, system probably had an outdated kernel
@@ -608,26 +608,26 @@ EOF
     if [[ ! "$is_container" -eq 0 ]] && ! modprobe -nq wireguard; then
         echo -e -n "${red}"
         echo "¡Advertencia!"
-        echo "La instalación finalizó, pero el módulo kernel de WireGuard no pudo cargarse"
+        echo "The installation finished, but the WireGuard kernel module could not be loaded"
         if [[ "$os" == "ubuntu" && "$os_version" -eq 1804 ]]; then
             echo 'Upgrade the kernel and headers with "apt-get install linux-generic" and restart.'
         #elif [[ "$os" == "debian" && "$os_version" -eq 9 ]]; then
         #echo "Actualice el kernel con \"apt-get install linux-image-$architecture\" y reinicie"
         elif [[ "$os" == "debian" && "$os_version" -eq 10 ]]; then
-            echo "Actualice el kernel con \"apt-get install linux-image-$architecture\" y reinicie"
+            echo "Update the kernel with \"apt-get install linux-image-$architecture\" and reboot"
         elif [[ "$os" == "centos" && "$os_version" -le 8 ]]; then
             echo "Reboot the system to load the most recent kernel."
         fi
         echo -e -n "${nocolor}"
     else
         echo -e -n "${green}"
-        echo "INSTALADO CON EXITO!"
+        echo "SUCCESSFULLY INSTALLED!"
         echo -e -n "${nocolor}"
     fi
     echo
     echo -e -n "${lightgreen}"
-    echo "La configuración del cliente está disponible en la opcion 4" #: /etc/VPS-MX/wireguard/$client.conf"
-    echo "Se pueden agregar nuevos clientes ejecutando este script nuevamente"
+    echo "Client configuration is available in option 4" #: /etc/VPS-MX/wireguard/$client.conf"
+    echo "New clients can be added by running this script again"
     echo -e -n "${nocolor}"
     #else
 }
@@ -636,7 +636,7 @@ selection_fun() {
     local range
     for ((i = 0; i <= $1; i++)); do range[$i]="$i "; done
     while [[ ! $(echo ${range[*]} | grep -w "$selection") ]]; do
-        echo -ne " ► Selecione una Opcion: " >&2
+        echo -ne " ► Select an Option: " >&2
         read selection
         tput cuu1 >&2 && tput dl1 >&2
     done
@@ -647,20 +647,20 @@ menufun() {
     #msg -bar
     msg -tit
     msg -bar
-    echo -e "	\e[1;100mMENÚ WIREGUARD\e[0m"
+    echo -e "	\e[1;100mWIREGUARD MENU\e[0m"
     msg -bar
     #echo "Select an option:"
-    echo -e "\e[1;91m   1) \e[92mAGREGAR NUEVO USUARIO"
-    echo -e "\e[1;91m   2) \e[97m\e[41mELIMINAR USUARIO\e[0m"
-    echo -e "\e[1;91m   3) \e[93mDESCARGAR CONFI "
-    echo -e "\e[1;91m   4) \e[92mINFORMACION DE LA CUENTA"
-    echo -e "\e[1;91m   5) \e[97m\e[1;41mDESINSTALAR WIREGUARD\e[0m"
-    echo -e "\e[1;93m   6) \e[91mSALIR"
+    echo -e "\e[1;91m   1) \e[92mADD NEW USER"
+    echo -e "\e[1;91m   2) \e[97m\e[41mDELETE USER\e[0m"
+    echo -e "\e[1;91m   3) \e[93mDOWNLOAD CONFIG "
+    echo -e "\e[1;91m   4) \e[92mACCOUNT INFORMATION"
+    echo -e "\e[1;91m   5) \e[97m\e[1;41mUNINSTALL WIREGUARD\e[0m"
+    echo -e "\e[1;93m   6) \e[91mGO OUT"
     msg -bar
-    read -p "$(echo -e "\e[1;97m SELECIONE UNA OPCION:") " option
+    read -p "$(echo -e "\e[1;97m SELECT AN OPTION:") " option
     until [[ "$option" =~ ^[1-6]$ ]]; do
-        echo "$option: OPCION INVALIDA."
-        read -p "Selecione Una Opcion: " option
+        echo "$option: INVALID OPTION."
+        read -p "Select an option: " option
     done
     echo -e -n "${nocolor}"
     case "$option" in
@@ -668,7 +668,7 @@ menufun() {
         clear
         echo
         echo -e -n "${cyan}"
-        echo " Ingrese El nombre Del Usuario: "
+        echo " Enter Username: "
         echo -e -n "${nocolor}"
         read -p "Nombre: " unsanitized_client
         # Allow a limited set of characters to avoid conflicts
@@ -689,11 +689,11 @@ menufun() {
             echo -e '\xE2\x86\x91 Ese es un código QR que contiene la configuración de su cliente.'
             echo
         }
-        msg -ama " DESEA VER EL QR [s/n]"
+        msg -ama " WANT TO SEE THE QR [y/n]"
         read -p " [ S | N ]: " -e -i n code
         [[ "$code" = "s" || "$code" = "S" ]] && $code
         echo -e -n "${green}"
-        echo "$client agregado, la configuracion esta en la opcion 4 " #: /etc/VPS-MX/wireguard/$client.conf"
+        echo "$client added, the configuration is in option 4" #: /etc/VPS-MX/wireguard/$client.conf"
         echo -e -n "${nocolor}"
         exit
         ;;
@@ -704,13 +704,13 @@ menufun() {
         if [[ "$number_of_clients" = 0 ]]; then
             echo
             echo -e -n "${red}"
-            echo "¡No hay clientes existentes!"
+            echo "¡No existing customers!"
             echo -e -n "${nocolor}"
             exit
         fi
         echo
         echo -e -n "${green}"
-        echo "Seleciona la opcion del cliente: "
+        echo "Select the customer option: "
         grep '^# BEGIN_PEER' /etc/wireguard/wg0.conf | cut -d ' ' -f 3 | nl -s ') '
         read -p "Cliente: " client_number
         until [[ "$client_number" =~ ^[0-9]+$ && "$client_number" -le "$number_of_clients" ]]; do
@@ -720,11 +720,11 @@ menufun() {
         client=$(grep '^# BEGIN_PEER' /etc/wireguard/wg0.conf | cut -d ' ' -f 3 | sed -n "$client_number"p)
         echo
         echo -e -n "${red}"
-        read -p "Confirmar $client para remover? [y/N]: " remove
+        read -p "Confirm $client to remove? [y/N]: " remove
         until [[ "$remove" =~ ^[yYnN]*$ ]]; do
             echo "$remove: invalid selection."
             echo -e -n "${red}"
-            read -p "Confirmar $client para remover? [y/N]: " remove
+            read -p "Confirm $client to remove? [y/N]: " remove
         done
         echo -e -n "${nocolor}"
         if [[ "$remove" =~ ^[yY]$ ]]; then
@@ -735,14 +735,14 @@ menufun() {
             sed -i "/^# BEGIN_PEER $client/,/^# END_PEER $client/d" /etc/wireguard/wg0.conf
             echo
             echo -e -n "${green}"
-            echo "$client eliminado!"
+            echo "$client removed!"
             rm ~/$client.conf &>/dev/null
             rm /etc/VPS-MX/wireguard/$client.conf &>/dev/null
             echo -e -n "${nocolor}"
         else
             echo
             echo -e -n "${red}"
-            echo "$client no eliminado!"
+            echo "$client no removed!"
             echo -e -n "${nocolor}"
         fi
         echo -e -n "${nocolor}"
@@ -792,19 +792,19 @@ menufun() {
         msg -bar
         opci=$(selection_fun $selec)
         echo ""
-        echo -e "	\e[1;100mCONFIGURACION DEL CLIENTE\e[0m\n\e[97m$(cat /etc/VPS-MX/wireguard/${r[$opci]})"
+        echo -e "	\e[1;100mCLIENT CONFIGURATION\e[0m\n\e[97m$(cat /etc/VPS-MX/wireguard/${r[$opci]})"
         msg -bar
 
         ;;
     5)
         echo
         echo -e -n "${red}"
-        read -p "Confirmar WireGuard para remover? [y/N]: " remove
+        read -p "Confirm WireGuard to remove? [y/N]: " remove
         echo -e -n "${nocolor}"
         until [[ "$remove" =~ ^[yYnN]*$ ]]; do
             echo -e -n "${red}"
             echo "$remove: invalid selection."
-            read -p "Confirmar WireGuard para remover? [y/N]: " remove
+            read -p "Confirm WireGuard to remove? [y/N]:: " remove
             echo -e -n "${nocolor}"
         done
         if [[ "$remove" =~ ^[yY]$ ]]; then
@@ -890,13 +890,13 @@ menufun() {
             fi
             echo
             echo -e -n "${green}"
-            echo "WireGuard desinstalado!"
+            echo "WireGuard uninstalled!"
             rm /etc/VPS-MX/wireguard/*.conf &>/dev/null
             echo -e -n "${nocolor}"
         else
             echo
             echo -e -n "${red}"
-            echo "desinstalacion WireGuard abortado!"
+            echo "WireGuard uninstall aborted!"
             echo -e -n "${nocolor}"
         fi
         exit
@@ -916,10 +916,10 @@ if [[ ! -e /etc/wireguard/wg0.conf ]]; then
     echo -e "	\e[1;100mMENÚ WIREGUARD\e[0m"
     msg -bar
     #echo "Select an option:"
-    echo -e "\e[1;91m   1) \e[92mINSTALAR WIREGUARD"
-    echo -e "\e[1;93m   0) \e[91mSALIR"
+    echo -e "\e[1;91m   1) \e[92mINSTALL WIREGUARD"
+    echo -e "\e[1;93m   0) \e[91mGO OUT"
     msg -bar
-    read -p "$(echo -e "\e[1;97m SELECIONE UNA OPCION:") " option
+    read -p "$(echo -e "\e[1;97m SELECT AN OPTION:") " option
     case $option in
     1) install ;;
     0) exit ;;
